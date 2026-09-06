@@ -85,15 +85,15 @@
             color: var(--text-main); 
             font-family: 'Inter', sans-serif; 
             font-size: 14px; 
-            padding: 24px; 
+            padding: 16px; 
             transition: background-color 0.3s ease, color 0.3s ease;
         }
         
-        .header { background: var(--panel-bg); border-bottom: 1px solid var(--panel-border); padding: 20px; border-radius: 10px; display: flex; justify-content: space-between; align-items: center; margin-bottom: 24px; flex-wrap: wrap; gap: 12px; }
-        .header h1 { color: var(--text-title); font-family: 'Outfit', sans-serif; font-size: 22px; display: flex; align-items: center; gap: 12px; }
+        .header { background: var(--panel-bg); border-bottom: 1px solid var(--panel-border); padding: 16px; border-radius: 10px; display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px; flex-wrap: wrap; gap: 12px; }
+        .header h1 { color: var(--text-title); font-family: 'Outfit', sans-serif; font-size: 20px; display: flex; align-items: center; gap: 10px; }
         .header h1 i { color: var(--accent-cyan); }
         .header-actions { display: flex; align-items: center; gap: 12px; }
-        .badge { background: rgba(56, 189, 248, 0.1); border: 1px solid var(--accent-cyan); color: var(--accent-cyan); padding: 6px 12px; border-radius: 6px; font-size: 12px; font-weight: 600; }
+        .badge { background: rgba(56, 189, 248, 0.1); border: 1px solid var(--accent-cyan); color: var(--accent-cyan); padding: 5px 10px; border-radius: 6px; font-size: 11px; font-weight: 600; }
 
         .theme-selector {
             display: flex;
@@ -107,14 +107,14 @@
             background: transparent;
             border: none;
             color: var(--text-main);
-            padding: 6px 10px;
+            padding: 5px 8px;
             border-radius: 4px;
             font-size: 11px;
             font-weight: 600;
             cursor: pointer;
             display: flex;
             align-items: center;
-            gap: 6px;
+            gap: 4px;
             transition: all 0.2s ease;
         }
         .theme-btn:hover { color: var(--text-title); }
@@ -124,7 +124,35 @@
             box-shadow: 0 1px 3px rgba(0,0,0,0.3);
         }
 
-        .cards { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 16px; margin-bottom: 24px; }
+        /* Верхні картки: Десктоп сітка / Мобільний Scroll-Snap Slider */
+        .cards { 
+            display: grid; 
+            grid-template-columns: repeat(auto-fit, minmax(110px, 1fr)); 
+            gap: 10px; 
+            margin-bottom: 16px; 
+        }
+
+        @media (max-width: 768px) {
+            .cards {
+                display: flex;
+                overflow-x: auto;
+                scroll-snap-type: x mandatory;
+                -webkit-overflow-scrolling: touch;
+                padding-bottom: 8px;
+                gap: 10px;
+            }
+            .cards::-webkit-scrollbar {
+                height: 4px;
+            }
+            .cards::-webkit-scrollbar-thumb {
+                background: var(--subpanel-border);
+                border-radius: 2px;
+            }
+            .card {
+                flex: 0 0 130px;
+                scroll-snap-align: start;
+            }
+        }
         
         .card { 
             background: var(--panel-bg); 
@@ -132,23 +160,23 @@
             background-size: 100% 8px;
             border: 1px solid var(--panel-border); 
             border-radius: 8px; 
-            padding: 18px; 
+            padding: 10px 12px; 
         }
-        .card-title { color: var(--text-muted); font-size: 11px; font-weight: 700; text-transform: uppercase; margin-bottom: 8px; }
-        .card-val { color: var(--text-title); font-family: 'Outfit', sans-serif; font-size: 24px; font-weight: 600; }
+        .card-title { color: var(--text-muted); font-size: 10px; font-weight: 700; text-transform: uppercase; margin-bottom: 4px; }
+        .card-val { color: var(--text-title); font-family: 'Outfit', sans-serif; font-size: 18px; font-weight: 600; }
         .card-val.amber { color: var(--accent-amber); }
         .card-val.blue { color: var(--accent-cyan); }
         .card-val.purple { color: var(--accent-purple); }
-        .card-sub { font-size: 11px; color: var(--text-muted); margin-top: 6px; }
+        .card-sub { font-size: 10px; color: var(--text-muted); margin-top: 2px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
 
         .filter-bar {
             display: flex;
             align-items: center;
-            gap: 8px;
-            margin-bottom: 18px;
+            gap: 6px;
+            margin-bottom: 14px;
             flex-wrap: wrap;
             background: var(--subpanel-bg);
-            padding: 8px 12px;
+            padding: 8px 10px;
             border-radius: 8px;
             border: 1px solid var(--subpanel-border);
         }
@@ -157,18 +185,18 @@
             font-weight: 700;
             color: var(--accent-cyan);
             text-transform: uppercase;
-            margin-right: 6px;
+            margin-right: 4px;
             display: flex;
             align-items: center;
-            gap: 6px;
+            gap: 4px;
         }
         .filter-btn {
             background: var(--panel-bg);
             border: 1px solid var(--subpanel-border);
             color: var(--text-main);
-            padding: 6px 12px;
+            padding: 4px 10px;
             border-radius: 6px;
-            font-size: 12px;
+            font-size: 11px;
             font-weight: 500;
             cursor: pointer;
             transition: all 0.2s ease;
@@ -186,42 +214,42 @@
 
         .dig-method-selector {
             display: flex;
-            gap: 10px;
-            margin-bottom: 18px;
+            gap: 8px;
+            margin-bottom: 14px;
             background: rgba(245, 158, 11, 0.05);
             border: 1px solid rgba(245, 158, 11, 0.2);
-            padding: 10px 14px;
+            padding: 8px 12px;
             border-radius: 8px;
             align-items: center;
             justify-content: space-between;
             flex-wrap: wrap;
         }
         .dig-method-title {
-            font-size: 12px;
+            font-size: 11px;
             font-weight: 700;
             color: var(--accent-amber);
             text-transform: uppercase;
             display: flex;
             align-items: center;
-            gap: 8px;
+            gap: 6px;
         }
         .dig-options {
             display: flex;
-            gap: 8px;
+            gap: 6px;
         }
         .dig-btn {
             background: var(--subpanel-bg);
             border: 1px solid var(--subpanel-border);
             color: var(--text-main);
-            padding: 6px 14px;
+            padding: 4px 10px;
             border-radius: 6px;
-            font-size: 12px;
+            font-size: 11px;
             font-weight: 600;
             cursor: pointer;
             transition: all 0.2s ease;
             display: flex;
             align-items: center;
-            gap: 6px;
+            gap: 4px;
         }
         .dig-btn.active {
             background: var(--accent-amber);
@@ -229,18 +257,18 @@
             border-color: var(--accent-amber);
         }
 
-        .grid { display: grid; grid-template-columns: 2fr 1fr; gap: 24px; }
+        .grid { display: grid; grid-template-columns: 2fr 1fr; gap: 16px; }
         @media (max-width: 900px) { .grid { grid-template-columns: 1fr; } }
 
         .panel { 
             background: var(--panel-bg); 
             border: 1px solid var(--panel-border); 
             border-radius: 10px; 
-            padding: 22px; 
-            margin-bottom: 20px; 
+            padding: 16px; 
+            margin-bottom: 16px; 
             position: relative;
         }
-        .panel-title { color: var(--text-title); font-family: 'Outfit', sans-serif; font-size: 17px; font-weight: 600; margin-bottom: 18px; display: flex; align-items: center; gap: 10px; border-bottom: 1px solid var(--panel-border); padding-bottom: 10px; }
+        .panel-title { color: var(--text-title); font-family: 'Outfit', sans-serif; font-size: 16px; font-weight: 600; margin-bottom: 14px; display: flex; align-items: center; gap: 8px; border-bottom: 1px solid var(--panel-border); padding-bottom: 8px; }
         .panel-title i { color: var(--accent-cyan); }
 
         .panel-title-toggle {
@@ -253,31 +281,31 @@
             opacity: 0.85;
         }
         .toggle-icon {
-            font-size: 14px;
+            font-size: 13px;
             transition: transform 0.3s ease;
         }
         .toggle-icon.collapsed {
             transform: rotate(-90deg);
         }
 
-        .inputs { display: grid; grid-template-columns: repeat(auto-fit, minmax(130px, 1fr)); gap: 12px; margin-bottom: 18px; }
-        .input-box { display: flex; flex-direction: column; gap: 6px; }
-        .input-box label { font-size: 12px; color: var(--text-main); }
-        .input-box input, .input-box select { background: var(--subpanel-bg); border: 1px solid var(--subpanel-border); border-radius: 6px; color: var(--text-title); padding: 8px 12px; outline: none; font-size: 14px; }
+        .inputs { display: grid; grid-template-columns: repeat(auto-fit, minmax(120px, 1fr)); gap: 10px; margin-bottom: 14px; }
+        .input-box { display: flex; flex-direction: column; justify-content: flex-end; gap: 4px; }
+        .input-box label { font-size: 11px; color: var(--text-main); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+        .input-box input, .input-box select { background: var(--subpanel-bg); border: 1px solid var(--subpanel-border); border-radius: 6px; color: var(--text-title); padding: 6px 10px; outline: none; font-size: 13px; width: 100%; }
 
-        .sum-box { background: var(--subpanel-bg); border-left: 4px solid var(--accent-cyan); border-radius: 6px; padding: 14px; display: grid; grid-template-columns: repeat(auto-fit, minmax(120px, 1fr)); gap: 12px; margin-bottom: 18px; }
+        .sum-box { background: var(--subpanel-bg); border-left: 4px solid var(--accent-cyan); border-radius: 6px; padding: 12px; display: grid; grid-template-columns: repeat(auto-fit, minmax(110px, 1fr)); gap: 10px; margin-bottom: 14px; }
         .sum-box.amber { border-left-color: var(--accent-amber); }
         .sum-box.purple { border-left-color: var(--accent-purple); }
         .sum-item { display: flex; flex-direction: column; }
-        .sum-item .lbl { font-size: 11px; color: var(--text-muted); text-transform: uppercase; }
-        .sum-item .val { font-family: 'Outfit', sans-serif; font-size: 18px; color: var(--accent-cyan); font-weight: 600; }
+        .sum-item .lbl { font-size: 10px; color: var(--text-muted); text-transform: uppercase; }
+        .sum-item .val { font-family: 'Outfit', sans-serif; font-size: 16px; color: var(--accent-cyan); font-weight: 600; }
         .sum-item .val.amber { color: var(--accent-amber); }
         .sum-item .val.purple { color: var(--accent-purple); }
 
         .collapsible-wrapper {
             transition: max-height 0.3s ease, opacity 0.3s ease;
             overflow: hidden;
-            max-height: 500px;
+            max-height: 800px;
             opacity: 1;
         }
         .collapsible-wrapper.collapsed {
@@ -286,6 +314,12 @@
             margin: 0;
         }
 
+        /* Стандартні Таблиці */
+        table { width: 100%; border-collapse: collapse; text-align: left; font-size: 12px; }
+        th, td { padding: 8px 10px; border-bottom: 1px solid var(--panel-border); }
+        th { background: var(--subpanel-bg); color: var(--accent-cyan); font-size: 11px; text-transform: uppercase; }
+        tr.active-row { background: rgba(56, 189, 248, 0.08); }
+
         .compare-table {
             width: 100%;
             border-collapse: collapse;
@@ -293,7 +327,7 @@
             font-size: 12px;
         }
         .compare-table th, .compare-table td {
-            padding: 8px 10px;
+            padding: 6px 8px;
             border: 1px solid var(--panel-border);
             text-align: center;
         }
@@ -306,91 +340,136 @@
             color: var(--accent-cyan);
         }
 
-        table { width: 100%; border-collapse: collapse; text-align: left; font-size: 13px; }
-        th, td { padding: 10px 12px; border-bottom: 1px solid var(--panel-border); }
-        th { background: var(--subpanel-bg); color: var(--accent-cyan); font-size: 12px; text-transform: uppercase; }
-        tr.active-row { background: rgba(56, 189, 248, 0.08); }
+        /* Мобільні картки замість громіздких таблиць */
+        @media (max-width: 650px) {
+            .mobile-cards-table table, 
+            .mobile-cards-table tbody, 
+            .mobile-cards-table tr, 
+            .mobile-cards-table td {
+                display: block;
+                width: 100%;
+            }
 
-        .transport-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)); gap: 14px; }
-        .transport-card { background: var(--subpanel-bg); border: 1px solid var(--subpanel-border); border-radius: 8px; padding: 14px; display: flex; flex-direction: column; gap: 6px; }
-        .transport-name { color: var(--text-title); font-weight: 600; font-size: 13px; display: flex; align-items: center; gap: 8px; }
+            .mobile-cards-table thead {
+                display: none; /* Ховаємо загальний заголовок таблиці */
+            }
+
+            .mobile-cards-table tr {
+                background: var(--subpanel-bg);
+                border: 1px solid var(--subpanel-border);
+                border-radius: 8px;
+                margin-bottom: 10px;
+                padding: 10px 12px;
+            }
+
+            .mobile-cards-table td {
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                border-bottom: 1px dashed var(--panel-border);
+                padding: 6px 0;
+                text-align: right;
+            }
+
+            .mobile-cards-table td:last-child {
+                border-bottom: none;
+            }
+
+            .mobile-cards-table td::before {
+                content: attr(data-label);
+                font-weight: 600;
+                color: var(--text-muted);
+                font-size: 11px;
+                text-transform: uppercase;
+                text-align: left;
+                padding-right: 10px;
+            }
+
+            .mobile-cards-table td strong {
+                color: var(--text-title);
+            }
+        }
+
+        .transport-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); gap: 12px; }
+        .transport-card { background: var(--subpanel-bg); border: 1px solid var(--subpanel-border); border-radius: 8px; padding: 12px; display: flex; flex-direction: column; gap: 4px; }
+        .transport-name { color: var(--text-title); font-weight: 600; font-size: 12px; display: flex; align-items: center; gap: 6px; }
         .transport-name i { color: var(--accent-cyan); }
-        .transport-cap { font-size: 11px; color: var(--text-muted); }
-        .transport-trips { font-family: 'Outfit', sans-serif; font-size: 20px; font-weight: 600; color: var(--accent-cyan); margin-top: 4px; }
+        .transport-cap { font-size: 10px; color: var(--text-muted); }
+        .transport-trips { font-family: 'Outfit', sans-serif; font-size: 18px; font-weight: 600; color: var(--accent-cyan); margin-top: 2px; }
 
-        .reminders-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 14px; }
-        .reminder-card { background: var(--subpanel-bg); border-radius: 8px; padding: 16px; border-left: 4px solid var(--accent-cyan); }
+        .reminders-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 12px; }
+        .reminder-card { background: var(--subpanel-bg); border-radius: 8px; padding: 12px; border-left: 4px solid var(--accent-cyan); }
         .reminder-card.cyan { border-left-color: var(--accent-cyan); }
         .reminder-card.teal { border-left-color: var(--accent-green); }
-        .reminder-header { color: var(--text-title); font-weight: 600; font-size: 14px; margin-bottom: 8px; display: flex; align-items: center; gap: 8px; }
+        .reminder-header { color: var(--text-title); font-weight: 600; font-size: 13px; margin-bottom: 6px; display: flex; align-items: center; gap: 6px; }
         .reminder-card.cyan .reminder-header i { color: var(--accent-cyan); }
         .reminder-card.teal .reminder-header i { color: var(--accent-green); }
-        .reminder-list { list-style: none; display: flex; flex-direction: column; gap: 6px; font-size: 12px; color: var(--text-main); }
-        .reminder-list li { display: flex; align-items: flex-start; gap: 8px; line-height: 1.4; }
-        .reminder-list li i { color: var(--text-muted); margin-top: 3px; font-size: 10px; }
+        .reminder-list { list-style: none; display: flex; flex-direction: column; gap: 4px; font-size: 11px; color: var(--text-main); }
+        .reminder-list li { display: flex; align-items: flex-start; gap: 6px; line-height: 1.3; }
+        .reminder-list li i { color: var(--text-muted); margin-top: 3px; font-size: 9px; }
 
-        .pie-layout { display: flex; align-items: center; gap: 16px; flex-wrap: wrap; }
-        .pie-left { display: flex; flex-direction: column; align-items: center; justify-content: center; flex: 1; min-width: 140px; }
-        .pie-right { flex: 1; min-width: 160px; display: flex; flex-direction: column; gap: 16px; border-left: 1px solid var(--panel-border); padding-left: 16px; }
+        .pie-layout { display: flex; align-items: center; gap: 12px; flex-wrap: wrap; }
+        .pie-left { display: flex; flex-direction: column; align-items: center; justify-content: center; flex: 1; min-width: 120px; }
+        .pie-right { flex: 1; min-width: 140px; display: flex; flex-direction: column; gap: 12px; border-left: 1px solid var(--panel-border); padding-left: 12px; }
 
-        .mini-stat-title { font-size: 11px; font-weight: 700; color: var(--accent-cyan); text-transform: uppercase; display: flex; align-items: center; justify-content: space-between; margin-bottom: 6px; }
-        .mini-stat-val { font-family: 'Outfit', sans-serif; font-size: 13px; color: var(--text-title); }
-        .progress-bar { width: 100%; height: 6px; background: var(--subpanel-bg); border-radius: 3px; overflow: hidden; display: flex; }
+        .mini-stat-title { font-size: 10px; font-weight: 700; color: var(--accent-cyan); text-transform: uppercase; display: flex; align-items: center; justify-content: space-between; margin-bottom: 4px; }
+        .mini-stat-val { font-family: 'Outfit', sans-serif; font-size: 12px; color: var(--text-title); }
+        .progress-bar { width: 100%; height: 5px; background: var(--subpanel-bg); border-radius: 3px; overflow: hidden; display: flex; }
         .progress-segment { height: 100%; transition: width 0.2s ease; }
 
-        .work-progress-list { display: flex; flex-direction: column; gap: 12px; }
-        .work-item { display: flex; flex-direction: column; gap: 4px; }
-        .work-info { display: flex; justify-content: space-between; font-size: 12px; }
+        .work-progress-list { display: flex; flex-direction: column; gap: 10px; }
+        .work-item { display: flex; flex-direction: column; gap: 3px; }
+        .work-info { display: flex; justify-content: space-between; font-size: 11px; }
         .work-lbl { color: var(--text-main); display: flex; align-items: center; gap: 6px; }
         .work-val { color: var(--text-title); font-weight: 600; font-family: 'Outfit', sans-serif; }
-        .work-bar { width: 100%; height: 8px; background: var(--subpanel-bg); border-radius: 4px; overflow: hidden; }
-        .work-fill { height: 100%; border-radius: 4px; transition: width 0.3s ease; }
+        .work-bar { width: 100%; height: 6px; background: var(--subpanel-bg); border-radius: 3px; overflow: hidden; }
+        .work-fill { height: 100%; border-radius: 3px; transition: width 0.3s ease; }
 
-        .time-widget-box { background: var(--subpanel-bg); border: 1px solid var(--subpanel-border); border-radius: 8px; padding: 14px; display: flex; flex-direction: column; gap: 12px; }
-        .time-main-display { display: flex; align-items: center; justify-content: space-between; border-bottom: 1px dashed var(--panel-border); padding-bottom: 10px; }
-        .time-big-val { font-family: 'Outfit', sans-serif; font-size: 26px; font-weight: 700; color: var(--accent-green); }
-        .time-big-lbl { font-size: 11px; color: var(--text-muted); text-transform: uppercase; }
-        .time-details-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; font-size: 12px; }
+        .time-widget-box { background: var(--subpanel-bg); border: 1px solid var(--subpanel-border); border-radius: 8px; padding: 12px; display: flex; flex-direction: column; gap: 10px; }
+        .time-main-display { display: flex; align-items: center; justify-content: space-between; border-bottom: 1px dashed var(--panel-border); padding-bottom: 8px; }
+        .time-big-val { font-family: 'Outfit', sans-serif; font-size: 22px; font-weight: 700; color: var(--accent-green); }
+        .time-big-lbl { font-size: 10px; color: var(--text-muted); text-transform: uppercase; }
+        .time-details-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; font-size: 11px; }
         .time-detail-item { display: flex; flex-direction: column; }
-        .time-detail-lbl { font-size: 10px; color: var(--text-muted); text-transform: uppercase; }
+        .time-detail-lbl { font-size: 9px; color: var(--text-muted); text-transform: uppercase; }
         .time-detail-val { font-weight: 600; color: var(--text-title); }
 
-        .warning-badge { background: rgba(244, 63, 94, 0.15); border: 1px solid var(--accent-red); color: var(--accent-red); padding: 6px 10px; border-radius: 6px; font-size: 11px; font-weight: 600; display: flex; align-items: center; gap: 6px; margin-top: 4px; }
-        .chart-container { display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 4px 0; width: 100%; }
+        .warning-badge { background: rgba(244, 63, 94, 0.15); border: 1px solid var(--accent-red); color: var(--accent-red); padding: 5px 8px; border-radius: 6px; font-size: 10px; font-weight: 600; display: flex; align-items: center; gap: 6px; margin-top: 2px; }
+        .chart-container { display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 2px 0; width: 100%; }
         
-        .panel-footer-legend { display: flex; flex-wrap: wrap; justify-content: center; align-items: center; gap: 10px 14px; margin-top: 18px; padding-top: 14px; border-top: 1px dashed var(--panel-border); width: 100%; }
-        .legend-item { display: inline-flex; align-items: center; gap: 6px; font-size: 11px; color: var(--text-main); }
-        .legend-color { width: 8px; height: 8px; border-radius: 2px; }
+        .panel-footer-legend { display: flex; flex-wrap: wrap; justify-content: center; align-items: center; gap: 8px 12px; margin-top: 14px; padding-top: 10px; border-top: 1px dashed var(--panel-border); width: 100%; }
+        .legend-item { display: inline-flex; align-items: center; gap: 4px; font-size: 10px; color: var(--text-main); }
+        .legend-color { width: 7px; height: 7px; border-radius: 2px; }
 
-        .bar-chart { display: flex; align-items: flex-end; justify-content: space-between; height: 180px; width: 100%; border-bottom: 1px solid var(--panel-border); padding-top: 14px; background-image: linear-gradient(rgba(255, 255, 255, 0.03) 1px, transparent 1px); background-size: 100% 36px; }
-        .bar-col { display: flex; flex-direction: column; align-items: center; width: 15%; height: 100%; justify-content: flex-end; opacity: 1; transition: opacity 0.2s ease; }
+        .bar-chart { display: flex; align-items: flex-end; justify-content: space-between; height: 150px; width: 100%; border-bottom: 1px solid var(--panel-border); padding-top: 10px; background-image: linear-gradient(rgba(255, 255, 255, 0.03) 1px, transparent 1px); background-size: 100% 30px; }
+        .bar-col { display: flex; flex-direction: column; align-items: center; width: 13%; height: 100%; justify-content: flex-end; opacity: 1; transition: opacity 0.2s ease; }
         .bar-col.dimmed { opacity: 0.25; }
-        .bar-fill { width: 36px; background: var(--accent-amber); border-radius: 4px 4px 0 0; min-height: 6px; transition: height 0.2s ease; }
+        .bar-fill { width: 28px; background: var(--accent-amber); border-radius: 4px 4px 0 0; min-height: 5px; transition: height 0.2s ease; }
         .bar-fill.blue { background: var(--accent-cyan); }
         .bar-fill.amber { background: var(--accent-amber); }
         .bar-fill.purple { background: var(--accent-purple); }
-        .bar-txt { font-size: 10px; color: var(--accent-amber); margin-bottom: 4px; }
+        .bar-txt { font-size: 9px; color: var(--accent-amber); margin-bottom: 2px; }
         .bar-txt.blue { color: var(--accent-cyan); }
         .bar-txt.amber { color: var(--accent-amber); font-weight: 600; }
         .bar-txt.purple { color: var(--accent-purple); font-weight: 600; }
-        .bar-lbl { font-size: 10px; color: var(--text-main); margin-top: 6px; text-align: center; }
+        .bar-lbl { font-size: 9px; color: var(--text-main); margin-top: 4px; text-align: center; }
 
-        .req-container { display: flex; flex-direction: column; gap: 14px; }
-        .req-box { border-radius: 8px; padding: 16px; background: var(--panel-bg); }
+        .req-container { display: flex; flex-direction: column; gap: 10px; }
+        .req-box { border-radius: 8px; padding: 12px; background: var(--panel-bg); }
         .req-box.amber { border: 1px solid var(--accent-amber); }
         .req-box.blue { border: 1px solid var(--accent-cyan); }
-        .req-title { font-size: 14px; font-weight: 600; margin-bottom: 6px; display: flex; align-items: center; gap: 10px; }
+        .req-title { font-size: 13px; font-weight: 600; margin-bottom: 4px; display: flex; align-items: center; gap: 8px; }
         .req-box.amber .req-title { color: var(--accent-amber); }
         .req-box.blue .req-title { color: var(--accent-cyan); }
-        .req-text { font-size: 13px; color: var(--text-main); line-height: 1.5; }
+        .req-text { font-size: 12px; color: var(--text-main); line-height: 1.4; }
 
         /* Блок Експорту / Рапорту */
-        .export-box { background: var(--subpanel-bg); border: 1px solid var(--subpanel-border); border-radius: 8px; padding: 16px; display: flex; flex-direction: column; gap: 12px; }
-        .export-actions { display: flex; gap: 10px; flex-wrap: wrap; }
-        .btn-export { background: var(--panel-bg); border: 1px solid var(--accent-cyan); color: var(--accent-cyan); padding: 8px 14px; border-radius: 6px; font-weight: 600; font-size: 12px; cursor: pointer; display: flex; align-items: center; gap: 8px; transition: all 0.2s ease; }
+        .export-box { background: var(--subpanel-bg); border: 1px solid var(--subpanel-border); border-radius: 8px; padding: 12px; display: flex; flex-direction: column; gap: 10px; }
+        .export-actions { display: flex; gap: 8px; flex-wrap: wrap; }
+        .btn-export { background: var(--panel-bg); border: 1px solid var(--accent-cyan); color: var(--accent-cyan); padding: 6px 12px; border-radius: 6px; font-weight: 600; font-size: 11px; cursor: pointer; display: flex; align-items: center; gap: 6px; transition: all 0.2s ease; }
         .btn-export:hover { background: var(--accent-cyan); color: var(--panel-bg); }
         .btn-export.copied { background: var(--accent-green) !important; border-color: var(--accent-green) !important; color: #000 !important; }
-        .report-preview { background: var(--panel-bg); border: 1px solid var(--panel-border); border-radius: 6px; padding: 14px; font-family: monospace; font-size: 12px; color: var(--text-title); white-space: pre-wrap; max-height: 220px; overflow-y: auto; line-height: 1.5; }
+        .report-preview { background: var(--panel-bg); border: 1px solid var(--panel-border); border-radius: 6px; padding: 12px; font-family: monospace; font-size: 11px; color: var(--text-title); white-space: pre-wrap; max-height: 200px; overflow-y: auto; line-height: 1.4; }
     </style>
 </head>
 <body>
@@ -407,27 +486,27 @@
         </div>
     </div>
 
-    <!-- Верхні картки -->
+    <!-- Оптимізовані верхні картки (Scroll-Snap Slider на мобільних) -->
     <div class="cards">
         <div class="card">
             <div class="card-title">Колоди</div>
             <div class="card-val" id="c-logs">0 м<sup>3</sup></div>
-            <div class="card-sub">⌀ 18-22 см / накат 3 шар.</div>
+            <div class="card-sub">⌀18-22см/3 шари</div>
         </div>
         <div class="card">
             <div class="card-title">Дошка/Брус</div>
             <div class="card-val" id="c-lumber">0 м<sup>3</sup></div>
-            <div class="card-sub">Обрізна / підсилення</div>
+            <div class="card-sub">Обрізна/підсилення</div>
         </div>
         <div class="card">
             <div class="card-title">Плівка</div>
             <div class="card-val" id="c-film">0 м<sup>2</sup></div>
-            <div class="card-sub">300 мкм гідроізоляція</div>
+            <div class="card-sub">300 мкм гідроізол.</div>
         </div>
         <div class="card">
             <div class="card-title">Скоби</div>
             <div class="card-val" id="c-staples">0 шт</div>
-            <div class="card-sub">Будівельні ⌀12 мм</div>
+            <div class="card-sub">Будівельні ⌀12мм</div>
         </div>
         <div class="card">
             <div class="card-title">Люд-Години</div>
@@ -437,7 +516,7 @@
         <div class="card">
             <div class="card-title">Пальне</div>
             <div class="card-val amber" id="c-fuel">0 л</div>
-            <div class="card-sub">ДП / сер. 9 л/год</div>
+            <div class="card-sub">ДП / сер. 9л/год</div>
         </div>
         <div class="card">
             <div class="card-title">Мотогодини</div>
@@ -449,17 +528,20 @@
     <div class="grid">
         <!-- Ліва колонка -->
         <div>
+            <!-- Панель 1: Калькулятор об'єктів -->
             <div class="panel">
-                <div class="panel-title"><i class="fa-solid fa-calculator"></i> Калькулятор робіт та ресурсів</div>
+                <div class="panel-title"><i class="fa-solid fa-calculator"></i> Калькулятор об'єктів</div>
                 
                 <!-- Панель Фільтрів -->
                 <div class="filter-bar">
-                    <span class="filter-label"><i class="fa-solid fa-filter"></i> Фільтр об'єктів:</span>
+                    <span class="filter-label"><i class="fa-solid fa-filter"></i> Фільтр:</span>
                     <button class="filter-btn active" data-filter="all">Всі об'єкти</button>
                     <button class="filter-btn" data-filter="dugout">Бліндажі</button>
                     <button class="filter-btn" data-filter="store">Склади</button>
                     <button class="filter-btn" data-filter="pilot">Укриття</button>
                     <button class="filter-btn" data-filter="caponier">Капоніри</button>
+                    <button class="filter-btn" data-filter="wc">Вбиральні</button>
+                    <button class="filter-btn" data-filter="gen">Генераторні</button>
                     <button class="filter-btn" data-filter="trench">Траншеї</button>
                 </div>
 
@@ -468,17 +550,26 @@
                     <span class="dig-method-title"><i class="fa-solid fa-shovels"></i> Спосіб земляних робіт:</span>
                     <div class="dig-options">
                         <button class="dig-btn active" data-dig="excavator"><i class="fa-solid fa-tractor"></i> Екскаватор + Добор</button>
-                        <button class="dig-btn" data-dig="manual"><i class="fa-solid fa-person-digging"></i> Повністю Вручну</button>
+                        <button class="dig-btn" data-dig="manual"><i class="fa-solid fa-person-digging"></i> Вручну</button>
                     </div>
                 </div>
 
-                <!-- Вхідні дані об'єктів та о/с -->
+                <!-- Вхідні дані споруд -->
                 <div class="inputs">
                     <div class="input-box"><label>Бліндажі (3х4м)</label><input type="number" id="i-dugout" value="1" min="0"></div>
                     <div class="input-box"><label>Склади (3х3м)</label><input type="number" id="i-store" value="0" min="0"></div>
                     <div class="input-box"><label>Укриття (6х3м)</label><input type="number" id="i-pilot" value="0" min="0"></div>
                     <div class="input-box"><label>Капоніри (4.5х18м)</label><input type="number" id="i-caponier" value="0" min="0"></div>
+                    <div class="input-box"><label>Вбиральні (2.2х2м)</label><input type="number" id="i-wc" value="0" min="0"></div>
+                    <div class="input-box"><label>Генераторні (1.2м)</label><input type="number" id="i-gen" value="0" min="0"></div>
                     <div class="input-box"><label>Траншеї (м)</label><input type="number" id="i-trench" value="0" min="0"></div>
+                </div>
+            </div>
+
+            <!-- Окрема панель: Ресурси та Умови робіт -->
+            <div class="panel">
+                <div class="panel-title" style="color: var(--accent-amber);"><i class="fa-solid fa-sliders"></i> Ресурси та умови робіт</div>
+                <div class="inputs">
                     <div class="input-box">
                         <label style="color:var(--accent-purple);">Людей (о/с)</label>
                         <input type="number" id="i-people" value="12" min="1" style="border-color:var(--accent-purple);">
@@ -521,7 +612,9 @@
                         </select>
                     </div>
                 </div>
+            </div>
 
+            <div class="panel">
                 <!-- Підсумки Матеріалів -->
                 <div class="sum-box">
                     <div class="sum-item"><span class="lbl">Колоди</span><span class="val" id="s-logs">0 м<sup>3</sup></span></div>
@@ -547,63 +640,118 @@
                 </div>
 
                 <!-- Інтерактивна заголовок-кнопка для Порівняльного Аналізу -->
-                <div class="panel-title panel-title-toggle" id="btn-toggle-compare" style="margin-top:24px; color:var(--accent-amber);">
+                <div class="panel-title panel-title-toggle" id="btn-toggle-compare" style="margin-top:18px; color:var(--accent-amber);">
                     <span><i class="fa-solid fa-code-compare"></i> Порівняльний Аналіз Способів Копання</span>
                     <i class="fa-solid fa-chevron-down toggle-icon" id="icon-compare"></i>
                 </div>
 
                 <div class="collapsible-wrapper" id="wrapper-compare">
-                    <table class="compare-table">
-                        <thead>
-                            <tr>
-                                <th>Показник</th>
-                                <th>🚜 Екскаватор + Добор</th>
-                                <th>⛏️ Повністю Вручну</th>
-                                <th>Різниця</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <td><strong>Загальні люд-години</strong></td>
-                                <td id="comp-mh-exc">0 год</td>
-                                <td id="comp-mh-man">0 год</td>
-                                <td id="comp-mh-diff" class="highlight">0%</td>
-                            </tr>
-                            <tr>
-                                <td><strong id="comp-days-lbl">Термін робіт</strong></td>
-                                <td id="comp-days-exc">0 днів</td>
-                                <td id="comp-days-man">0 днів</td>
-                                <td id="comp-days-diff" class="highlight">0 днів</td>
-                            </tr>
-                            <tr>
-                                <td><strong>Витрата ДП Пального</strong></td>
-                                <td id="comp-fuel-exc">0 л</td>
-                                <td id="comp-fuel-man">0 л</td>
-                                <td id="comp-fuel-diff" style="color:var(--accent-green); font-weight:700;">-0 л</td>
-                            </tr>
-                        </tbody>
-                    </table>
+                    <div class="mobile-cards-table">
+                        <table class="compare-table">
+                            <thead>
+                                <tr>
+                                    <th>Показник</th>
+                                    <th>🚜 Екскаватор + Добор</th>
+                                    <th>⛏️ Повністю Вручну</th>
+                                    <th>Різниця</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td data-label="Показник"><strong>Загальні люд-години</strong></td>
+                                    <td data-label="🚜 Екскаватор" id="comp-mh-exc">0 год</td>
+                                    <td data-label="⛏️ Вручну" id="comp-mh-man">0 год</td>
+                                    <td data-label="Різниця" id="comp-mh-diff" class="highlight">0%</td>
+                                </tr>
+                                <tr>
+                                    <td data-label="Показник"><strong id="comp-days-lbl">Термін робіт</strong></td>
+                                    <td data-label="🚜 Екскаватор" id="comp-days-exc">0 днів</td>
+                                    <td data-label="⛏️ Вручну" id="comp-days-man">0 днів</td>
+                                    <td data-label="Різниця" id="comp-days-diff" class="highlight">0 днів</td>
+                                </tr>
+                                <tr>
+                                    <td data-label="Показник"><strong>Витрата ДП Пального</strong></td>
+                                    <td data-label="🚜 Екскаватор" id="comp-fuel-exc">0 л</td>
+                                    <td data-label="⛏️ Вручну" id="comp-fuel-man">0 л</td>
+                                    <td data-label="Різниця" id="comp-fuel-diff" style="color:var(--accent-green); font-weight:700;">-0 л</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
                 </div>
 
                 <!-- Інтерактивна заголовок-кнопка для Специфікації Об'єктів -->
-                <div class="panel-title panel-title-toggle" id="btn-toggle-spec" style="margin-top:24px;">
+                <div class="panel-title panel-title-toggle" id="btn-toggle-spec" style="margin-top:18px;">
                     <span><i class="fa-solid fa-list"></i> Специфікація об'єктів</span>
                     <i class="fa-solid fa-chevron-down toggle-icon" id="icon-spec"></i>
                 </div>
 
                 <div class="collapsible-wrapper" id="wrapper-spec">
-                    <table>
-                        <thead>
-                            <tr><th>Споруда</th><th>Габарити</th><th>Колоди</th><th>Дошка/Брус</th><th>Скоби</th><th>Люд-год (Екск / Руч)</th></tr>
-                        </thead>
-                        <tbody>
-                            <tr id="row-dugout"><td><strong>Бліндаж</strong></td><td>3х4 м</td><td>14 м<sup>3</sup></td><td>3.0 м<sup>3</sup></td><td>280 шт</td><td>30 / 140 люд-год</td></tr>
-                            <tr id="row-store"><td><strong>Склад</strong></td><td>3х3 м</td><td>8 м<sup>3</sup></td><td>2.5 м<sup>3</sup></td><td>220 шт</td><td>20 / 90 люд-год</td></tr>
-                            <tr id="row-pilot"><td><strong>Укриття</strong></td><td>6х3 м</td><td>18 м<sup>3</sup></td><td>4.2 м<sup>3</sup></td><td>350 шт</td><td>40 / 180 люд-год</td></tr>
-                            <tr id="row-caponier"><td><strong>Капонір</strong></td><td>4.5х18 м</td><td>5 м<sup>3</sup></td><td>3.0 м<sup>3</sup></td><td>50 шт</td><td>25 / 220 люд-год</td></tr>
-                            <tr id="row-trench"><td><strong>Траншея (1м)</strong></td><td>Шир. 1.5м</td><td>—</td><td>0.04 м<sup>3</sup></td><td>1 шт</td><td>1.5 / 5.0 люд-год</td></tr>
-                        </tbody>
-                    </table>
+                    <div class="mobile-cards-table">
+                        <table>
+                            <thead>
+                                <tr><th>Споруда</th><th>Габарити / Глибина</th><th>Колоди</th><th>Дошка/Брус</th><th>Скоби</th><th>Люд-год (Екск / Руч)</th></tr>
+                            </thead>
+                            <tbody>
+                                <tr id="row-dugout">
+                                    <td data-label="Споруда"><strong>Бліндаж</strong></td>
+                                    <td data-label="Габарити">3х4 м</td>
+                                    <td data-label="Колоди">14 м<sup>3</sup></td>
+                                    <td data-label="Дошка/Брус">3.0 м<sup>3</sup></td>
+                                    <td data-label="Скоби">280 шт</td>
+                                    <td data-label="Люд-год">30 / 140 люд-год</td>
+                                </tr>
+                                <tr id="row-store">
+                                    <td data-label="Споруда"><strong>Склад</strong></td>
+                                    <td data-label="Габарити">3х3 м</td>
+                                    <td data-label="Колоди">8 м<sup>3</sup></td>
+                                    <td data-label="Дошка/Брус">2.5 м<sup>3</sup></td>
+                                    <td data-label="Скоби">220 шт</td>
+                                    <td data-label="Люд-год">20 / 90 люд-год</td>
+                                </tr>
+                                <tr id="row-pilot">
+                                    <td data-label="Споруда"><strong>Укриття</strong></td>
+                                    <td data-label="Габарити">6х3 м</td>
+                                    <td data-label="Колоди">18 м<sup>3</sup></td>
+                                    <td data-label="Дошка/Брус">4.2 м<sup>3</sup></td>
+                                    <td data-label="Скоби">350 шт</td>
+                                    <td data-label="Люд-год">40 / 180 люд-год</td>
+                                </tr>
+                                <tr id="row-caponier">
+                                    <td data-label="Споруда"><strong>Капонір</strong></td>
+                                    <td data-label="Габарити">4.5х18 м</td>
+                                    <td data-label="Колоди">5 м<sup>3</sup></td>
+                                    <td data-label="Дошка/Брус">3.0 м<sup>3</sup></td>
+                                    <td data-label="Скоби">50 шт</td>
+                                    <td data-label="Люд-год">25 / 220 люд-год</td>
+                                </tr>
+                                <tr id="row-wc">
+                                    <td data-label="Споруда"><strong>Вбиральня</strong></td>
+                                    <td data-label="Габарити">2.2х2 м (гл. 2м)</td>
+                                    <td data-label="Колоди">2.5 м<sup>3</sup></td>
+                                    <td data-label="Дошка/Брус">2.0 м<sup>3</sup></td>
+                                    <td data-label="Скоби">50 шт</td>
+                                    <td data-label="Люд-год">12 / 45 люд-год</td>
+                                </tr>
+                                <tr id="row-gen">
+                                    <td data-label="Споруда"><strong>Генераторна</strong></td>
+                                    <td data-label="Габарити">Глибина 1.2м</td>
+                                    <td data-label="Колоди">—</td>
+                                    <td data-label="Дошка/Брус">2.0 м<sup>3</sup></td>
+                                    <td data-label="Скоби">—</td>
+                                    <td data-label="Люд-год">6 / 18 люд-год</td>
+                                </tr>
+                                <tr id="row-trench">
+                                    <td data-label="Споруда"><strong>Траншея (1м)</strong></td>
+                                    <td data-label="Габарити">Шир. 1.5м</td>
+                                    <td data-label="Колоди">—</td>
+                                    <td data-label="Дошка/Брус">0.04 м<sup>3</sup></td>
+                                    <td data-label="Скоби">1 шт</td>
+                                    <td data-label="Люд-год">1.5 / 5.0 люд-год</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
                 </div>
             </div>
 
@@ -644,7 +792,7 @@
                     <div class="reminder-card teal">
                         <div class="reminder-header"><i class="fa-solid fa-wind"></i> Обов'язковість Вентиляції</div>
                         <ul class="reminder-list">
-                            <li><i class="fa-solid fa-angle-right"></i> Монтаж припливно-витяжної системи діаметром не менше 150 мм.</li>
+                            <li><i class="fa-solid fa-angle-right"></i> Монтаж припливно-витяжної системи діаметром не менше 150 мм (для генераторної — труба 120 мм).</li>
                             <li><i class="fa-solid fa-angle-right"></i> Розташування витяжної труби у найвищій точці під стелею.</li>
                             <li><i class="fa-solid fa-angle-right"></i> Оснащення захисними козирками та сітками від скидів/сміття.</li>
                         </ul>
@@ -697,7 +845,7 @@
                 <div class="pie-layout">
                     <div class="pie-left">
                         <div class="chart-container">
-                            <svg id="donut" width="140" height="140" viewBox="0 0 42 42"></svg>
+                            <svg id="donut" width="120" height="120" viewBox="0 0 42 42"></svg>
                         </div>
                     </div>
 
@@ -730,7 +878,7 @@
                     <div class="legend-item"><div class="legend-color" style="background:var(--accent-purple);"></div><span>Склад</span></div>
                     <div class="legend-item"><div class="legend-color" style="background:var(--accent-indigo);"></div><span>Укриття</span></div>
                     <div class="legend-item"><div class="legend-color" style="background:var(--accent-amber);"></div><span>Капонір</span></div>
-                    <div class="legend-item"><div class="legend-color" style="background:var(--accent-green);"></div><span>Траншеї</span></div>
+                    <div class="legend-item"><div class="legend-color" style="background:var(--accent-green);"></div><span>Інше</span></div>
                 </div>
             </div>
 
@@ -743,7 +891,7 @@
                             <div class="time-big-lbl">Загальний термін виконання</div>
                             <div class="time-big-val" id="w-time-days">0 діб</div>
                         </div>
-                        <i class="fa-solid fa-hourglass-half" style="font-size: 28px; color: var(--accent-green);"></i>
+                        <i class="fa-solid fa-hourglass-half" style="font-size: 24px; color: var(--accent-green);"></i>
                     </div>
                     <div class="time-details-grid">
                         <div class="time-detail-item">
@@ -777,7 +925,8 @@
                     <div class="bar-col" id="col-mh-2"><span class="bar-txt purple" id="mhv-2">0г</span><div class="bar-fill purple" id="mhb-2"></div><span class="bar-lbl">Склад</span></div>
                     <div class="bar-col" id="col-mh-3"><span class="bar-txt purple" id="mhv-3">0г</span><div class="bar-fill purple" id="mhb-3"></div><span class="bar-lbl">Укриття</span></div>
                     <div class="bar-col" id="col-mh-4"><span class="bar-txt purple" id="mhv-4">0г</span><div class="bar-fill purple" id="mhb-4"></div><span class="bar-lbl">Капонір</span></div>
-                    <div class="bar-col" id="col-mh-5"><span class="bar-txt purple" id="mhv-5">0г</span><div class="bar-fill purple" id="mhb-5"></div><span class="bar-lbl">Траншеї</span></div>
+                    <div class="bar-col" id="col-mh-5"><span class="bar-txt purple" id="mhv-5">0г</span><div class="bar-fill purple" id="mhb-5"></div><span class="bar-lbl">Вбиральня</span></div>
+                    <div class="bar-col" id="col-mh-6"><span class="bar-txt purple" id="mhv-6">0г</span><div class="bar-fill purple" id="mhb-6"></div><span class="bar-lbl">Генератор</span></div>
                     <div class="bar-col" id="col-mh-tot"><span class="bar-txt purple" id="mhv-tot">0г</span><div class="bar-fill purple" id="mhb-tot"></div><span class="bar-lbl" style="color:var(--accent-purple); font-weight:600;">Разом</span></div>
                 </div>
             </div>
@@ -790,7 +939,8 @@
                     <div class="bar-col" id="col-h-2"><span class="bar-txt blue" id="htv-2">0г</span><div class="bar-fill blue" id="hb-2" style="background:var(--accent-purple);"></div><span class="bar-lbl">Склад</span></div>
                     <div class="bar-col" id="col-h-3"><span class="bar-txt blue" id="htv-3">0г</span><div class="bar-fill blue" id="hb-3" style="background:var(--accent-indigo);"></div><span class="bar-lbl">Укриття</span></div>
                     <div class="bar-col" id="col-h-4"><span class="bar-txt blue" id="htv-4">0г</span><div class="bar-fill blue" id="hb-4" style="background:var(--accent-amber);"></div><span class="bar-lbl">Капонір</span></div>
-                    <div class="bar-col" id="col-h-5"><span class="bar-txt blue" id="htv-5">0г</span><div class="bar-fill blue" id="hb-5" style="background:var(--accent-green);"></div><span class="bar-lbl">Траншеї</span></div>
+                    <div class="bar-col" id="col-h-5"><span class="bar-txt blue" id="htv-5">0г</span><div class="bar-fill blue" id="hb-5" style="background:var(--accent-green);"></div><span class="bar-lbl">Вбиральня</span></div>
+                    <div class="bar-col" id="col-h-6"><span class="bar-txt blue" id="htv-6">0г</span><div class="bar-fill blue" id="hb-6" style="background:var(--accent-cyan);"></div><span class="bar-lbl">Генератор</span></div>
                     <div class="bar-col" id="col-h-tot"><span class="bar-txt amber" id="htv-tot">0г</span><div class="bar-fill amber" id="hb-tot"></div><span class="bar-lbl" style="color:var(--accent-amber); font-weight:600;">Разом</span></div>
                 </div>
             </div>
@@ -803,7 +953,8 @@
                     <div class="bar-col" id="col-f-2"><span class="bar-txt" id="bv-2">0л</span><div class="bar-fill" id="b-2" style="background:var(--accent-purple);"></div><span class="bar-lbl">Склад</span></div>
                     <div class="bar-col" id="col-f-3"><span class="bar-txt" id="bv-3">0л</span><div class="bar-fill" id="b-3" style="background:var(--accent-indigo);"></div><span class="bar-lbl">Укриття</span></div>
                     <div class="bar-col" id="col-f-4"><span class="bar-txt" id="bv-4">0л</span><div class="bar-fill" id="b-4" style="background:var(--accent-amber);"></div><span class="bar-lbl">Капонір</span></div>
-                    <div class="bar-col" id="col-f-5"><span class="bar-txt" id="bv-5">0л</span><div class="bar-fill" id="b-5" style="background:var(--accent-green);"></div><span class="bar-lbl">Траншеї</span></div>
+                    <div class="bar-col" id="col-f-5"><span class="bar-txt" id="bv-5">0л</span><div class="bar-fill" id="b-5" style="background:var(--accent-green);"></div><span class="bar-lbl">Вбиральня</span></div>
+                    <div class="bar-col" id="col-f-6"><span class="bar-txt" id="bv-6">0л</span><div class="bar-fill" id="b-6" style="background:var(--accent-cyan);"></div><span class="bar-lbl">Генератор</span></div>
                     <div class="bar-col" id="col-f-tot"><span class="bar-txt amber" id="bv-tot">0л</span><div class="bar-fill amber" id="b-tot"></div><span class="bar-lbl" style="color:var(--accent-amber); font-weight:600;">Разом</span></div>
                 </div>
             </div>
@@ -853,11 +1004,11 @@
             };
         }
 
-        function drawDonut(d, s, p, c) {
+        function drawDonut(d, s, p, c, w) {
             const svg = document.getElementById('donut');
             if (!svg) return;
             const colors = getThemeColors();
-            const total = d + s + p + c;
+            const total = d + s + p + c + w;
 
             if (total === 0) { 
                 svg.innerHTML = `<circle cx="21" cy="21" r="15.5" fill="transparent" stroke="${colors.border}" stroke-width="6"></circle>`; 
@@ -868,11 +1019,13 @@
             const p2 = (s / total) * 100;
             const p3 = (p / total) * 100;
             const p4 = (c / total) * 100;
+            const p5 = (w / total) * 100;
 
             const o1 = 25;
             const o2 = o1 - p1;
             const o3 = o2 - p2;
             const o4 = o3 - p3;
+            const o5 = o4 - p4;
 
             svg.innerHTML = `
                 <circle cx="21" cy="21" r="15.5" fill="transparent" stroke="${colors.border}" stroke-width="6"></circle>
@@ -880,13 +1033,14 @@
                 <circle cx="21" cy="21" r="15.5" fill="transparent" stroke="${colors.purple}" stroke-width="6" stroke-dasharray="${p2} ${100-p2}" stroke-dashoffset="${o2}"></circle>
                 <circle cx="21" cy="21" r="15.5" fill="transparent" stroke="${colors.indigo}" stroke-width="6" stroke-dasharray="${p3} ${100-p3}" stroke-dashoffset="${o3}"></circle>
                 <circle cx="21" cy="21" r="15.5" fill="transparent" stroke="${colors.amber}" stroke-width="6" stroke-dasharray="${p4} ${100-p4}" stroke-dashoffset="${o4}"></circle>
-                <text x="50%" y="46%" dominant-baseline="middle" text-anchor="middle" fill="${colors.text}" font-size="7" font-family="'Outfit', sans-serif" font-weight="600">${total}</text>
+                <circle cx="21" cy="21" r="15.5" fill="transparent" stroke="${colors.green}" stroke-width="6" stroke-dasharray="${p5} ${100-p5}" stroke-dashoffset="${o5}"></circle>
+                <text x="50%" y="46%" dominant-baseline="middle" text-anchor="middle" fill="${colors.text}" font-size="7" font-family="'Outfit', sans-serif" font-weight="600">${total.toFixed(1)}</text>
                 <text x="50%" y="62%" dominant-baseline="middle" text-anchor="middle" fill="${colors.muted}" font-size="3.2" font-family="'Inter', sans-serif">м³ колод</text>
             `;
         }
 
         function updateHighlights() {
-            ['dugout', 'store', 'pilot', 'caponier', 'trench'].forEach(type => {
+            ['dugout', 'store', 'pilot', 'caponier', 'wc', 'gen', 'trench'].forEach(type => {
                 const row = document.getElementById(`row-${type}`);
                 if (row) {
                     if (activeFilter === 'all' || activeFilter === type) {
@@ -897,9 +1051,9 @@
                 }
             });
 
-            const colsMap = { 'dugout': [1], 'store': [2], 'pilot': [3], 'caponier': [4], 'trench': [5] };
+            const colsMap = { 'dugout': [1], 'store': [2], 'pilot': [3], 'caponier': [4], 'wc': [5], 'gen': [6], 'trench': [7] };
 
-            for (let i = 1; i <= 5; i++) {
+            for (let i = 1; i <= 6; i++) {
                 const colH = document.getElementById(`col-h-${i}`);
                 const colF = document.getElementById(`col-f-${i}`);
                 const colMH = document.getElementById(`col-mh-${i}`);
@@ -920,6 +1074,8 @@
             let store = parseFloat(document.getElementById('i-store').value) || 0;
             let pilot = parseFloat(document.getElementById('i-pilot').value) || 0;
             let caponier = parseFloat(document.getElementById('i-caponier').value) || 0;
+            let wc = parseFloat(document.getElementById('i-wc').value) || 0;
+            let gen = parseFloat(document.getElementById('i-gen').value) || 0;
             let trench = parseFloat(document.getElementById('i-trench').value) || 0;
             
             const rawExcavators = Math.max(parseFloat(document.getElementById('i-excavators').value) || 1, 1);
@@ -928,7 +1084,7 @@
             const daylightHours = parseFloat(document.getElementById('i-daylight').value) || 12;
             const soilType = document.getElementById('i-soil').value;
 
-            // Перевірка світлового дня та сповіщення про ризик демаскування
+            // Перевірка світлового дня
             const warningBadge = document.getElementById('w-time-warning');
             if (hoursPerDay > daylightHours) {
                 warningBadge.style.display = 'flex';
@@ -951,50 +1107,50 @@
             let fStore = (activeFilter === 'all' || activeFilter === 'store') ? store : 0;
             let fPilot = (activeFilter === 'all' || activeFilter === 'pilot') ? pilot : 0;
             let fCaponier = (activeFilter === 'all' || activeFilter === 'caponier') ? caponier : 0;
+            let fWc = (activeFilter === 'all' || activeFilter === 'wc') ? wc : 0;
+            let fGen = (activeFilter === 'all' || activeFilter === 'gen') ? gen : 0;
             let fTrench = (activeFilter === 'all' || activeFilter === 'trench') ? trench : 0;
 
-            const totalObjects = fDugout + fStore + fPilot + fCaponier + (fTrench > 0 ? 1 : 0);
+            const totalObjects = fDugout + fStore + fPilot + fCaponier + fWc + fGen + (fTrench > 0 ? 1 : 0);
             
-            // На 1 об'єкт — максимум 1 екскаватор
             const activeExcavators = (totalObjects > 0) ? Math.min(rawExcavators, totalObjects) : 0;
-
-            // 1 об'єкт = 1 робоча група (5 осіб)
             const availableCrews = Math.max(Math.floor(people / 5), 1);
             const activeCrews = (totalObjects > 0) ? Math.min(availableCrews, totalObjects) : 0;
             const activePeopleWorking = activeCrews * 5;
 
             // Матеріали
-            const logD = fDugout * 14; const logS = fStore * 8; const logP = fPilot * 18; const logC = fCaponier * 5;
-            const lumD = fDugout * 3; const lumS = fStore * 2.5; const lumP = fPilot * 4.2; const lumC = fCaponier * 3; const lumT = fTrench * 0.04;
-            const stpD = fDugout * 280; const stpS = fStore * 220; const stpP = fPilot * 350; const stpC = fCaponier * 50; const stpT = fTrench * 1;
+            const logD = fDugout * 14; const logS = fStore * 8; const logP = fPilot * 18; const logC = fCaponier * 5; const logW = fWc * 2.5;
+            const lumD = fDugout * 3; const lumS = fStore * 2.5; const lumP = fPilot * 4.2; const lumC = fCaponier * 3; const lumW = fWc * 2.0; const lumG = fGen * 2.0; const lumT = fTrench * 0.04;
+            const stpD = fDugout * 280; const stpS = fStore * 220; const stpP = fPilot * 350; const stpC = fCaponier * 50; const stpW = fWc * 50; const stpT = fTrench * 1;
 
-            const totalLogs = logD + logS + logP + logC;
-            const totalLumber = lumD + lumS + lumP + lumC + lumT;
-            const totalFilm = (fDugout * 60) + (fStore * 45) + (fPilot * 90) + (fCaponier * 72) + (fTrench * 2);
-            const totalStaples = stpD + stpS + stpP + stpC + stpT;
+            const totalLogs = logD + logS + logP + logC + logW;
+            const totalLumber = lumD + lumS + lumP + lumC + lumW + lumG + lumT;
+            const totalFilm = (fDugout * 60) + (fStore * 45) + (fPilot * 90) + (fCaponier * 72) + (fWc * 40) + (fGen * 4) + (fTrench * 2);
+            const totalStaples = stpD + stpS + stpP + stpC + stpW + stpT;
+            const totalPipes = fGen * 1; // Вентиляційні труби 120 мм
 
-            // Базові люд-години з урахуванням коефіцієнта ґрунту
-            const mhExc = ((fDugout * 5 + fStore * 4 + fPilot * 6 + fCaponier * 5 + fTrench * 1.5) * kMan) +
-                          ((fDugout * 25 + fStore * 16 + fPilot * 34 + fCaponier * 20));
+            // Люд-години
+            const mhExc = ((fDugout * 5 + fStore * 4 + fPilot * 6 + fCaponier * 5 + fWc * 3 + fGen * 1.5 + fTrench * 1.5) * kMan) +
+                          ((fDugout * 25 + fStore * 16 + fPilot * 34 + fCaponier * 20 + fWc * 9 + fGen * 4.5));
             
-            const mhMan = ((fDugout * 84 + fStore * 54 + fPilot * 108 + fCaponier * 132 + fTrench * 5.0) * kMan) +
-                          ((fDugout * 56 + fStore * 36 + fPilot * 72 + fCaponier * 88));
+            const mhMan = ((fDugout * 84 + fStore * 54 + fPilot * 108 + fCaponier * 132 + fWc * 27 + fGen * 11 + fTrench * 5.0) * kMan) +
+                          ((fDugout * 56 + fStore * 36 + fPilot * 72 + fCaponier * 88 + fWc * 18 + fGen * 7));
 
             const currentMH = (activeDigMethod === 'excavator') ? mhExc : mhMan;
 
-            // Час роботи техніки
-            const staticBaseMachineHours = ((fDugout * 4) + (fStore * 3.5) + (fPilot * 6) + (fCaponier * 8) + (fTrench * 0.5)) * kMach;
+            // Час техніки
+            const staticBaseMachineHours = ((fDugout * 4) + (fStore * 3.5) + (fPilot * 6) + (fCaponier * 8) + (fWc * 2.5) + (fGen * 1.0) + (fTrench * 0.5)) * kMach;
             let baseMachineHours = (activeDigMethod === 'manual') ? 0 : staticBaseMachineHours;
 
             const totalFuel = baseMachineHours * 9;
             const actualTechHours = (activeExcavators > 0) ? (baseMachineHours / activeExcavators) : 0;
             const daysTech = (hoursPerDay > 0) ? (actualTechHours / hoursPerDay).toFixed(1) : 0;
 
-            // Розрахунок часу будівництва
+            // Чистий час
             let pureWorkHours = 0;
             if (totalObjects > 0 && activePeopleWorking > 0) {
                 if (activeDigMethod === 'excavator') {
-                    const digBaseMH = (fDugout*5 + fStore*4 + fPilot*6 + fCaponier*5 + fTrench*1.5) * kMan;
+                    const digBaseMH = (fDugout*5 + fStore*4 + fPilot*6 + fCaponier*5 + fWc*3 + fGen*1.5 + fTrench*1.5) * kMan;
                     const buildMH = currentMH - digBaseMH;
                     pureWorkHours = actualTechHours + (buildMH / activePeopleWorking);
                 } else {
@@ -1020,10 +1176,10 @@
             document.getElementById('c-staples').innerText = totalStaples + ' шт';
             
             document.getElementById('c-manhours').innerText = Math.round(currentMH) + ' год';
-            document.getElementById('c-manhours-sub').innerText = `${people} о/с (${activeCrews} робочих груп)`;
+            document.getElementById('c-manhours-sub').innerText = `${people} о/с (${activeCrews} груп)`;
             document.getElementById('c-fuel').innerText = Math.round(totalFuel) + ' л';
             document.getElementById('c-hours').innerText = baseMachineHours.toFixed(1) + ' год';
-            document.getElementById('c-hours-sub').innerText = `${activeExcavators} активних екскаваторів`;
+            document.getElementById('c-hours-sub').innerText = `${activeExcavators} екскаваторів`;
 
             document.getElementById('s-logs').innerHTML = totalLogs + ' м<sup>3</sup>';
             document.getElementById('s-lumber').innerHTML = totalLumber.toFixed(2) + ' м<sup>3</sup>';
@@ -1042,14 +1198,14 @@
             document.getElementById('s-days').innerText = daysTech + ' днів';
             document.getElementById('s-excavators').innerText = activeExcavators + ' шт';
 
-            // Оновлення Віджета Часу (ETA)
+            // ETA
             document.getElementById('w-time-days').innerText = `${totalDays} діб`;
             document.getElementById('w-time-hours').innerText = `${pureWorkHours.toFixed(1)} год`;
             document.getElementById('w-time-shifts').innerText = `${totalShifts} змін`;
             document.getElementById('w-time-shift-hrs').innerText = `${hoursPerDay} год/добу`;
             document.getElementById('w-time-eta').innerText = etaFormatted;
 
-            // ПОРІВНЯЛЬНИЙ АНАЛІЗ
+            // Порівняльний аналіз
             document.getElementById('comp-days-lbl').innerText = `Термін робіт (${people} о/с)`;
             document.getElementById('comp-mh-exc').innerText = Math.round(mhExc) + ' люд-год';
             document.getElementById('comp-mh-man').innerText = Math.round(mhMan) + ' люд-год';
@@ -1057,7 +1213,7 @@
             document.getElementById('comp-mh-diff').innerText = `+${mhRatio - 100}% (у ${(mhMan / (mhExc || 1)).toFixed(1)} рази більше)`;
 
             const staticActualTechHours = (activeExcavators > 0) ? (staticBaseMachineHours / activeExcavators) : 0;
-            const daysExc = (activePeopleWorking > 0) ? (((staticActualTechHours + (mhExc - (fDugout*5 + fStore*4 + fPilot*6 + fCaponier*5 + fTrench*1.5)*kMan)/activePeopleWorking)) / hoursPerDay).toFixed(1) : 0;
+            const daysExc = (activePeopleWorking > 0) ? (((staticActualTechHours + (mhExc - (fDugout*5 + fStore*4 + fPilot*6 + fCaponier*5 + fWc*3 + fGen*1.5)*kMan)/activePeopleWorking)) / hoursPerDay).toFixed(1) : 0;
             const daysMan = (activePeopleWorking > 0) ? ((mhMan / activePeopleWorking) / hoursPerDay).toFixed(1) : 0;
             
             document.getElementById('comp-days-exc').innerText = daysExc + ' днів';
@@ -1095,7 +1251,7 @@
             document.getElementById('t-los').innerText = losTrips + ' рейсів';
             document.getElementById('t-zmiy').innerText = zmiyTrips + ' рейсів';
 
-            drawDonut(logD, logS, logP, logC);
+            drawDonut(logD, logS, logP, logC, logW);
 
             document.getElementById('lum-tot-txt').innerText = totalLumber.toFixed(2) + ' м³';
             const lumTot = Math.max(totalLumber, 0.001);
@@ -1103,7 +1259,7 @@
             document.getElementById('lum-p2').style.width = (lumS / lumTot * 100) + '%';
             document.getElementById('lum-p3').style.width = (lumP / lumTot * 100) + '%';
             document.getElementById('lum-p4').style.width = (lumC / lumTot * 100) + '%';
-            document.getElementById('lum-p5').style.width = (lumT / lumTot * 100) + '%';
+            document.getElementById('lum-p5').style.width = ((lumW + lumG + lumT) / lumTot * 100) + '%';
 
             document.getElementById('stp-tot-txt').innerText = totalStaples + ' шт';
             const stpTot = Math.max(totalStaples, 0.001);
@@ -1111,13 +1267,14 @@
             document.getElementById('stp-p2').style.width = (stpS / stpTot * 100) + '%';
             document.getElementById('stp-p3').style.width = (stpP / stpTot * 100) + '%';
             document.getElementById('stp-p4').style.width = (stpC / stpTot * 100) + '%';
-            document.getElementById('stp-p5').style.width = (stpT / stpTot * 100) + '%';
+            document.getElementById('stp-p5').style.width = ((stpW + stpT) / stpTot * 100) + '%';
 
             const mh1 = (activeDigMethod === 'excavator') ? (fDugout * 5 * kMan + fDugout * 25) : (fDugout * 84 * kMan + fDugout * 56);
             const mh2 = (activeDigMethod === 'excavator') ? (fStore * 4 * kMan + fStore * 16) : (fStore * 54 * kMan + fStore * 36);
             const mh3 = (activeDigMethod === 'excavator') ? (fPilot * 6 * kMan + fPilot * 34) : (fPilot * 108 * kMan + fPilot * 72);
             const mh4 = (activeDigMethod === 'excavator') ? (fCaponier * 5 * kMan + fCaponier * 20) : (fCaponier * 132 * kMan + fCaponier * 88);
-            const mh5 = (activeDigMethod === 'excavator') ? (fTrench * 1.5 * kMan) : (fTrench * 5.0 * kMan);
+            const mh5 = (activeDigMethod === 'excavator') ? (fWc * 3 * kMan + fWc * 9) : (fWc * 27 * kMan + fWc * 18);
+            const mh6 = (activeDigMethod === 'excavator') ? (fGen * 1.5 * kMan + fGen * 4.5) : (fGen * 11 * kMan + fGen * 7);
             const maxMH = Math.max(currentMH, 1);
 
             document.getElementById('mhv-1').innerText = Math.round(mh1) + 'г';
@@ -1130,11 +1287,13 @@
             document.getElementById('mhb-4').style.height = Math.max((mh4 / maxMH) * 100, 5) + '%';
             document.getElementById('mhv-5').innerText = Math.round(mh5) + 'г';
             document.getElementById('mhb-5').style.height = Math.max((mh5 / maxMH) * 100, 5) + '%';
+            document.getElementById('mhv-6').innerText = Math.round(mh6) + 'г';
+            document.getElementById('mhb-6').style.height = Math.max((mh6 / maxMH) * 100, 5) + '%';
             document.getElementById('mhv-tot').innerText = Math.round(currentMH) + 'г';
             document.getElementById('mhb-tot').style.height = Math.max((currentMH / maxMH) * 100, 5) + '%';
 
-            let h1 = fDugout * 4 * kMach; let h2 = fStore * 3.5 * kMach; let h3 = fPilot * 6 * kMach; let h4 = fCaponier * 8 * kMach; let h5 = fTrench * 0.5 * kMach;
-            if (activeDigMethod === 'manual') { h1 = h2 = h3 = h4 = h5 = 0; }
+            let h1 = fDugout * 4 * kMach; let h2 = fStore * 3.5 * kMach; let h3 = fPilot * 6 * kMach; let h4 = fCaponier * 8 * kMach; let h5 = fWc * 2.5 * kMach; let h6 = fGen * 1.0 * kMach;
+            if (activeDigMethod === 'manual') { h1 = h2 = h3 = h4 = h5 = h6 = 0; }
             
             const maxH = Math.max(baseMachineHours, 1);
             document.getElementById('htv-1').innerText = h1.toFixed(1) + 'г';
@@ -1147,10 +1306,12 @@
             document.getElementById('hb-4').style.height = Math.max((h4 / maxH) * 100, 5) + '%';
             document.getElementById('htv-5').innerText = h5.toFixed(1) + 'г';
             document.getElementById('hb-5').style.height = Math.max((h5 / maxH) * 100, 5) + '%';
+            document.getElementById('htv-6').innerText = h6.toFixed(1) + 'г';
+            document.getElementById('hb-6').style.height = Math.max((h6 / maxH) * 100, 5) + '%';
             document.getElementById('htv-tot').innerText = baseMachineHours.toFixed(1) + 'г';
             document.getElementById('hb-tot').style.height = Math.max((baseMachineHours / maxH) * 100, 5) + '%';
 
-            const f1 = h1 * 9; const f2 = h2 * 9; const f3 = h3 * 9; const f4 = h4 * 9; const f5 = h5 * 9;
+            const f1 = h1 * 9; const f2 = h2 * 9; const f3 = h3 * 9; const f4 = h4 * 9; const f5 = h5 * 9; const f6 = h6 * 9;
             const maxF = Math.max(totalFuel, 1);
             document.getElementById('bv-1').innerText = Math.round(f1) + 'л';
             document.getElementById('b-1').style.height = Math.max((f1 / maxF) * 100, 5) + '%';
@@ -1162,13 +1323,15 @@
             document.getElementById('b-4').style.height = Math.max((f4 / maxF) * 100, 5) + '%';
             document.getElementById('bv-5').innerText = Math.round(f5) + 'л';
             document.getElementById('b-5').style.height = Math.max((f5 / maxF) * 100, 5) + '%';
+            document.getElementById('bv-6').innerText = Math.round(f6) + 'л';
+            document.getElementById('b-6').style.height = Math.max((f6 / maxF) * 100, 5) + '%';
             document.getElementById('bv-tot').innerText = Math.round(totalFuel) + 'л';
             document.getElementById('b-tot').style.height = Math.max((totalFuel / maxF) * 100, 5) + '%';
 
             // ГЕНЕРАЦІЯ ТЕКСТУ БОЙОВОЇ ЗАЯВКИ
             generateReportText({
-                dugout: fDugout, store: fStore, pilot: fPilot, caponier: fCaponier, trench: fTrench,
-                logs: totalLogs, lumber: totalLumber, film: totalFilm, staples: totalStaples,
+                dugout: fDugout, store: fStore, pilot: fPilot, caponier: fCaponier, wc: fWc, gen: fGen, trench: fTrench,
+                logs: totalLogs, lumber: totalLumber, film: totalFilm, staples: totalStaples, pipes: totalPipes,
                 dumpTrips, losTrips, zmiyTrips,
                 people, activeCrews, shovels: Math.ceil(people * 1.2), picks: Math.ceil(people * pickRatio),
                 digMethod: activeDigMethod, excavators: activeExcavators, fuel: totalFuel, techHours: baseMachineHours,
@@ -1184,9 +1347,14 @@
             if (d.store > 0) listObj.push(`• Склад (3х3м): ${d.store} шт`);
             if (d.pilot > 0) listObj.push(`• Укриття (6х3м): ${d.pilot} шт`);
             if (d.caponier > 0) listObj.push(`• Капонір (4.5х18м): ${d.caponier} шт`);
+            if (d.wc > 0) listObj.push(`• Вбиральня (2.2х2м): ${d.wc} шт`);
+            if (d.gen > 0) listObj.push(`• Генераторна (гл. 1.2м): ${d.gen} шт`);
             if (d.trench > 0) listObj.push(`• Траншея: ${d.trench} м`);
 
             const digName = (d.digMethod === 'excavator') ? 'Екскаватор + Добор' : 'Повністю Вручну';
+
+            let addSpecs = [];
+            if (d.pipes > 0) addSpecs.push(`• Труба вентиляційна/вихлопна (⌀120мм): ${d.pipes} шт`);
 
             const report = `Бажаю міцного, непохитного здоров'я!
 
@@ -1201,7 +1369,7 @@ ${listObj.length > 0 ? listObj.join('\n') : '• Об\'єкти не обран�
 • Брус/Дошка обрізна: ${d.lumber.toFixed(2)} м³
 • Плівка гідроізоляційна (300 мкм): ${d.film} м²
 • Скоби будівельні: ${d.staples} шт
-
+${addSpecs.length > 0 ? addSpecs.join('\n') + '\n' : ''}
 2. ДОСТАВКА МАТЕРІАЛІВ (ЛОГІСТИКА КОЛОД):
 • Вантажний самоскид (до 14 м³): ${d.dumpTrips} рейсів
 • НРК «ЛОСЬ» (до 3.2 м³): ${d.losTrips} рейсів
@@ -1322,7 +1490,7 @@ ${listObj.length > 0 ? listObj.join('\n') : '• Об\'єкти не обран�
             setTheme(savedTheme);
         });
 
-        // РЕЄСТРАЦІЯ SERVICE WORKER ДЛЯ PWA ОФЛАЙН-РЕЖИМУ
+        // PWA REGISTRATION
         if ('serviceWorker' in navigator) {
             window.addEventListener('load', () => {
                 navigator.serviceWorker.register('./sw.js')
