@@ -305,7 +305,7 @@
         .collapsible-wrapper {
             transition: max-height 0.3s ease, opacity 0.3s ease;
             overflow: hidden;
-            max-height: 800px;
+            max-height: 1200px;
             opacity: 1;
         }
         .collapsible-wrapper.collapsed {
@@ -314,11 +314,11 @@
             margin: 0;
         }
 
-        /* Стандартні Таблиці */
-        table { width: 100%; border-collapse: collapse; text-align: left; font-size: 12px; }
-        th, td { padding: 8px 10px; border-bottom: 1px solid var(--panel-border); }
-        th { background: var(--subpanel-bg); color: var(--accent-cyan); font-size: 11px; text-transform: uppercase; }
-        tr.active-row { background: rgba(56, 189, 248, 0.08); }
+        .table-responsive {
+            width: 100%;
+            overflow-x: auto;
+            -webkit-overflow-scrolling: touch;
+        }
 
         .compare-table {
             width: 100%;
@@ -340,54 +340,83 @@
             color: var(--accent-cyan);
         }
 
-        /* Мобільні картки замість громіздких таблиць */
-        @media (max-width: 650px) {
-            .mobile-cards-table table, 
-            .mobile-cards-table tbody, 
-            .mobile-cards-table tr, 
-            .mobile-cards-table td {
-                display: block;
-                width: 100%;
-            }
+        table { width: 100%; border-collapse: collapse; text-align: left; font-size: 12px; }
+        th, td { padding: 8px 10px; border-bottom: 1px solid var(--panel-border); }
+        th { background: var(--subpanel-bg); color: var(--accent-cyan); font-size: 11px; text-transform: uppercase; }
+        tr.active-row { background: rgba(56, 189, 248, 0.08); }
 
-            .mobile-cards-table thead {
-                display: none; /* Ховаємо загальний заголовок таблиці */
-            }
-
-            .mobile-cards-table tr {
-                background: var(--subpanel-bg);
-                border: 1px solid var(--subpanel-border);
-                border-radius: 8px;
-                margin-bottom: 10px;
-                padding: 10px 12px;
-            }
-
-            .mobile-cards-table td {
-                display: flex;
-                justify-content: space-between;
-                align-items: center;
-                border-bottom: 1px dashed var(--panel-border);
-                padding: 6px 0;
-                text-align: right;
-            }
-
-            .mobile-cards-table td:last-child {
-                border-bottom: none;
-            }
-
-            .mobile-cards-table td::before {
-                content: attr(data-label);
-                font-weight: 600;
-                color: var(--text-muted);
-                font-size: 11px;
-                text-transform: uppercase;
-                text-align: left;
-                padding-right: 10px;
-            }
-
-            .mobile-cards-table td strong {
-                color: var(--text-title);
-            }
+        /* Стилі для панелі реальних Креслень з папки schemes/ */
+        .blueprint-nav {
+            display: flex;
+            gap: 6px;
+            margin-bottom: 12px;
+            overflow-x: auto;
+            padding-bottom: 6px;
+            border-bottom: 1px solid var(--panel-border);
+        }
+        .blueprint-btn {
+            background: var(--subpanel-bg);
+            border: 1px solid var(--subpanel-border);
+            color: var(--text-main);
+            padding: 6px 12px;
+            border-radius: 6px;
+            font-size: 11px;
+            font-weight: 600;
+            cursor: pointer;
+            white-space: nowrap;
+            transition: all 0.2s ease;
+        }
+        .blueprint-btn.active {
+            background: var(--accent-cyan);
+            color: var(--panel-bg);
+            border-color: var(--accent-cyan);
+        }
+        .blueprint-viewer {
+            background: #000000;
+            border: 1px solid var(--subpanel-border);
+            border-radius: 8px;
+            padding: 12px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+        .blueprint-title {
+            font-size: 13px;
+            font-weight: 600;
+            color: var(--accent-cyan);
+            margin-bottom: 10px;
+            text-align: center;
+        }
+        .blueprint-img {
+            width: 100%;
+            max-height: 480px;
+            object-fit: contain;
+            border-radius: 4px;
+            border: 1px solid var(--panel-border);
+            cursor: zoom-in;
+            background: #fff;
+        }
+        .blueprint-specs-box {
+            width: 100%;
+            background: var(--subpanel-bg);
+            border: 1px solid var(--subpanel-border);
+            border-radius: 6px;
+            padding: 10px 12px;
+            margin-top: 10px;
+            font-size: 11px;
+            color: var(--text-title);
+            line-height: 1.5;
+        }
+        .blueprint-specs-title {
+            color: var(--accent-amber);
+            font-weight: 700;
+            text-transform: uppercase;
+            font-size: 10px;
+            margin-bottom: 4px;
+            display: flex;
+            align-items: center;
+            gap: 6px;
         }
 
         .transport-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); gap: 12px; }
@@ -614,6 +643,26 @@
                 </div>
             </div>
 
+            <!-- ПАНЕЛЬ: Типові Інженерні Креслення з Папки schemes/ -->
+            <div class="panel">
+                <div class="panel-title-toggle panel-title" id="btn-toggle-blueprints" style="color: var(--accent-cyan);">
+                    <span><i class="fa-solid fa-drafting-compass"></i> Типові Інженерні Схеми</span>
+                    <i class="fa-solid fa-chevron-down toggle-icon" id="icon-blueprints"></i>
+                </div>
+                <div class="collapsible-wrapper" id="wrapper-blueprints">
+                    <div class="blueprint-nav">
+                        <button class="blueprint-btn active" data-schema="dugout_main"><i class="fa-solid fa-house-chimney"></i> Бліндаж (Конструктив)</button>
+                        <button class="blueprint-btn" data-schema="dugout_1"><i class="fa-solid fa-cubes"></i> Склад / Бліндаж / Капонір</button>
+                        <button class="blueprint-btn" data-schema="dugout_2"><i class="fa-solid fa-toilet"></i> Вбиральня / Генераторна / Траншея</button>
+                        <button class="blueprint-btn" data-schema="tortuga"><i class="fa-solid fa-shield-dog"></i> Модуль «ТОРТУГА»</button>
+                        <button class="blueprint-btn" data-schema="cargo"><i class="fa-solid fa-container-storage"></i> Контейнер Cargo 12м</button>
+                    </div>
+                    <div class="blueprint-viewer" id="blueprint-content">
+                        <!-- Динамічний вміст завантажується JavaScript -->
+                    </div>
+                </div>
+            </div>
+
             <div class="panel">
                 <!-- Підсумки Матеріалів -->
                 <div class="sum-box">
@@ -646,7 +695,7 @@
                 </div>
 
                 <div class="collapsible-wrapper" id="wrapper-compare">
-                    <div class="mobile-cards-table">
+                    <div class="table-responsive">
                         <table class="compare-table">
                             <thead>
                                 <tr>
@@ -658,22 +707,22 @@
                             </thead>
                             <tbody>
                                 <tr>
-                                    <td data-label="Показник"><strong>Загальні люд-години</strong></td>
-                                    <td data-label="🚜 Екскаватор" id="comp-mh-exc">0 год</td>
-                                    <td data-label="⛏️ Вручну" id="comp-mh-man">0 год</td>
-                                    <td data-label="Різниця" id="comp-mh-diff" class="highlight">0%</td>
+                                    <td><strong>Загальні люд-години</strong></td>
+                                    <td id="comp-mh-exc">0 год</td>
+                                    <td id="comp-mh-man">0 год</td>
+                                    <td id="comp-mh-diff" class="highlight">0%</td>
                                 </tr>
                                 <tr>
-                                    <td data-label="Показник"><strong id="comp-days-lbl">Термін робіт</strong></td>
-                                    <td data-label="🚜 Екскаватор" id="comp-days-exc">0 днів</td>
-                                    <td data-label="⛏️ Вручну" id="comp-days-man">0 днів</td>
-                                    <td data-label="Різниця" id="comp-days-diff" class="highlight">0 днів</td>
+                                    <td><strong id="comp-days-lbl">Термін робіт</strong></td>
+                                    <td id="comp-days-exc">0 днів</td>
+                                    <td id="comp-days-man">0 днів</td>
+                                    <td id="comp-days-diff" class="highlight">0 днів</td>
                                 </tr>
                                 <tr>
-                                    <td data-label="Показник"><strong>Витрата ДП Пального</strong></td>
-                                    <td data-label="🚜 Екскаватор" id="comp-fuel-exc">0 л</td>
-                                    <td data-label="⛏️ Вручну" id="comp-fuel-man">0 л</td>
-                                    <td data-label="Різниця" id="comp-fuel-diff" style="color:var(--accent-green); font-weight:700;">-0 л</td>
+                                    <td><strong>Витрата ДП Пального</strong></td>
+                                    <td id="comp-fuel-exc">0 л</td>
+                                    <td id="comp-fuel-man">0 л</td>
+                                    <td id="comp-fuel-diff" style="color:var(--accent-green); font-weight:700;">-0 л</td>
                                 </tr>
                             </tbody>
                         </table>
@@ -687,68 +736,19 @@
                 </div>
 
                 <div class="collapsible-wrapper" id="wrapper-spec">
-                    <div class="mobile-cards-table">
+                    <div class="table-responsive">
                         <table>
                             <thead>
                                 <tr><th>Споруда</th><th>Габарити / Глибина</th><th>Колоди</th><th>Дошка/Брус</th><th>Скоби</th><th>Люд-год (Екск / Руч)</th></tr>
                             </thead>
                             <tbody>
-                                <tr id="row-dugout">
-                                    <td data-label="Споруда"><strong>Бліндаж</strong></td>
-                                    <td data-label="Габарити">3х4 м</td>
-                                    <td data-label="Колоди">14 м<sup>3</sup></td>
-                                    <td data-label="Дошка/Брус">3.0 м<sup>3</sup></td>
-                                    <td data-label="Скоби">280 шт</td>
-                                    <td data-label="Люд-год">30 / 140 люд-год</td>
-                                </tr>
-                                <tr id="row-store">
-                                    <td data-label="Споруда"><strong>Склад</strong></td>
-                                    <td data-label="Габарити">3х3 м</td>
-                                    <td data-label="Колоди">8 м<sup>3</sup></td>
-                                    <td data-label="Дошка/Брус">2.5 м<sup>3</sup></td>
-                                    <td data-label="Скоби">220 шт</td>
-                                    <td data-label="Люд-год">20 / 90 люд-год</td>
-                                </tr>
-                                <tr id="row-pilot">
-                                    <td data-label="Споруда"><strong>Укриття</strong></td>
-                                    <td data-label="Габарити">6х3 м</td>
-                                    <td data-label="Колоди">18 м<sup>3</sup></td>
-                                    <td data-label="Дошка/Брус">4.2 м<sup>3</sup></td>
-                                    <td data-label="Скоби">350 шт</td>
-                                    <td data-label="Люд-год">40 / 180 люд-год</td>
-                                </tr>
-                                <tr id="row-caponier">
-                                    <td data-label="Споруда"><strong>Капонір</strong></td>
-                                    <td data-label="Габарити">4.5х18 м</td>
-                                    <td data-label="Колоди">5 м<sup>3</sup></td>
-                                    <td data-label="Дошка/Брус">3.0 м<sup>3</sup></td>
-                                    <td data-label="Скоби">50 шт</td>
-                                    <td data-label="Люд-год">25 / 220 люд-год</td>
-                                </tr>
-                                <tr id="row-wc">
-                                    <td data-label="Споруда"><strong>Вбиральня</strong></td>
-                                    <td data-label="Габарити">2.2х2 м (гл. 2м)</td>
-                                    <td data-label="Колоди">2.5 м<sup>3</sup></td>
-                                    <td data-label="Дошка/Брус">2.0 м<sup>3</sup></td>
-                                    <td data-label="Скоби">50 шт</td>
-                                    <td data-label="Люд-год">12 / 45 люд-год</td>
-                                </tr>
-                                <tr id="row-gen">
-                                    <td data-label="Споруда"><strong>Генераторна</strong></td>
-                                    <td data-label="Габарити">Глибина 1.2м</td>
-                                    <td data-label="Колоди">—</td>
-                                    <td data-label="Дошка/Брус">2.0 м<sup>3</sup></td>
-                                    <td data-label="Скоби">—</td>
-                                    <td data-label="Люд-год">6 / 18 люд-год</td>
-                                </tr>
-                                <tr id="row-trench">
-                                    <td data-label="Споруда"><strong>Траншея (1м)</strong></td>
-                                    <td data-label="Габарити">Шир. 1.5м</td>
-                                    <td data-label="Колоди">—</td>
-                                    <td data-label="Дошка/Брус">0.04 м<sup>3</sup></td>
-                                    <td data-label="Скоби">1 шт</td>
-                                    <td data-label="Люд-год">1.5 / 5.0 люд-год</td>
-                                </tr>
+                                <tr id="row-dugout"><td><strong>Бліндаж</strong></td><td>3х4 м</td><td>14 м<sup>3</sup></td><td>3.0 м<sup>3</sup></td><td>280 шт</td><td>30 / 140 люд-год</td></tr>
+                                <tr id="row-store"><td><strong>Склад</strong></td><td>3х3 м</td><td>8 м<sup>3</sup></td><td>2.5 м<sup>3</sup></td><td>220 шт</td><td>20 / 90 люд-год</td></tr>
+                                <tr id="row-pilot"><td><strong>Укриття</strong></td><td>6х3 м</td><td>18 м<sup>3</sup></td><td>4.2 м<sup>3</sup></td><td>350 шт</td><td>40 / 180 люд-год</td></tr>
+                                <tr id="row-caponier"><td><strong>Капонір</strong></td><td>4.5х18 м</td><td>5 м<sup>3</sup></td><td>3.0 м<sup>3</sup></td><td>50 шт</td><td>25 / 220 люд-год</td></tr>
+                                <tr id="row-wc"><td><strong>Вбиральня</strong></td><td>2.2х2 м (гл. 2м)</td><td>2.5 м<sup>3</sup></td><td>2.0 м<sup>3</sup></td><td>50 шт</td><td>12 / 45 люд-год</td></tr>
+                                <tr id="row-gen"><td><strong>Генераторна</strong></td><td>Глибина 1.2м</td><td>—</td><td>2.0 м<sup>3</sup></td><td>—</td><td>6 / 18 люд-год</td></tr>
+                                <tr id="row-trench"><td><strong>Траншея (1м)</strong></td><td>Шир. 1.5м</td><td>—</td><td>0.04 м<sup>3</sup></td><td>1 шт</td><td>1.5 / 5.0 люд-год</td></tr>
                             </tbody>
                         </table>
                     </div>
@@ -989,6 +989,71 @@
     <script>
         let activeFilter = 'all';
         let activeDigMethod = 'excavator';
+
+        // Дані схем з папки schemes/ та продубльована специфікація
+        const localSchemesData = {
+            dugout_main: {
+                title: "Бліндаж 3х4 м (Загальна конструктивна схема та перекриття)",
+                img: "./schemes/dugout_main.jpg",
+                specs: `<strong>Потреба в матеріалах:</strong><br>
+                • Лісоматеріал (колоди): 13 м³<br>
+                • Лісоматеріал (дошка): 2 м³<br>
+                • Лісоматеріал (брус): 1 м³<br>
+                • Скоба будівельна: 280 шт<br>
+                • Плівка 300мкм: 60 м²<br>
+                • Цвяхи: 13 кг<br>
+                <em>Примітка: Основне перекриття "Накат" (20-30 колод). Шар плівки + землі (40см на 1 накат).</em>`
+            },
+            dugout_1: {
+                title: "Склади, Бліндажі та Капоніри (Матеріали та розміри)",
+                img: "./schemes/dugout_1.jpg",
+                specs: `<strong>Специфікація споруд:</strong><br>
+                <strong>1. Склад 3х3 (1 вихід):</strong> Колоди 4000х200 - 8м³, Дошка - 1.5м³, Брус 100х50 - 1м³, Скоби - 220шт, Плівка - 50м².<br>
+                <strong>2. Бліндаж 3х4:</strong> Колоди - 14м³, Дошка - 2м³, Брус 100х50 - 1м³, Скоби - 280шт, Плівка - 60м².<br>
+                <strong>3. Бліндаж пілотів 6х3 (2 виходи):</strong> Колоди 4000х200 - 18м³ (180-110шт), Колоди 6000х200 - 2шт, Дошка - 3м³, Брус - 1.2м³, Скоби - 350шт, Плівка - 90м².<br>
+                <strong>4. Капонір 4.5х18:</strong> Колоди 4000х200 - 3м³, 6000х200 - 2м³, Дошка - 2м³, Брус - 1м³, Скоби - 50шт, Плівка - 72м².`
+            },
+            dugout_2: {
+                title: "Вбиральня, Генераторна, Траншея (в т.ч. УГТ-2)",
+                img: "./schemes/dugout_2.jpg",
+                specs: `<strong>Специфікація додаткових об'єктів:</strong><br>
+                <strong>• Вбиральня (2.2х2м):</strong> Колоди 4м - 2.5м³, Дошка - 1м³, Брус - 1м³, Скоби - 50шт, Плівка - 40м².<br>
+                <strong>• Генераторна:</strong> Дошка - 1м³, Брус 100х50 - 1м³, Плівка - 4м², Труба 120мм (витяжка/вихлоп).<br>
+                <strong>• Траншея звичайна (на 1м):</strong> Колоди - 1м³, Дошка - 0.5м³, Брус 50х100, Сітка металева 1900х3000мм - 1шт.<br>
+                <strong>• Траншея УГТ-2 (на 1м):</strong> Лист УГТ-2 - 1шт, Дошка, Брус, Агроволокно - 4м, Сітка металева.`
+            },
+            tortuga: {
+                title: "Модульне укриття «ТОРТУГА» (Збірне каркасне укриття)",
+                img: "./schemes/Tortuga.jpg",
+                specs: `<strong>Особливості конструкції:</strong><br>
+                • Збірний сталевий арочний каркас із дуг та розпірок.<br>
+                • Встановлюється у котлован із послідуючим укладанням накату та ґрунтового засипу.<br>
+                • Використовується як швидке мобільне укриття для особового складу.`
+            },
+            cargo: {
+                title: "Морський Контейнер Cargo 12.19м (Облаштування під житловий блок)",
+                img: "./schemes/Cargo.jpg",
+                specs: `<strong>Габарити контейнера:</strong> 12.19м х 2.44м х 2.59м.<br>
+                • Утеплення: Пінопласт 50 мм (15 пл), ОСБ 10 мм.<br>
+                • Оснащення: Двоярусні ліжка (1900х700х1720мм), аварійний вихід.<br>
+                <em>Важливо: Накат перекриття укладається на окремі несучі опори навколо контейнера!</em>`
+            }
+        };
+
+        function renderBlueprint(schemaKey) {
+            const data = localSchemesData[schemaKey] || localSchemesData.dugout_main;
+            const container = document.getElementById('blueprint-content');
+            if (container) {
+                container.innerHTML = `
+                    <div class="blueprint-title">${data.title}</div>
+                    <img src="${data.img}" alt="${data.title}" class="blueprint-img" onclick="window.open('${data.img}', '_blank')">
+                    <div class="blueprint-specs-box">
+                        <div class="blueprint-specs-title"><i class="fa-solid fa-list-check"></i> Витяг зі специфікації креслення</div>
+                        <div>${data.specs}</div>
+                    </div>
+                `;
+            }
+        }
 
         function getThemeColors() {
             const style = getComputedStyle(document.body);
@@ -1454,6 +1519,32 @@ ${addSpecs.length > 0 ? addSpecs.join('\n') + '\n' : ''}
                         }, 2000);
                     });
                 });
+            }
+
+            // Перемикач схем у новому блоці
+            const blueprintBtns = document.querySelectorAll('.blueprint-btn');
+            blueprintBtns.forEach(btn => {
+                btn.addEventListener('click', function() {
+                    blueprintBtns.forEach(b => b.classList.remove('active'));
+                    this.classList.add('active');
+                    renderBlueprint(this.getAttribute('data-schema'));
+                });
+            });
+            renderBlueprint('dugout_main'); // Ініціалізація першої схеми
+
+            const btnToggleBlueprints = document.getElementById('btn-toggle-blueprints');
+            const wrapperBlueprints = document.getElementById('wrapper-blueprints');
+            const iconBlueprints = document.getElementById('icon-blueprints');
+
+            btnToggleBlueprints.addEventListener('click', function() {
+                const isCollapsed = wrapperBlueprints.classList.toggle('collapsed');
+                iconBlueprints.classList.toggle('collapsed', isCollapsed);
+                localStorage.setItem('fort_blueprints_collapsed', isCollapsed);
+            });
+
+            if (localStorage.getItem('fort_blueprints_collapsed') === 'true') {
+                wrapperBlueprints.classList.add('collapsed');
+                iconBlueprints.classList.add('collapsed');
             }
 
             const btnToggleCompare = document.getElementById('btn-toggle-compare');
