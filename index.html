@@ -2,7 +2,7 @@
 <html lang="uk">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>Інженерно-Фортифікаційний Дашборд</title>
     
     <!-- PWA та Мета-теги для Мобільних Пристроїв -->
@@ -74,7 +74,7 @@
             --accent-red: #be123c;
         }
 
-        * { box-sizing: border-box; margin: 0; padding: 0; }
+        * { box-sizing: border-box; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; }
         
         body { 
             background-color: var(--bg-color); 
@@ -84,16 +84,50 @@
             background-size: 20px 20px;
             color: var(--text-main); 
             font-family: 'Inter', sans-serif; 
-            font-size: 14px; 
-            padding: 16px; 
+            font-size: 13px; 
+            padding: 10px; 
             transition: background-color 0.3s ease, color 0.3s ease;
         }
+
+        @media (min-width: 768px) {
+            body { padding: 16px; font-size: 14px; }
+        }
         
-        .header { background: var(--panel-bg); border-bottom: 1px solid var(--panel-border); padding: 16px; border-radius: 10px; display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px; flex-wrap: wrap; gap: 12px; }
-        .header h1 { color: var(--text-title); font-family: 'Outfit', sans-serif; font-size: 20px; display: flex; align-items: center; gap: 10px; }
+        .header { 
+            background: var(--panel-bg); 
+            border: 1px solid var(--panel-border); 
+            padding: 12px; 
+            border-radius: 10px; 
+            display: flex; 
+            justify-content: space-between; 
+            align-items: center; 
+            margin-bottom: 12px; 
+            flex-wrap: wrap; 
+            gap: 10px; 
+        }
+        .header h1 { 
+            color: var(--text-title); 
+            font-family: 'Outfit', sans-serif; 
+            font-size: 16px; 
+            display: flex; 
+            align-items: center; 
+            gap: 8px; 
+        }
+        @media (min-width: 768px) { .header h1 { font-size: 20px; } }
         .header h1 i { color: var(--accent-cyan); }
-        .header-actions { display: flex; align-items: center; gap: 12px; }
-        .badge { background: rgba(56, 189, 248, 0.1); border: 1px solid var(--accent-cyan); color: var(--accent-cyan); padding: 5px 10px; border-radius: 6px; font-size: 11px; font-weight: 600; }
+        .header-actions { display: flex; align-items: center; gap: 8px; width: 100%; justify-content: space-between; }
+        @media (min-width: 500px) { .header-actions { width: auto; justify-content: flex-end; } }
+        
+        .badge { 
+            background: rgba(56, 189, 248, 0.1); 
+            border: 1px solid var(--accent-cyan); 
+            color: var(--accent-cyan); 
+            padding: 4px 8px; 
+            border-radius: 6px; 
+            font-size: 10px; 
+            font-weight: 600; 
+            white-space: nowrap;
+        }
 
         .theme-selector {
             display: flex;
@@ -107,7 +141,7 @@
             background: transparent;
             border: none;
             color: var(--text-main);
-            padding: 5px 8px;
+            padding: 6px 10px;
             border-radius: 4px;
             font-size: 11px;
             font-weight: 600;
@@ -124,33 +158,25 @@
             box-shadow: 0 1px 3px rgba(0,0,0,0.3);
         }
 
-        /* Верхні картки: Десктоп сітка / Мобільний Scroll-Snap Slider */
+        /* Верхні картки з підтримкою горизонтальної прокрутки для мобільних */
         .cards { 
-            display: grid; 
-            grid-template-columns: repeat(auto-fit, minmax(110px, 1fr)); 
-            gap: 10px; 
-            margin-bottom: 16px; 
+            display: flex;
+            overflow-x: auto;
+            scroll-snap-type: x mandatory;
+            -webkit-overflow-scrolling: touch;
+            padding-bottom: 6px;
+            gap: 8px;
+            margin-bottom: 12px;
         }
+        .cards::-webkit-scrollbar { height: 4px; }
+        .cards::-webkit-scrollbar-thumb { background: var(--subpanel-border); border-radius: 2px; }
 
-        @media (max-width: 768px) {
+        @media (min-width: 900px) {
             .cards {
-                display: flex;
-                overflow-x: auto;
-                scroll-snap-type: x mandatory;
-                -webkit-overflow-scrolling: touch;
-                padding-bottom: 8px;
-                gap: 10px;
-            }
-            .cards::-webkit-scrollbar {
-                height: 4px;
-            }
-            .cards::-webkit-scrollbar-thumb {
-                background: var(--subpanel-border);
-                border-radius: 2px;
-            }
-            .card {
-                flex: 0 0 130px;
-                scroll-snap-align: start;
+                display: grid;
+                grid-template-columns: repeat(auto-fit, minmax(110px, 1fr));
+                overflow-x: visible;
+                padding-bottom: 0;
             }
         }
         
@@ -160,32 +186,39 @@
             background-size: 100% 8px;
             border: 1px solid var(--panel-border); 
             border-radius: 8px; 
-            padding: 10px 12px; 
+            padding: 8px 10px; 
+            flex: 0 0 120px;
+            scroll-snap-align: start;
         }
-        .card-title { color: var(--text-muted); font-size: 10px; font-weight: 700; text-transform: uppercase; margin-bottom: 4px; }
-        .card-val { color: var(--text-title); font-family: 'Outfit', sans-serif; font-size: 18px; font-weight: 600; }
+        @media (min-width: 900px) { .card { flex: initial; } }
+        
+        .card-title { color: var(--text-muted); font-size: 9px; font-weight: 700; text-transform: uppercase; margin-bottom: 2px; }
+        .card-val { color: var(--text-title); font-family: 'Outfit', sans-serif; font-size: 16px; font-weight: 600; }
         .card-val.amber { color: var(--accent-amber); }
         .card-val.blue { color: var(--accent-cyan); }
         .card-val.purple { color: var(--accent-purple); }
-        .card-sub { font-size: 10px; color: var(--text-muted); margin-top: 2px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+        .card-sub { font-size: 9px; color: var(--text-muted); margin-top: 2px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
 
         .filter-bar {
             display: flex;
             align-items: center;
             gap: 6px;
-            margin-bottom: 14px;
-            flex-wrap: wrap;
+            margin-bottom: 10px;
+            overflow-x: auto;
+            white-space: nowrap;
             background: var(--subpanel-bg);
-            padding: 8px 10px;
+            padding: 6px 8px;
             border-radius: 8px;
             border: 1px solid var(--subpanel-border);
+            -webkit-overflow-scrolling: touch;
         }
+        .filter-bar::-webkit-scrollbar { height: 2px; }
         .filter-label {
-            font-size: 11px;
+            font-size: 10px;
             font-weight: 700;
             color: var(--accent-cyan);
             text-transform: uppercase;
-            margin-right: 4px;
+            margin-right: 2px;
             display: flex;
             align-items: center;
             gap: 4px;
@@ -194,16 +227,12 @@
             background: var(--panel-bg);
             border: 1px solid var(--subpanel-border);
             color: var(--text-main);
-            padding: 4px 10px;
+            padding: 5px 10px;
             border-radius: 6px;
             font-size: 11px;
             font-weight: 500;
             cursor: pointer;
             transition: all 0.2s ease;
-        }
-        .filter-btn:hover {
-            color: var(--text-title);
-            border-color: var(--accent-cyan);
         }
         .filter-btn.active {
             background: var(--accent-cyan);
@@ -215,17 +244,17 @@
         .dig-method-selector {
             display: flex;
             gap: 8px;
-            margin-bottom: 14px;
+            margin-bottom: 10px;
             background: rgba(245, 158, 11, 0.05);
             border: 1px solid rgba(245, 158, 11, 0.2);
-            padding: 8px 12px;
+            padding: 8px;
             border-radius: 8px;
             align-items: center;
             justify-content: space-between;
             flex-wrap: wrap;
         }
         .dig-method-title {
-            font-size: 11px;
+            font-size: 10px;
             font-weight: 700;
             color: var(--accent-amber);
             text-transform: uppercase;
@@ -233,15 +262,15 @@
             align-items: center;
             gap: 6px;
         }
-        .dig-options {
-            display: flex;
-            gap: 6px;
-        }
+        .dig-options { display: flex; gap: 6px; width: 100%; }
+        @media (min-width: 480px) { .dig-options { width: auto; } }
+        
         .dig-btn {
+            flex: 1;
             background: var(--subpanel-bg);
             border: 1px solid var(--subpanel-border);
             color: var(--text-main);
-            padding: 4px 10px;
+            padding: 6px 10px;
             border-radius: 6px;
             font-size: 11px;
             font-weight: 600;
@@ -249,6 +278,7 @@
             transition: all 0.2s ease;
             display: flex;
             align-items: center;
+            justify-content: center;
             gap: 4px;
         }
         .dig-btn.active {
@@ -257,18 +287,32 @@
             border-color: var(--accent-amber);
         }
 
-        .grid { display: grid; grid-template-columns: 2fr 1fr; gap: 16px; }
-        @media (max-width: 900px) { .grid { grid-template-columns: 1fr; } }
+        .grid { display: grid; grid-template-columns: 1fr; gap: 12px; }
+        @media (min-width: 960px) { .grid { grid-template-columns: 2fr 1fr; gap: 16px; } }
 
         .panel { 
             background: var(--panel-bg); 
             border: 1px solid var(--panel-border); 
             border-radius: 10px; 
-            padding: 16px; 
-            margin-bottom: 16px; 
+            padding: 12px; 
+            margin-bottom: 12px; 
             position: relative;
         }
-        .panel-title { color: var(--text-title); font-family: 'Outfit', sans-serif; font-size: 16px; font-weight: 600; margin-bottom: 14px; display: flex; align-items: center; gap: 8px; border-bottom: 1px solid var(--panel-border); padding-bottom: 8px; }
+        @media (min-width: 768px) { .panel { padding: 16px; margin-bottom: 16px; } }
+        
+        .panel-title { 
+            color: var(--text-title); 
+            font-family: 'Outfit', sans-serif; 
+            font-size: 14px; 
+            font-weight: 600; 
+            margin-bottom: 10px; 
+            display: flex; 
+            align-items: center; 
+            gap: 8px; 
+            border-bottom: 1px solid var(--panel-border); 
+            padding-bottom: 8px; 
+        }
+        @media (min-width: 768px) { .panel-title { font-size: 16px; margin-bottom: 14px; } }
         .panel-title i { color: var(--accent-cyan); }
 
         .panel-title-toggle {
@@ -276,42 +320,66 @@
             user-select: none;
             justify-content: space-between;
             transition: opacity 0.2s ease;
+            margin-bottom: 0;
+            padding-bottom: 8px;
         }
-        .panel-title-toggle:hover {
-            opacity: 0.85;
-        }
+        .panel-title-toggle:hover { opacity: 0.85; }
+        
         .toggle-icon {
-            font-size: 13px;
+            font-size: 12px;
             transition: transform 0.3s ease;
         }
-        .toggle-icon.collapsed {
-            transform: rotate(-90deg);
+        .toggle-icon.collapsed { transform: rotate(-90deg); }
+
+        .inputs { display: grid; grid-template-columns: repeat(2, 1fr); gap: 8px; margin-bottom: 10px; }
+        @media (min-width: 550px) { .inputs { grid-template-columns: repeat(auto-fit, minmax(110px, 1fr)); gap: 10px; } }
+        
+        .input-box { display: flex; flex-direction: column; justify-content: flex-end; gap: 3px; }
+        .input-box label { font-size: 10px; color: var(--text-main); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+        .input-box input, .input-box select { 
+            background: var(--subpanel-bg); 
+            border: 1px solid var(--subpanel-border); 
+            border-radius: 6px; 
+            color: var(--text-title); 
+            padding: 8px; 
+            outline: none; 
+            font-size: 12px; 
+            width: 100%; 
         }
 
-        .inputs { display: grid; grid-template-columns: repeat(auto-fit, minmax(120px, 1fr)); gap: 10px; margin-bottom: 14px; }
-        .input-box { display: flex; flex-direction: column; justify-content: flex-end; gap: 4px; }
-        .input-box label { font-size: 11px; color: var(--text-main); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-        .input-box input, .input-box select { background: var(--subpanel-bg); border: 1px solid var(--subpanel-border); border-radius: 6px; color: var(--text-title); padding: 6px 10px; outline: none; font-size: 13px; width: 100%; }
-
-        .sum-box { background: var(--subpanel-bg); border-left: 4px solid var(--accent-cyan); border-radius: 6px; padding: 12px; display: grid; grid-template-columns: repeat(auto-fit, minmax(110px, 1fr)); gap: 10px; margin-bottom: 14px; }
+        .sum-box { 
+            background: var(--subpanel-bg); 
+            border-left: 4px solid var(--accent-cyan); 
+            border-radius: 6px; 
+            padding: 10px; 
+            display: grid; 
+            grid-template-columns: repeat(2, 1fr); 
+            gap: 8px; 
+            margin-bottom: 10px; 
+        }
+        @media (min-width: 550px) { .sum-box { grid-template-columns: repeat(auto-fit, minmax(110px, 1fr)); } }
+        
         .sum-box.amber { border-left-color: var(--accent-amber); }
         .sum-box.purple { border-left-color: var(--accent-purple); }
         .sum-item { display: flex; flex-direction: column; }
-        .sum-item .lbl { font-size: 10px; color: var(--text-muted); text-transform: uppercase; }
-        .sum-item .val { font-family: 'Outfit', sans-serif; font-size: 16px; color: var(--accent-cyan); font-weight: 600; }
+        .sum-item .lbl { font-size: 9px; color: var(--text-muted); text-transform: uppercase; }
+        .sum-item .val { font-family: 'Outfit', sans-serif; font-size: 14px; color: var(--accent-cyan); font-weight: 600; }
         .sum-item .val.amber { color: var(--accent-amber); }
         .sum-item .val.purple { color: var(--accent-purple); }
 
+        /* Анімація згортання та розгортання */
         .collapsible-wrapper {
-            transition: max-height 0.3s ease, opacity 0.3s ease;
+            transition: max-height 0.35s ease, opacity 0.25s ease, margin 0.3s ease;
             overflow: hidden;
-            max-height: 1200px;
+            max-height: 1500px;
             opacity: 1;
+            margin-top: 10px;
         }
         .collapsible-wrapper.collapsed {
             max-height: 0;
             opacity: 0;
-            margin: 0;
+            margin-top: 0;
+            pointer-events: none;
         }
 
         .table-responsive {
@@ -320,45 +388,31 @@
             -webkit-overflow-scrolling: touch;
         }
 
-        .compare-table {
-            width: 100%;
-            border-collapse: collapse;
-            margin-top: 6px;
-            font-size: 12px;
-        }
-        .compare-table th, .compare-table td {
-            padding: 6px 8px;
-            border: 1px solid var(--panel-border);
-            text-align: center;
-        }
-        .compare-table th {
-            background: var(--subpanel-bg);
-            color: var(--text-title);
-        }
-        .compare-table td.highlight {
-            font-weight: 700;
-            color: var(--accent-cyan);
-        }
+        .compare-table { width: 100%; border-collapse: collapse; font-size: 11px; }
+        .compare-table th, .compare-table td { padding: 6px; border: 1px solid var(--panel-border); text-align: center; }
+        .compare-table th { background: var(--subpanel-bg); color: var(--text-title); font-size: 10px; }
+        .compare-table td.highlight { font-weight: 700; color: var(--accent-cyan); }
 
-        table { width: 100%; border-collapse: collapse; text-align: left; font-size: 12px; }
-        th, td { padding: 8px 10px; border-bottom: 1px solid var(--panel-border); }
-        th { background: var(--subpanel-bg); color: var(--accent-cyan); font-size: 11px; text-transform: uppercase; }
+        table { width: 100%; border-collapse: collapse; text-align: left; font-size: 11px; }
+        th, td { padding: 6px 8px; border-bottom: 1px solid var(--panel-border); }
+        th { background: var(--subpanel-bg); color: var(--accent-cyan); font-size: 10px; text-transform: uppercase; }
         tr.active-row { background: rgba(56, 189, 248, 0.08); }
 
-        /* Стилі для панелі реальних Креслень з папки schemes/ */
+        /* Стилі для Креслень */
         .blueprint-nav {
             display: flex;
             gap: 6px;
-            margin-bottom: 12px;
+            margin-bottom: 10px;
             overflow-x: auto;
             padding-bottom: 6px;
             border-bottom: 1px solid var(--panel-border);
+            -webkit-overflow-scrolling: touch;
         }
         .blueprint-btn {
             background: var(--subpanel-bg);
             border: 1px solid var(--subpanel-border);
             color: var(--text-main);
-            padding: 6px 12px;
+            padding: 6px 10px;
             border-radius: 6px;
             font-size: 11px;
             font-weight: 600;
@@ -375,26 +429,25 @@
             background: #000000;
             border: 1px solid var(--subpanel-border);
             border-radius: 8px;
-            padding: 12px;
+            padding: 10px;
             display: flex;
             flex-direction: column;
             align-items: center;
-            justify-content: center;
         }
         .blueprint-title {
-            font-size: 13px;
+            font-size: 12px;
             font-weight: 600;
             color: var(--accent-cyan);
-            margin-bottom: 10px;
+            margin-bottom: 8px;
             text-align: center;
         }
         .blueprint-img {
             width: 100%;
-            max-height: 480px;
+            max-height: 380px;
             object-fit: contain;
             border-radius: 4px;
             border: 1px solid var(--panel-border);
-            cursor: zoom-in;
+            cursor: pointer;
             background: #fff;
         }
         .blueprint-specs-box {
@@ -402,120 +455,118 @@
             background: var(--subpanel-bg);
             border: 1px solid var(--subpanel-border);
             border-radius: 6px;
-            padding: 10px 12px;
-            margin-top: 10px;
+            padding: 8px 10px;
+            margin-top: 8px;
             font-size: 11px;
             color: var(--text-title);
-            line-height: 1.5;
+            line-height: 1.4;
         }
         .blueprint-specs-title {
             color: var(--accent-amber);
             font-weight: 700;
             text-transform: uppercase;
-            font-size: 10px;
+            font-size: 9px;
             margin-bottom: 4px;
             display: flex;
             align-items: center;
             gap: 6px;
         }
 
-        .transport-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); gap: 12px; }
-        .transport-card { background: var(--subpanel-bg); border: 1px solid var(--subpanel-border); border-radius: 8px; padding: 12px; display: flex; flex-direction: column; gap: 4px; }
-        .transport-name { color: var(--text-title); font-weight: 600; font-size: 12px; display: flex; align-items: center; gap: 6px; }
+        .transport-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(110px, 1fr)); gap: 8px; }
+        .transport-card { background: var(--subpanel-bg); border: 1px solid var(--subpanel-border); border-radius: 8px; padding: 8px 10px; display: flex; flex-direction: column; gap: 2px; }
+        .transport-name { color: var(--text-title); font-weight: 600; font-size: 11px; display: flex; align-items: center; gap: 4px; }
         .transport-name i { color: var(--accent-cyan); }
-        .transport-cap { font-size: 10px; color: var(--text-muted); }
-        .transport-trips { font-family: 'Outfit', sans-serif; font-size: 18px; font-weight: 600; color: var(--accent-cyan); margin-top: 2px; }
+        .transport-cap { font-size: 9px; color: var(--text-muted); }
+        .transport-trips { font-family: 'Outfit', sans-serif; font-size: 16px; font-weight: 600; color: var(--accent-cyan); margin-top: 2px; }
 
-        .reminders-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 12px; }
-        .reminder-card { background: var(--subpanel-bg); border-radius: 8px; padding: 12px; border-left: 4px solid var(--accent-cyan); }
-        .reminder-card.cyan { border-left-color: var(--accent-cyan); }
+        .reminders-grid { display: grid; grid-template-columns: 1fr; gap: 8px; }
+        @media (min-width: 600px) { .reminders-grid { grid-template-columns: repeat(2, 1fr); gap: 10px; } }
+        
+        .reminder-card { background: var(--subpanel-bg); border-radius: 8px; padding: 10px; border-left: 4px solid var(--accent-cyan); }
         .reminder-card.teal { border-left-color: var(--accent-green); }
-        .reminder-header { color: var(--text-title); font-weight: 600; font-size: 13px; margin-bottom: 6px; display: flex; align-items: center; gap: 6px; }
+        .reminder-header { color: var(--text-title); font-weight: 600; font-size: 12px; margin-bottom: 4px; display: flex; align-items: center; gap: 6px; }
         .reminder-card.cyan .reminder-header i { color: var(--accent-cyan); }
         .reminder-card.teal .reminder-header i { color: var(--accent-green); }
-        .reminder-list { list-style: none; display: flex; flex-direction: column; gap: 4px; font-size: 11px; color: var(--text-main); }
-        .reminder-list li { display: flex; align-items: flex-start; gap: 6px; line-height: 1.3; }
-        .reminder-list li i { color: var(--text-muted); margin-top: 3px; font-size: 9px; }
+        .reminder-list { list-style: none; display: flex; flex-direction: column; gap: 3px; font-size: 10px; color: var(--text-main); }
+        .reminder-list li { display: flex; align-items: flex-start; gap: 4px; line-height: 1.3; }
+        .reminder-list li i { color: var(--text-muted); margin-top: 2px; font-size: 8px; }
 
-        .pie-layout { display: flex; align-items: center; gap: 12px; flex-wrap: wrap; }
-        .pie-left { display: flex; flex-direction: column; align-items: center; justify-content: center; flex: 1; min-width: 120px; }
-        .pie-right { flex: 1; min-width: 140px; display: flex; flex-direction: column; gap: 12px; border-left: 1px solid var(--panel-border); padding-left: 12px; }
+        .pie-layout { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; }
+        .pie-left { display: flex; flex-direction: column; align-items: center; justify-content: center; flex: 1; min-width: 100px; }
+        .pie-right { flex: 1.2; min-width: 130px; display: flex; flex-direction: column; gap: 10px; border-left: 1px solid var(--panel-border); padding-left: 10px; }
 
-        .mini-stat-title { font-size: 10px; font-weight: 700; color: var(--accent-cyan); text-transform: uppercase; display: flex; align-items: center; justify-content: space-between; margin-bottom: 4px; }
-        .mini-stat-val { font-family: 'Outfit', sans-serif; font-size: 12px; color: var(--text-title); }
+        .mini-stat-title { font-size: 9px; font-weight: 700; color: var(--accent-cyan); text-transform: uppercase; display: flex; align-items: center; justify-content: space-between; margin-bottom: 2px; }
+        .mini-stat-val { font-family: 'Outfit', sans-serif; font-size: 11px; color: var(--text-title); }
         .progress-bar { width: 100%; height: 5px; background: var(--subpanel-bg); border-radius: 3px; overflow: hidden; display: flex; }
         .progress-segment { height: 100%; transition: width 0.2s ease; }
 
-        .work-progress-list { display: flex; flex-direction: column; gap: 10px; }
-        .work-item { display: flex; flex-direction: column; gap: 3px; }
-        .work-info { display: flex; justify-content: space-between; font-size: 11px; }
-        .work-lbl { color: var(--text-main); display: flex; align-items: center; gap: 6px; }
+        .work-progress-list { display: flex; flex-direction: column; gap: 8px; }
+        .work-item { display: flex; flex-direction: column; gap: 2px; }
+        .work-info { display: flex; justify-content: space-between; font-size: 10px; }
+        .work-lbl { color: var(--text-main); display: flex; align-items: center; gap: 4px; }
         .work-val { color: var(--text-title); font-weight: 600; font-family: 'Outfit', sans-serif; }
-        .work-bar { width: 100%; height: 6px; background: var(--subpanel-bg); border-radius: 3px; overflow: hidden; }
+        .work-bar { width: 100%; height: 5px; background: var(--subpanel-bg); border-radius: 3px; overflow: hidden; }
         .work-fill { height: 100%; border-radius: 3px; transition: width 0.3s ease; }
 
-        .time-widget-box { background: var(--subpanel-bg); border: 1px solid var(--subpanel-border); border-radius: 8px; padding: 12px; display: flex; flex-direction: column; gap: 10px; }
-        .time-main-display { display: flex; align-items: center; justify-content: space-between; border-bottom: 1px dashed var(--panel-border); padding-bottom: 8px; }
-        .time-big-val { font-family: 'Outfit', sans-serif; font-size: 22px; font-weight: 700; color: var(--accent-green); }
-        .time-big-lbl { font-size: 10px; color: var(--text-muted); text-transform: uppercase; }
-        .time-details-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; font-size: 11px; }
+        .time-widget-box { background: var(--subpanel-bg); border: 1px solid var(--subpanel-border); border-radius: 8px; padding: 10px; display: flex; flex-direction: column; gap: 8px; }
+        .time-main-display { display: flex; align-items: center; justify-content: space-between; border-bottom: 1px dashed var(--panel-border); padding-bottom: 6px; }
+        .time-big-val { font-family: 'Outfit', sans-serif; font-size: 20px; font-weight: 700; color: var(--accent-green); }
+        .time-big-lbl { font-size: 9px; color: var(--text-muted); text-transform: uppercase; }
+        .time-details-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 6px; font-size: 10px; }
         .time-detail-item { display: flex; flex-direction: column; }
-        .time-detail-lbl { font-size: 9px; color: var(--text-muted); text-transform: uppercase; }
+        .time-detail-lbl { font-size: 8px; color: var(--text-muted); text-transform: uppercase; }
         .time-detail-val { font-weight: 600; color: var(--text-title); }
 
-        .warning-badge { background: rgba(244, 63, 94, 0.15); border: 1px solid var(--accent-red); color: var(--accent-red); padding: 5px 8px; border-radius: 6px; font-size: 10px; font-weight: 600; display: flex; align-items: center; gap: 6px; margin-top: 2px; }
-        .chart-container { display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 2px 0; width: 100%; }
+        .warning-badge { background: rgba(244, 63, 94, 0.15); border: 1px solid var(--accent-red); color: var(--accent-red); padding: 4px 6px; border-radius: 6px; font-size: 9px; font-weight: 600; display: flex; align-items: center; gap: 4px; }
+        .chart-container { display: flex; flex-direction: column; align-items: center; justify-content: center; width: 100%; }
         
-        .panel-footer-legend { display: flex; flex-wrap: wrap; justify-content: center; align-items: center; gap: 8px 12px; margin-top: 14px; padding-top: 10px; border-top: 1px dashed var(--panel-border); width: 100%; }
-        .legend-item { display: inline-flex; align-items: center; gap: 4px; font-size: 10px; color: var(--text-main); }
-        .legend-color { width: 7px; height: 7px; border-radius: 2px; }
+        .panel-footer-legend { display: flex; flex-wrap: wrap; justify-content: center; align-items: center; gap: 6px 10px; margin-top: 10px; padding-top: 8px; border-top: 1px dashed var(--panel-border); width: 100%; }
+        .legend-item { display: inline-flex; align-items: center; gap: 4px; font-size: 9px; color: var(--text-main); }
+        .legend-color { width: 6px; height: 6px; border-radius: 2px; }
 
-        .bar-chart { display: flex; align-items: flex-end; justify-content: space-between; height: 150px; width: 100%; border-bottom: 1px solid var(--panel-border); padding-top: 10px; background-image: linear-gradient(rgba(255, 255, 255, 0.03) 1px, transparent 1px); background-size: 100% 30px; }
+        .bar-chart { display: flex; align-items: flex-end; justify-content: space-between; height: 130px; width: 100%; border-bottom: 1px solid var(--panel-border); padding-top: 8px; background-image: linear-gradient(rgba(255, 255, 255, 0.03) 1px, transparent 1px); background-size: 100% 25px; }
         .bar-col { display: flex; flex-direction: column; align-items: center; width: 13%; height: 100%; justify-content: flex-end; opacity: 1; transition: opacity 0.2s ease; }
         .bar-col.dimmed { opacity: 0.25; }
-        .bar-fill { width: 28px; background: var(--accent-amber); border-radius: 4px 4px 0 0; min-height: 5px; transition: height 0.2s ease; }
+        .bar-fill { width: 22px; background: var(--accent-amber); border-radius: 3px 3px 0 0; min-height: 4px; transition: height 0.2s ease; }
         .bar-fill.blue { background: var(--accent-cyan); }
-        .bar-fill.amber { background: var(--accent-amber); }
         .bar-fill.purple { background: var(--accent-purple); }
-        .bar-txt { font-size: 9px; color: var(--accent-amber); margin-bottom: 2px; }
+        .bar-txt { font-size: 8px; color: var(--accent-amber); margin-bottom: 2px; }
         .bar-txt.blue { color: var(--accent-cyan); }
-        .bar-txt.amber { color: var(--accent-amber); font-weight: 600; }
         .bar-txt.purple { color: var(--accent-purple); font-weight: 600; }
-        .bar-lbl { font-size: 9px; color: var(--text-main); margin-top: 4px; text-align: center; }
+        .bar-lbl { font-size: 8px; color: var(--text-main); margin-top: 4px; text-align: center; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width: 100%; }
 
-        .req-container { display: flex; flex-direction: column; gap: 10px; }
-        .req-box { border-radius: 8px; padding: 12px; background: var(--panel-bg); }
+        .req-container { display: flex; flex-direction: column; gap: 8px; }
+        .req-box { border-radius: 6px; padding: 10px; background: var(--panel-bg); }
         .req-box.amber { border: 1px solid var(--accent-amber); }
         .req-box.blue { border: 1px solid var(--accent-cyan); }
-        .req-title { font-size: 13px; font-weight: 600; margin-bottom: 4px; display: flex; align-items: center; gap: 8px; }
+        .req-title { font-size: 11px; font-weight: 600; margin-bottom: 2px; display: flex; align-items: center; gap: 6px; }
         .req-box.amber .req-title { color: var(--accent-amber); }
         .req-box.blue .req-title { color: var(--accent-cyan); }
-        .req-text { font-size: 12px; color: var(--text-main); line-height: 1.4; }
+        .req-text { font-size: 10px; color: var(--text-main); line-height: 1.3; }
 
         /* Блок Експорту / Рапорту */
-        .export-box { background: var(--subpanel-bg); border: 1px solid var(--subpanel-border); border-radius: 8px; padding: 12px; display: flex; flex-direction: column; gap: 10px; }
-        .export-actions { display: flex; gap: 8px; flex-wrap: wrap; }
-        .btn-export { background: var(--panel-bg); border: 1px solid var(--accent-cyan); color: var(--accent-cyan); padding: 6px 12px; border-radius: 6px; font-weight: 600; font-size: 11px; cursor: pointer; display: flex; align-items: center; gap: 6px; transition: all 0.2s ease; }
-        .btn-export:hover { background: var(--accent-cyan); color: var(--panel-bg); }
+        .export-box { background: var(--subpanel-bg); border: 1px solid var(--subpanel-border); border-radius: 8px; padding: 10px; display: flex; flex-direction: column; gap: 8px; }
+        .export-actions { display: flex; gap: 6px; }
+        .btn-export { width: 100%; justify-content: center; background: var(--panel-bg); border: 1px solid var(--accent-cyan); color: var(--accent-cyan); padding: 8px; border-radius: 6px; font-weight: 600; font-size: 11px; cursor: pointer; display: flex; align-items: center; gap: 6px; transition: all 0.2s ease; }
         .btn-export.copied { background: var(--accent-green) !important; border-color: var(--accent-green) !important; color: #000 !important; }
-        .report-preview { background: var(--panel-bg); border: 1px solid var(--panel-border); border-radius: 6px; padding: 12px; font-family: monospace; font-size: 11px; color: var(--text-title); white-space: pre-wrap; max-height: 200px; overflow-y: auto; line-height: 1.4; }
+        .report-preview { background: var(--panel-bg); border: 1px solid var(--panel-border); border-radius: 6px; padding: 10px; font-family: monospace; font-size: 10px; color: var(--text-title); white-space: pre-wrap; max-height: 180px; overflow-y: auto; line-height: 1.3; }
     </style>
 </head>
 <body>
 
     <div class="header">
-        <h1><i class="fa-solid fa-shield-halved"></i> Інженерно-Фортифікаційний Дашборд</h1>
+        <h1><i class="fa-solid fa-shield-halved"></i> Інженерний Дашборд</h1>
         <div class="header-actions">
             <div class="theme-selector">
-                <button class="theme-btn active" data-theme="default" title="Денний / Стандартний режим"><i class="fa-solid fa-sun"></i> День</button>
-                <button class="theme-btn" data-theme="night" title="Режим світломаскування"><i class="fa-solid fa-moon"></i> Ніч</button>
-                <button class="theme-btn" data-theme="mask" title="Червоне маскування"><i class="fa-solid fa-triangle-exclamation"></i> Маскування</button>
+                <button class="theme-btn active" data-theme="default" title="Денний"><i class="fa-solid fa-sun"></i> День</button>
+                <button class="theme-btn" data-theme="night" title="Світломаскування"><i class="fa-solid fa-moon"></i> Ніч</button>
+                <button class="theme-btn" data-theme="mask" title="Червоне"><i class="fa-solid fa-triangle-exclamation"></i> Маск</button>
             </div>
-            <span class="badge">ТАКТИЧНИЙ МОНІТОРИНГ</span>
+            <span class="badge">ТАКТИЧНИЙ</span>
         </div>
     </div>
 
-    <!-- Оптимізовані верхні картки (Scroll-Snap Slider на мобільних) -->
+    <!-- Верхні картки -->
     <div class="cards">
         <div class="card">
             <div class="card-title">Колоди</div>
@@ -563,7 +614,7 @@
                 
                 <!-- Панель Фільтрів -->
                 <div class="filter-bar">
-                    <span class="filter-label"><i class="fa-solid fa-filter"></i> Фільтр:</span>
+                    <span class="filter-label"><i class="fa-solid fa-filter"></i></span>
                     <button class="filter-btn active" data-filter="all">Всі об'єкти</button>
                     <button class="filter-btn" data-filter="dugout">Бліндажі</button>
                     <button class="filter-btn" data-filter="store">Склади</button>
@@ -576,9 +627,9 @@
 
                 <!-- Блок Вибору Способу Копання -->
                 <div class="dig-method-selector">
-                    <span class="dig-method-title"><i class="fa-solid fa-shovels"></i> Спосіб земляних робіт:</span>
+                    <span class="dig-method-title"><i class="fa-solid fa-shovels"></i> Спосіб копання:</span>
                     <div class="dig-options">
-                        <button class="dig-btn active" data-dig="excavator"><i class="fa-solid fa-tractor"></i> Екскаватор + Добор</button>
+                        <button class="dig-btn active" data-dig="excavator"><i class="fa-solid fa-tractor"></i> Екскаватор</button>
                         <button class="dig-btn" data-dig="manual"><i class="fa-solid fa-person-digging"></i> Вручну</button>
                     </div>
                 </div>
@@ -591,7 +642,7 @@
                     <div class="input-box"><label>Капоніри (4.5х18м)</label><input type="number" id="i-caponier" value="0" min="0"></div>
                     <div class="input-box"><label>Вбиральні (2.2х2м)</label><input type="number" id="i-wc" value="0" min="0"></div>
                     <div class="input-box"><label>Генераторні (1.2м)</label><input type="number" id="i-gen" value="0" min="0"></div>
-                    <div class="input-box"><label>Траншеї (м)</label><input type="number" id="i-trench" value="0" min="0"></div>
+                    <div class="input-box" style="grid-column: span 2;"><label>Траншеї (м)</label><input type="number" id="i-trench" value="0" min="0"></div>
                 </div>
             </div>
 
@@ -611,27 +662,26 @@
                             <option value="3">3 шт</option>
                             <option value="4">4 шт</option>
                             <option value="5">5 шт</option>
-                            <option value="8">8 шт</option>
                         </select>
                     </div>
                     <div class="input-box">
                         <label style="color:var(--accent-amber);">Тип ґрунту</label>
                         <select id="i-soil" style="border-color:var(--accent-amber);">
-                            <option value="light" selected>Легкі (пісок/супісок)</option>
-                            <option value="medium">Середні (суглинок/чорнозем)</option>
-                            <option value="heavy">Важкі (щільна глина/каміння)</option>
+                            <option value="light" selected>Легкі (пісок)</option>
+                            <option value="medium">Середні (суглинок)</option>
+                            <option value="heavy">Важкі (глина)</option>
                         </select>
                     </div>
                     <div class="input-box">
                         <label style="color:var(--accent-amber);">Світловий день</label>
                         <select id="i-daylight" style="border-color:var(--accent-amber);">
-                            <option value="16">Літо (~16 год)</option>
-                            <option value="12" selected>Весна/Осінь (~12 год)</option>
-                            <option value="8">Зима (~8 год)</option>
-                            <option value="24">Без обмежень (Ніч+Ліхтарі)</option>
+                            <option value="16">Літо (~16г)</option>
+                            <option value="12" selected>Весна/Осінь (~12г)</option>
+                            <option value="8">Зима (~8г)</option>
+                            <option value="24">Без обмежень</option>
                         </select>
                     </div>
-                    <div class="input-box">
+                    <div class="input-box" style="grid-column: span 2;">
                         <label style="color:var(--accent-green);">Режим робіт</label>
                         <select id="i-shifts" style="border-color:var(--accent-green);">
                             <option value="8" selected>1 зміна (8 год/день)</option>
@@ -643,22 +693,22 @@
                 </div>
             </div>
 
-            <!-- ПАНЕЛЬ: Типові Інженерні Креслення з Папки schemes/ (формат PNG) -->
+            <!-- ЗГОРНУТА ЗА ЗАМОВЧУВАННЯМ ПАНЕЛЬ: Типові Інженерні Креслення -->
             <div class="panel">
                 <div class="panel-title-toggle panel-title" id="btn-toggle-blueprints" style="color: var(--accent-cyan);">
                     <span><i class="fa-solid fa-drafting-compass"></i> Типові Інженерні Схеми</span>
-                    <i class="fa-solid fa-chevron-down toggle-icon" id="icon-blueprints"></i>
+                    <i class="fa-solid fa-chevron-down toggle-icon collapsed" id="icon-blueprints"></i>
                 </div>
-                <div class="collapsible-wrapper" id="wrapper-blueprints">
+                <div class="collapsible-wrapper collapsed" id="wrapper-blueprints">
                     <div class="blueprint-nav">
-                        <button class="blueprint-btn active" data-schema="dugout_main"><i class="fa-solid fa-house-chimney"></i> Бліндаж (Конструктив)</button>
-                        <button class="blueprint-btn" data-schema="dugout_1"><i class="fa-solid fa-cubes"></i> Склад / Бліндаж / Капонір</button>
-                        <button class="blueprint-btn" data-schema="dugout_2"><i class="fa-solid fa-toilet"></i> Вбиральня / Генераторна / Траншея</button>
+                        <button class="blueprint-btn active" data-schema="dugout_main"><i class="fa-solid fa-house-chimney"></i> Бліндаж</button>
+                        <button class="blueprint-btn" data-schema="dugout_1"><i class="fa-solid fa-cubes"></i> Склад/Бліндаж/Капонір</button>
+                        <button class="blueprint-btn" data-schema="dugout_2"><i class="fa-solid fa-toilet"></i> Додаткові об'єкти</button>
                         <button class="blueprint-btn" data-schema="tortuga"><i class="fa-solid fa-shield-dog"></i> Модуль «ТОРТУГА»</button>
                         <button class="blueprint-btn" data-schema="cargo"><i class="fa-solid fa-container-storage"></i> Контейнер Cargo 12м</button>
                     </div>
                     <div class="blueprint-viewer" id="blueprint-content">
-                        <!-- Динамічний вміст завантажується JavaScript -->
+                        <!-- Завантажується JS -->
                     </div>
                 </div>
             </div>
@@ -675,8 +725,8 @@
                 <!-- Підсумки Люд-Годин та Інструменту -->
                 <div class="sum-box purple">
                     <div class="sum-item"><span class="lbl">Всього люд-годин</span><span class="val purple" id="s-manhours">0 год</span></div>
-                    <div class="sum-item"><span class="lbl">Активних робочих груп</span><span class="val purple" id="s-teams">0 гр</span></div>
-                    <div class="sum-item"><span class="lbl">Лопати БПЛ/СПЛ</span><span class="val purple" id="s-shovels">0 шт</span></div>
+                    <div class="sum-item"><span class="lbl">Активні групи</span><span class="val purple" id="s-teams">0 гр</span></div>
+                    <div class="sum-item"><span class="lbl">Лопати</span><span class="val purple" id="s-shovels">0 шт</span></div>
                     <div class="sum-item"><span class="lbl">Кирки/Відбійники</span><span class="val purple" id="s-picks">0 шт</span></div>
                 </div>
 
@@ -688,20 +738,20 @@
                     <div class="sum-item"><span class="lbl">Техніка в роботі</span><span class="val amber" id="s-excavators">1 шт</span></div>
                 </div>
 
-                <!-- Інтерактивна заголовок-кнопка для Порівняльного Аналізу -->
-                <div class="panel-title panel-title-toggle" id="btn-toggle-compare" style="margin-top:18px; color:var(--accent-amber);">
-                    <span><i class="fa-solid fa-code-compare"></i> Порівняльний Аналіз Способів Копання</span>
-                    <i class="fa-solid fa-chevron-down toggle-icon" id="icon-compare"></i>
+                <!-- ЗГОРНУТА ЗА ЗАМОВЧУВАННЯМ ПАНЕЛЬ: Порівняльний Аналіз -->
+                <div class="panel-title panel-title-toggle" id="btn-toggle-compare" style="margin-top:14px; color:var(--accent-amber);">
+                    <span><i class="fa-solid fa-code-compare"></i> Порівняльний Аналіз Копання</span>
+                    <i class="fa-solid fa-chevron-down toggle-icon collapsed" id="icon-compare"></i>
                 </div>
 
-                <div class="collapsible-wrapper" id="wrapper-compare">
+                <div class="collapsible-wrapper collapsed" id="wrapper-compare">
                     <div class="table-responsive">
                         <table class="compare-table">
                             <thead>
                                 <tr>
                                     <th>Показник</th>
-                                    <th>🚜 Екскаватор + Добор</th>
-                                    <th>⛏️ Повністю Вручну</th>
+                                    <th>🚜 Екскаватор</th>
+                                    <th>⛏️ Вручну</th>
                                     <th>Різниця</th>
                                 </tr>
                             </thead>
@@ -729,26 +779,26 @@
                     </div>
                 </div>
 
-                <!-- Інтерактивна заголовок-кнопка для Специфікації Об'єктів -->
-                <div class="panel-title panel-title-toggle" id="btn-toggle-spec" style="margin-top:18px;">
+                <!-- ЗГОРНУТА ЗА ЗАМОВЧУВАННЯМ ПАНЕЛЬ: Специфікація Об'єктів -->
+                <div class="panel-title panel-title-toggle" id="btn-toggle-spec" style="margin-top:14px;">
                     <span><i class="fa-solid fa-list"></i> Специфікація об'єктів</span>
-                    <i class="fa-solid fa-chevron-down toggle-icon" id="icon-spec"></i>
+                    <i class="fa-solid fa-chevron-down toggle-icon collapsed" id="icon-spec"></i>
                 </div>
 
-                <div class="collapsible-wrapper" id="wrapper-spec">
+                <div class="collapsible-wrapper collapsed" id="wrapper-spec">
                     <div class="table-responsive">
                         <table>
                             <thead>
-                                <tr><th>Споруда</th><th>Габарити / Глибина</th><th>Колоди</th><th>Дошка/Брус</th><th>Скоби</th><th>Люд-год (Екск / Руч)</th></tr>
+                                <tr><th>Споруда</th><th>Габарити</th><th>Колоди</th><th>Дошка</th><th>Скоби</th><th>Люд-год (Екс/Руч)</th></tr>
                             </thead>
                             <tbody>
-                                <tr id="row-dugout"><td><strong>Бліндаж</strong></td><td>3х4 м</td><td>14 м<sup>3</sup></td><td>3.0 м<sup>3</sup></td><td>280 шт</td><td>30 / 140 люд-год</td></tr>
-                                <tr id="row-store"><td><strong>Склад</strong></td><td>3х3 м</td><td>8 м<sup>3</sup></td><td>2.5 м<sup>3</sup></td><td>220 шт</td><td>20 / 90 люд-год</td></tr>
-                                <tr id="row-pilot"><td><strong>Укриття</strong></td><td>6х3 м</td><td>18 м<sup>3</sup></td><td>4.2 м<sup>3</sup></td><td>350 шт</td><td>40 / 180 люд-год</td></tr>
-                                <tr id="row-caponier"><td><strong>Капонір</strong></td><td>4.5х18 м</td><td>5 м<sup>3</sup></td><td>3.0 м<sup>3</sup></td><td>50 шт</td><td>25 / 220 люд-год</td></tr>
-                                <tr id="row-wc"><td><strong>Вбиральня</strong></td><td>2.2х2 м (гл. 2м)</td><td>2.5 м<sup>3</sup></td><td>2.0 м<sup>3</sup></td><td>50 шт</td><td>12 / 45 люд-год</td></tr>
-                                <tr id="row-gen"><td><strong>Генераторна</strong></td><td>Глибина 1.2м</td><td>—</td><td>2.0 м<sup>3</sup></td><td>—</td><td>6 / 18 люд-год</td></tr>
-                                <tr id="row-trench"><td><strong>Траншея (1м)</strong></td><td>Шир. 1.5м</td><td>—</td><td>0.04 м<sup>3</sup></td><td>1 шт</td><td>1.5 / 5.0 люд-год</td></tr>
+                                <tr id="row-dugout"><td><strong>Бліндаж</strong></td><td>3х4 м</td><td>14 м<sup>3</sup></td><td>3.0 м<sup>3</sup></td><td>280 шт</td><td>30 / 140</td></tr>
+                                <tr id="row-store"><td><strong>Склад</strong></td><td>3х3 м</td><td>8 м<sup>3</sup></td><td>2.5 м<sup>3</sup></td><td>220 шт</td><td>20 / 90</td></tr>
+                                <tr id="row-pilot"><td><strong>Укриття</strong></td><td>6х3 м</td><td>18 м<sup>3</sup></td><td>4.2 м<sup>3</sup></td><td>350 шт</td><td>40 / 180</td></tr>
+                                <tr id="row-caponier"><td><strong>Капонір</strong></td><td>4.5х18 м</td><td>5 м<sup>3</sup></td><td>3.0 м<sup>3</sup></td><td>50 шт</td><td>25 / 220</td></tr>
+                                <tr id="row-wc"><td><strong>Вбиральня</strong></td><td>2.2х2 м</td><td>2.5 м<sup>3</sup></td><td>2.0 м<sup>3</sup></td><td>50 шт</td><td>12 / 45</td></tr>
+                                <tr id="row-gen"><td><strong>Генераторна</strong></td><td>Гл. 1.2м</td><td>—</td><td>2.0 м<sup>3</sup></td><td>—</td><td>6 / 18</td></tr>
+                                <tr id="row-trench"><td><strong>Траншея (1м)</strong></td><td>Шир. 1.5м</td><td>—</td><td>0.04 м<sup>3</sup></td><td>1 шт</td><td>1.5 / 5.0</td></tr>
                             </tbody>
                         </table>
                     </div>
@@ -757,21 +807,21 @@
 
             <!-- Доставка матеріалів -->
             <div class="panel">
-                <div class="panel-title"><i class="fa-solid fa-truck-ramp-box"></i> Доставка матеріалів (колоди)</div>
+                <div class="panel-title"><i class="fa-solid fa-truck-ramp-box"></i> Доставка матеріалів</div>
                 <div class="transport-grid">
                     <div class="transport-card">
                         <div class="transport-name"><i class="fa-solid fa-truck"></i> Самоскид</div>
-                        <div class="transport-cap">Місткість: до 14 м³</div>
+                        <div class="transport-cap">до 14 м³</div>
                         <div class="transport-trips" id="t-dump">0 рейсів</div>
                     </div>
                     <div class="transport-card">
                         <div class="transport-name"><i class="fa-solid fa-robot"></i> НРК «ЛОСЬ»</div>
-                        <div class="transport-cap">Місткість: до 3.2 м³</div>
+                        <div class="transport-cap">до 3.2 м³</div>
                         <div class="transport-trips" id="t-los">0 рейсів</div>
                     </div>
                     <div class="transport-card">
                         <div class="transport-name"><i class="fa-solid fa-robot"></i> НРК «Змій»</div>
-                        <div class="transport-cap">Місткість: до 1.2 м³</div>
+                        <div class="transport-cap">до 1.2 м³</div>
                         <div class="transport-trips" id="t-zmiy">0 рейсів</div>
                     </div>
                 </div>
@@ -779,22 +829,22 @@
 
             <!-- Інженерні нагадування -->
             <div class="panel">
-                <div class="panel-title"><i class="fa-solid fa-circle-exclamation"></i> Критичні інженерні вимоги</div>
+                <div class="panel-title"><i class="fa-solid fa-circle-exclamation"></i> Критичні вимоги</div>
                 <div class="reminders-grid">
                     <div class="reminder-card cyan">
-                        <div class="reminder-header"><i class="fa-solid fa-water"></i> Обов'язковість Дренажу</div>
+                        <div class="reminder-header"><i class="fa-solid fa-water"></i> Дренаж</div>
                         <ul class="reminder-list">
-                            <li><i class="fa-solid fa-angle-right"></i> Улаштування водовідвідних канав по периметру з ухилом не менше 2%.</li>
-                            <li><i class="fa-solid fa-angle-right"></i> Облаштування дренажних колодязів за межами робочого контуру.</li>
-                            <li><i class="fa-solid fa-angle-right"></i> Використання щебеневої підсипки під основу житлових блоків.</li>
+                            <li><i class="fa-solid fa-angle-right"></i> Водовідвідні канави з ухилом 2%.</li>
+                            <li><i class="fa-solid fa-angle-right"></i> Дренажні колодязі за контуром.</li>
+                            <li><i class="fa-solid fa-angle-right"></i> Щебенева підсипка під основу.</li>
                         </ul>
                     </div>
                     <div class="reminder-card teal">
-                        <div class="reminder-header"><i class="fa-solid fa-wind"></i> Обов'язковість Вентиляції</div>
+                        <div class="reminder-header"><i class="fa-solid fa-wind"></i> Вентиляція</div>
                         <ul class="reminder-list">
-                            <li><i class="fa-solid fa-angle-right"></i> Монтаж припливно-витяжної системи діаметром не менше 150 мм (для генераторної — труба 120 мм).</li>
-                            <li><i class="fa-solid fa-angle-right"></i> Розташування витяжної труби у найвищій точці під стелею.</li>
-                            <li><i class="fa-solid fa-angle-right"></i> Оснащення захисними козирками та сітками від скидів/сміття.</li>
+                            <li><i class="fa-solid fa-angle-right"></i> Система ⌀150 мм (генератор — 120 мм).</li>
+                            <li><i class="fa-solid fa-angle-right"></i> Витяжна труба в найвищій точці.</li>
+                            <li><i class="fa-solid fa-angle-right"></i> Сітки від скидів та сміття.</li>
                         </ul>
                     </div>
                 </div>
@@ -803,34 +853,34 @@
 
         <!-- Права колонка -->
         <div>
-            <!-- Розподіл трудомісткості за видами робіт -->
+            <!-- Розподіл трудомісткості -->
             <div class="panel">
-                <div class="panel-title" style="color:var(--accent-purple);"><i class="fa-solid fa-bars-progress"></i> Розподіл робіт (Люд-Години)</div>
+                <div class="panel-title" style="color:var(--accent-purple);"><i class="fa-solid fa-bars-progress"></i> Розподіл робіт (Люд-Год)</div>
                 <div class="work-progress-list">
                     <div class="work-item">
                         <div class="work-info">
-                            <span class="work-lbl"><i class="fa-solid fa-person-digging"></i> Земляні роботи (копання/добор)</span>
+                            <span class="work-lbl"><i class="fa-solid fa-person-digging"></i> Земляні роботи</span>
                             <span class="work-val" id="wp-val-dig">0 год (0%)</span>
                         </div>
                         <div class="work-bar"><div class="work-fill" id="wp-bar-dig" style="background:var(--accent-amber);"></div></div>
                     </div>
                     <div class="work-item">
                         <div class="work-info">
-                            <span class="work-lbl"><i class="fa-solid fa-cubes"></i> Монтаж каркаса та перекриття</span>
+                            <span class="work-lbl"><i class="fa-solid fa-cubes"></i> Каркас та перекриття</span>
                             <span class="work-val" id="wp-val-build">0 год (0%)</span>
                         </div>
                         <div class="work-bar"><div class="work-fill" id="wp-bar-build" style="background:var(--accent-purple);"></div></div>
                     </div>
                     <div class="work-item">
                         <div class="work-info">
-                            <span class="work-lbl"><i class="fa-solid fa-shield-cat"></i> Гідро/Дренаж та обшивка</span>
+                            <span class="work-lbl"><i class="fa-solid fa-shield-cat"></i> Гідро/Дренаж</span>
                             <span class="work-val" id="wp-val-hydro">0 год (0%)</span>
                         </div>
                         <div class="work-bar"><div class="work-fill" id="wp-bar-hydro" style="background:var(--accent-cyan);"></div></div>
                     </div>
                     <div class="work-item">
                         <div class="work-info">
-                            <span class="work-lbl"><i class="fa-solid fa-hammer"></i> Маскування та долаштування</span>
+                            <span class="work-lbl"><i class="fa-solid fa-hammer"></i> Маскування</span>
                             <span class="work-val" id="wp-val-finish">0 год (0%)</span>
                         </div>
                         <div class="work-bar"><div class="work-fill" id="wp-bar-finish" style="background:var(--accent-green);"></div></div>
@@ -841,11 +891,10 @@
             <!-- Розподіл матеріалів -->
             <div class="panel">
                 <div class="panel-title"><i class="fa-solid fa-chart-pie"></i> Розподіл матеріалів</div>
-                
                 <div class="pie-layout">
                     <div class="pie-left">
                         <div class="chart-container">
-                            <svg id="donut" width="120" height="120" viewBox="0 0 42 42"></svg>
+                            <svg id="donut" width="110" height="110" viewBox="0 0 42 42"></svg>
                         </div>
                     </div>
 
@@ -861,7 +910,7 @@
                             </div>
                         </div>
                         <div>
-                            <div class="mini-stat-title"><span><i class="fa-solid fa-paperclip"></i> Скоби будівельні</span><span class="mini-stat-val" id="stp-tot-txt">0 шт</span></div>
+                            <div class="mini-stat-title"><span><i class="fa-solid fa-paperclip"></i> Скоби</span><span class="mini-stat-val" id="stp-tot-txt">0 шт</span></div>
                             <div class="progress-bar">
                                 <div class="progress-segment" id="stp-p1" style="background:var(--accent-cyan);"></div>
                                 <div class="progress-segment" id="stp-p2" style="background:var(--accent-purple);"></div>
@@ -882,20 +931,20 @@
                 </div>
             </div>
 
-            <!-- Віджет Оцінки Часу будівництва (ETA) -->
+            <!-- Віджет Часу (ETA) -->
             <div class="panel">
-                <div class="panel-title" style="color:var(--accent-green);"><i class="fa-solid fa-business-time"></i> Оцінка часу будівництва (ETA)</div>
+                <div class="panel-title" style="color:var(--accent-green);"><i class="fa-solid fa-business-time"></i> Оцінка часу (ETA)</div>
                 <div class="time-widget-box">
                     <div class="time-main-display">
                         <div>
-                            <div class="time-big-lbl">Загальний термін виконання</div>
+                            <div class="time-big-lbl">Загальний термін</div>
                             <div class="time-big-val" id="w-time-days">0 діб</div>
                         </div>
-                        <i class="fa-solid fa-hourglass-half" style="font-size: 24px; color: var(--accent-green);"></i>
+                        <i class="fa-solid fa-hourglass-half" style="font-size: 20px; color: var(--accent-green);"></i>
                     </div>
                     <div class="time-details-grid">
                         <div class="time-detail-item">
-                            <span class="time-detail-lbl">Чистий час робіт:</span>
+                            <span class="time-detail-lbl">Чистий час:</span>
                             <span class="time-detail-val" id="w-time-hours">0 годин</span>
                         </div>
                         <div class="time-detail-item">
@@ -907,12 +956,12 @@
                             <span class="time-detail-val" id="w-time-shift-hrs">8 год/добу</span>
                         </div>
                         <div class="time-detail-item">
-                            <span class="time-detail-lbl">Очікуваний фініш:</span>
+                            <span class="time-detail-lbl">Фініш:</span>
                             <span class="time-detail-val" id="w-time-eta" style="color:var(--accent-cyan);">—</span>
                         </div>
                     </div>
                     <div id="w-time-warning" class="warning-badge" style="display:none;">
-                        <i class="fa-solid fa-triangle-exclamation"></i> УВАГА: Режим робіт перевищує світловий день! Ризик демаскування.
+                        <i class="fa-solid fa-triangle-exclamation"></i> Перевищено світловий день!
                     </div>
                 </div>
             </div>
@@ -933,7 +982,7 @@
 
             <!-- Графік часу техніки -->
             <div class="panel">
-                <div class="panel-title" style="color:var(--accent-cyan);"><i class="fa-solid fa-clock"></i> Час роботи техніки (год)</div>
+                <div class="panel-title" style="color:var(--accent-cyan);"><i class="fa-solid fa-clock"></i> Час техніки (год)</div>
                 <div class="bar-chart">
                     <div class="bar-col" id="col-h-1"><span class="bar-txt blue" id="htv-1">0г</span><div class="bar-fill blue" id="hb-1"></div><span class="bar-lbl">Бліндаж</span></div>
                     <div class="bar-col" id="col-h-2"><span class="bar-txt blue" id="htv-2">0г</span><div class="bar-fill blue" id="hb-2" style="background:var(--accent-purple);"></div><span class="bar-lbl">Склад</span></div>
@@ -947,7 +996,7 @@
 
             <!-- Графік пального -->
             <div class="panel">
-                <div class="panel-title" style="color:var(--accent-amber);"><i class="fa-solid fa-chart-bar"></i> Пальне за об'єктами (л)</div>
+                <div class="panel-title" style="color:var(--accent-amber);"><i class="fa-solid fa-chart-bar"></i> Пальне (л)</div>
                 <div class="bar-chart">
                     <div class="bar-col" id="col-f-1"><span class="bar-txt" id="bv-1">0л</span><div class="bar-fill" id="b-1" style="background:var(--accent-cyan);"></div><span class="bar-lbl">Бліндаж</span></div>
                     <div class="bar-col" id="col-f-2"><span class="bar-txt" id="bv-2">0л</span><div class="bar-fill" id="b-2" style="background:var(--accent-purple);"></div><span class="bar-lbl">Склад</span></div>
@@ -960,27 +1009,27 @@
             </div>
 
             <div class="panel">
-                <div class="panel-title"><i class="fa-solid fa-triangle-exclamation"></i> Інженерні вимоги</div>
+                <div class="panel-title"><i class="fa-solid fa-triangle-exclamation"></i> Дод. вимоги</div>
                 <div class="req-container">
                     <div class="req-box amber">
-                        <div class="req-title"><i class="fa-solid fa-circle-exclamation"></i> Підземні контейнери</div>
-                        <div class="req-text">Накат перекриття укладається виключно на окремі несучі опори навколо контейнера.</div>
+                        <div class="req-title"><i class="fa-solid fa-circle-exclamation"></i> Контейнери</div>
+                        <div class="req-text">Накат перекриття укладається на окремі несучі опори навколо контейнера.</div>
                     </div>
                     <div class="req-box blue">
                         <div class="req-title"><i class="fa-solid fa-shield"></i> Гідроізоляція</div>
-                        <div class="req-text">Обов'язкове укладання плівки 300 мкм та агроволокна у 2 шари для захисту від вологи.</div>
+                        <div class="req-text">Укладання плівки 300 мкм та агроволокна у 2 шари.</div>
                     </div>
                 </div>
             </div>
 
-            <!-- Формувальник Бойової Заявки / Рапорт -->
+            <!-- Рапорт -->
             <div class="panel">
-                <div class="panel-title" style="color:var(--accent-cyan);"><i class="fa-solid fa-file-signature"></i> Бойова Заявка / Рапорт</div>
+                <div class="panel-title" style="color:var(--accent-cyan);"><i class="fa-solid fa-file-signature"></i> Рапорт / Заявка</div>
                 <div class="export-box">
                     <div class="export-actions">
                         <button class="btn-export" id="btn-copy-report"><i class="fa-solid fa-copy"></i> Скопіювати рапорт</button>
                     </div>
-                    <div class="report-preview" id="report-preview-text">Згенерований рапорт з'явиться тут...</div>
+                    <div class="report-preview" id="report-preview-text">Генерація рапорту...</div>
                 </div>
             </div>
         </div>
@@ -990,53 +1039,43 @@
         let activeFilter = 'all';
         let activeDigMethod = 'excavator';
 
-        // Дані схем з папки schemes/ у форматі PNG
         const localSchemesData = {
             dugout_main: {
-                title: "Бліндаж 3х4 м (Загальна конструктивна схема та перекриття)",
+                title: "Бліндаж 3х4 м (Загальна схема)",
                 img: "schemes/dugout_main.png",
                 specs: `<strong>Потреба в матеріалах:</strong><br>
                 • Лісоматеріал (колоди): 14 м³<br>
                 • Лісоматеріал (дошка): 3.0 м³<br>
                 • Лісоматеріал (брус): 1 м³<br>
                 • Скоба будівельна: 280 шт<br>
-                • Плівка 300мкм: 60 м²<br>
-                • Цвяхи: 13 кг<br>
-                <em>Примітка: Основне перекриття "Накат" (20-30 колод). Шар плівки + землі (40см на 1 накат).</em>`
+                • Плівка 300мкм: 60 м²`
             },
             dugout_1: {
-                title: "Склади, Бліндажі та Капоніри (Матеріали та розміри)",
+                title: "Склади, Бліндажі та Капоніри",
                 img: "schemes/dugout_1.png",
-                specs: `<strong>Специфікація споруд:</strong><br>
-                <strong>1. Склад 3х3 (1 вихід):</strong> Колоди 4000х200 - 8м³, Дошка - 1.5м³, Брус 100х50 - 1м³, Скоби - 220шт, Плівка - 50м².<br>
-                <strong>2. Бліндаж 3х4:</strong> Колоди - 14м³, Дошка - 3м³, Брус 100х50 - 1м³, Скоби - 280шт, Плівка - 60м².<br>
-                <strong>3. Бліндаж пілотів 6х3 (2 виходи):</strong> Колоди 4000х200 - 18м³ (180-110шт), Колоди 6000х200 - 2шт, Дошка - 3м³, Брус - 1.2м³, Скоби - 350шт, Плівка - 90м².<br>
-                <strong>4. Капонір 4.5х18:</strong> Колоди 4000х200 - 3м³, 6000х200 - 2м³, Дошка - 2м³, Брус - 1м³, Скоби - 50шт, Плівка - 72м².`
+                specs: `<strong>Специфікація:</strong><br>
+                <strong>1. Склад 3х3:</strong> Колоди - 8м³, Дошка - 1.5м³, Скоби - 220шт.<br>
+                <strong>2. Бліндаж 3х4:</strong> Колоди - 14м³, Дошка - 3м³, Скоби - 280шт.<br>
+                <strong>3. Укриття 6х3:</strong> Колоди - 18м³, Дошка - 3м³, Скоби - 350шт.<br>
+                <strong>4. Капонір 4.5х18:</strong> Колоди - 5м³, Дошка - 3м³, Скоби - 50шт.`
             },
             dugout_2: {
-                title: "Вбиральня, Генераторна, Траншея (в т.ч. УГТ-2)",
+                title: "Вбиральня, Генераторна, Траншея",
                 img: "schemes/dugout_2.png",
-                specs: `<strong>Специфікація додаткових об'єктів:</strong><br>
-                <strong>• Вбиральня (2.2х2м):</strong> Колоди 4м - 2.5м³, Дошка - 1м³, Брус - 1м³, Скоби - 50шт, Плівка - 40м².<br>
-                <strong>• Генераторна:</strong> Дошка - 1м³, Брус 100х50 - 1м³, Плівка - 4м², Труба 120мм (витяжка/вихлоп).<br>
-                <strong>• Траншея звичайна (на 1м):</strong> Колоди - 1м³, Дошка - 0.5м³, Брус 50х100, Сітка металева 1900х3000мм - 1шт.<br>
-                <strong>• Траншея УГТ-2 (на 1м):</strong> Лист УГТ-2 - 1шт, Дошка, Брус, Агроволокно - 4м, Сітка металева.`
+                specs: `<strong>Специфікація:</strong><br>
+                <strong>• Вбиральня (2.2х2м):</strong> Колоди - 2.5м³, Дошка - 2м³.<br>
+                <strong>• Генераторна:</strong> Дошка - 2м³, Плівка - 4м², Труба 120мм.<br>
+                <strong>• Траншея (1м):</strong> Дошка - 0.04м³, Скоби - 1шт.`
             },
             tortuga: {
-                title: "Модульне укриття «ТОРТУГА» (Збірне каркасне укриття)",
+                title: "Модуль «ТОРТУГА»",
                 img: "schemes/Tortuga.png",
-                specs: `<strong>Особливості конструкції:</strong><br>
-                • Збірний сталевий арочний каркас із дуг та розпірок.<br>
-                • Встановлюється у котлован із послідуючим укладанням накату та ґрунтового засипу.<br>
-                • Використовується як швидке мобільне укриття для особового складу.`
+                specs: `<strong>Особливості:</strong> Збірний сталевий арочний каркас. Укладається у котлован із засипом ґрунтом.`
             },
             cargo: {
-                title: "Морський Контейнер Cargo 12.19м (Облаштування під житловий блок)",
+                title: "Контейнер Cargo 12.19м",
                 img: "schemes/Cargo.png",
-                specs: `<strong>Габарити контейнера:</strong> 12.19м х 2.44м х 2.59м.<br>
-                • Утеплення: Пінопласт 50 мм (15 пл), ОСБ 10 мм.<br>
-                • Оснащення: Двоярусні ліжка (1900х700х1720мм), аварійний вихід.<br>
-                <em>Важливо: Накат перекриття укладається на окремі несучі опори навколо контейнера!</em>`
+                specs: `<strong>Габарити:</strong> 12.19м х 2.44м х 2.59м. Накат перекриття спирається на окремі опори навколо!`
             }
         };
 
@@ -1048,7 +1087,7 @@
                     <div class="blueprint-title">${data.title}</div>
                     <img src="${data.img}" alt="${data.title}" class="blueprint-img" onclick="window.open('${data.img}', '_blank')">
                     <div class="blueprint-specs-box">
-                        <div class="blueprint-specs-title"><i class="fa-solid fa-list-check"></i> Витяг зі специфікації креслення</div>
+                        <div class="blueprint-specs-title"><i class="fa-solid fa-list-check"></i> Витяг зі специфікації</div>
                         <div>${data.specs}</div>
                     </div>
                 `;
@@ -1149,7 +1188,6 @@
             const daylightHours = parseFloat(document.getElementById('i-daylight').value) || 12;
             const soilType = document.getElementById('i-soil').value;
 
-            // Перевірка світлового дня
             const warningBadge = document.getElementById('w-time-warning');
             if (hoursPerDay > daylightHours) {
                 warningBadge.style.display = 'flex';
@@ -1157,16 +1195,10 @@
                 warningBadge.style.display = 'none';
             }
 
-            // Коефіцієнти ґрунту
             let kMan = 1.0;
             let kMach = 1.0;
-            if (soilType === 'medium') {
-                kMan = 1.5;
-                kMach = 1.2;
-            } else if (soilType === 'heavy') {
-                kMan = 2.5;
-                kMach = 1.5;
-            }
+            if (soilType === 'medium') { kMan = 1.5; kMach = 1.2; } 
+            else if (soilType === 'heavy') { kMan = 2.5; kMach = 1.5; }
 
             let fDugout = (activeFilter === 'all' || activeFilter === 'dugout') ? dugout : 0;
             let fStore = (activeFilter === 'all' || activeFilter === 'store') ? store : 0;
@@ -1183,7 +1215,6 @@
             const activeCrews = (totalObjects > 0) ? Math.min(availableCrews, totalObjects) : 0;
             const activePeopleWorking = activeCrews * 5;
 
-            // Матеріали
             const logD = fDugout * 14; const logS = fStore * 8; const logP = fPilot * 18; const logC = fCaponier * 5; const logW = fWc * 2.5;
             const lumD = fDugout * 3; const lumS = fStore * 2.5; const lumP = fPilot * 4.2; const lumC = fCaponier * 3; const lumW = fWc * 2.0; const lumG = fGen * 2.0; const lumT = fTrench * 0.04;
             const stpD = fDugout * 280; const stpS = fStore * 220; const stpP = fPilot * 350; const stpC = fCaponier * 50; const stpW = fWc * 50; const stpT = fTrench * 1;
@@ -1192,9 +1223,8 @@
             const totalLumber = lumD + lumS + lumP + lumC + lumW + lumG + lumT;
             const totalFilm = (fDugout * 60) + (fStore * 45) + (fPilot * 90) + (fCaponier * 72) + (fWc * 40) + (fGen * 4) + (fTrench * 2);
             const totalStaples = stpD + stpS + stpP + stpC + stpW + stpT;
-            const totalPipes = fGen * 1; // Вентиляційні труби 120 мм
+            const totalPipes = fGen * 1;
 
-            // Люд-години
             const mhExc = ((fDugout * 5 + fStore * 4 + fPilot * 6 + fCaponier * 5 + fWc * 3 + fGen * 1.5 + fTrench * 1.5) * kMan) +
                           ((fDugout * 25 + fStore * 16 + fPilot * 34 + fCaponier * 20 + fWc * 9 + fGen * 4.5));
             
@@ -1203,7 +1233,6 @@
 
             const currentMH = (activeDigMethod === 'excavator') ? mhExc : mhMan;
 
-            // Час техніки
             const staticBaseMachineHours = ((fDugout * 4) + (fStore * 3.5) + (fPilot * 6) + (fCaponier * 8) + (fWc * 2.5) + (fGen * 1.0) + (fTrench * 0.5)) * kMach;
             let baseMachineHours = (activeDigMethod === 'manual') ? 0 : staticBaseMachineHours;
 
@@ -1211,7 +1240,6 @@
             const actualTechHours = (activeExcavators > 0) ? (baseMachineHours / activeExcavators) : 0;
             const daysTech = (hoursPerDay > 0) ? (actualTechHours / hoursPerDay).toFixed(1) : 0;
 
-            // Чистий час
             let pureWorkHours = 0;
             if (totalObjects > 0 && activePeopleWorking > 0) {
                 if (activeDigMethod === 'excavator') {
@@ -1226,7 +1254,6 @@
             const totalDays = (hoursPerDay > 0) ? (pureWorkHours / hoursPerDay).toFixed(1) : 0;
             const totalShifts = Math.ceil(pureWorkHours / 8);
 
-            // Очікуваний фініш (ETA)
             const now = new Date();
             const finishDate = new Date(now.getTime() + (pureWorkHours / hoursPerDay) * 24 * 60 * 60 * 1000);
             const etaFormatted = finishDate.toLocaleDateString('uk-UA', { month: 'short', day: 'numeric', hour: '2-digit', minute: '2-digit' });
@@ -1241,10 +1268,10 @@
             document.getElementById('c-staples').innerText = totalStaples + ' шт';
             
             document.getElementById('c-manhours').innerText = Math.round(currentMH) + ' год';
-            document.getElementById('c-manhours-sub').innerText = `${people} о/с (${activeCrews} груп)`;
+            document.getElementById('c-manhours-sub').innerText = `${people} о/с (${activeCrews} гр)`;
             document.getElementById('c-fuel').innerText = Math.round(totalFuel) + ' л';
             document.getElementById('c-hours').innerText = baseMachineHours.toFixed(1) + ' год';
-            document.getElementById('c-hours-sub').innerText = `${activeExcavators} екскаваторів`;
+            document.getElementById('c-hours-sub').innerText = `${activeExcavators} екск`;
 
             document.getElementById('s-logs').innerHTML = totalLogs + ' м<sup>3</sup>';
             document.getElementById('s-lumber').innerHTML = totalLumber.toFixed(2) + ' м<sup>3</sup>';
@@ -1263,32 +1290,30 @@
             document.getElementById('s-days').innerText = daysTech + ' днів';
             document.getElementById('s-excavators').innerText = activeExcavators + ' шт';
 
-            // ETA
             document.getElementById('w-time-days').innerText = `${totalDays} діб`;
             document.getElementById('w-time-hours').innerText = `${pureWorkHours.toFixed(1)} год`;
             document.getElementById('w-time-shifts').innerText = `${totalShifts} змін`;
             document.getElementById('w-time-shift-hrs').innerText = `${hoursPerDay} год/добу`;
             document.getElementById('w-time-eta').innerText = etaFormatted;
 
-            // Порівняльний аналіз
-            document.getElementById('comp-days-lbl').innerText = `Термін робіт (${people} о/с)`;
+            document.getElementById('comp-days-lbl').innerText = `Термін (${people} о/с)`;
             document.getElementById('comp-mh-exc').innerText = Math.round(mhExc) + ' люд-год';
             document.getElementById('comp-mh-man').innerText = Math.round(mhMan) + ' люд-год';
             const mhRatio = (mhExc > 0) ? Math.round((mhMan / mhExc) * 100) : 0;
-            document.getElementById('comp-mh-diff').innerText = `+${mhRatio - 100}% (у ${(mhMan / (mhExc || 1)).toFixed(1)} рази більше)`;
+            document.getElementById('comp-mh-diff').innerText = `+${mhRatio - 100}%`;
 
             const staticActualTechHours = (activeExcavators > 0) ? (staticBaseMachineHours / activeExcavators) : 0;
             const daysExc = (activePeopleWorking > 0) ? (((staticActualTechHours + (mhExc - (fDugout*5 + fStore*4 + fPilot*6 + fCaponier*5 + fWc*3 + fGen*1.5)*kMan)/activePeopleWorking)) / hoursPerDay).toFixed(1) : 0;
             const daysMan = (activePeopleWorking > 0) ? ((mhMan / activePeopleWorking) / hoursPerDay).toFixed(1) : 0;
             
-            document.getElementById('comp-days-exc').innerText = daysExc + ' днів';
-            document.getElementById('comp-days-man').innerText = daysMan + ' днів';
-            document.getElementById('comp-days-diff').innerText = `+${(daysMan - daysExc).toFixed(1)} днів`;
+            document.getElementById('comp-days-exc').innerText = daysExc + ' дн';
+            document.getElementById('comp-days-man').innerText = daysMan + ' дн';
+            document.getElementById('comp-days-diff').innerText = `+${(daysMan - daysExc).toFixed(1)} дн`;
 
             const fuelExc = Math.round(staticBaseMachineHours * 9);
             document.getElementById('comp-fuel-exc').innerText = fuelExc + ' л';
             document.getElementById('comp-fuel-man').innerText = '0 л';
-            document.getElementById('comp-fuel-diff').innerText = `Економія -${fuelExc} л`;
+            document.getElementById('comp-fuel-diff').innerText = `-${fuelExc} л`;
 
             let digRatio = (activeDigMethod === 'excavator') ? 0.17 : 0.60;
             let buildRatio = (activeDigMethod === 'excavator') ? 0.60 : 0.22;
@@ -1300,16 +1325,16 @@
             const mhFinish = Math.round(currentMH - (mhDig + mhBuild + mhHydro));
 
             const totMHDiv = Math.max(currentMH, 1);
-            document.getElementById('wp-val-dig').innerText = `${mhDig} год (${Math.round((mhDig/totMHDiv)*100)}%)`;
+            document.getElementById('wp-val-dig').innerText = `${mhDig}г (${Math.round((mhDig/totMHDiv)*100)}%)`;
             document.getElementById('wp-bar-dig').style.width = Math.round((mhDig/totMHDiv)*100) + '%';
 
-            document.getElementById('wp-val-build').innerText = `${mhBuild} год (${Math.round((mhBuild/totMHDiv)*100)}%)`;
+            document.getElementById('wp-val-build').innerText = `${mhBuild}г (${Math.round((mhBuild/totMHDiv)*100)}%)`;
             document.getElementById('wp-bar-build').style.width = Math.round((mhBuild/totMHDiv)*100) + '%';
 
-            document.getElementById('wp-val-hydro').innerText = `${mhHydro} год (${Math.round((mhHydro/totMHDiv)*100)}%)`;
+            document.getElementById('wp-val-hydro').innerText = `${mhHydro}г (${Math.round((mhHydro/totMHDiv)*100)}%)`;
             document.getElementById('wp-bar-hydro').style.width = Math.round((mhHydro/totMHDiv)*100) + '%';
 
-            document.getElementById('wp-val-finish').innerText = `${mhFinish} год (${Math.round((mhFinish/totMHDiv)*100)}%)`;
+            document.getElementById('wp-val-finish').innerText = `${mhFinish}г (${Math.round((mhFinish/totMHDiv)*100)}%)`;
             document.getElementById('wp-bar-finish').style.width = Math.round((mhFinish/totMHDiv)*100) + '%';
 
             document.getElementById('t-dump').innerText = dumpTrips + ' рейсів';
@@ -1393,7 +1418,6 @@
             document.getElementById('bv-tot').innerText = Math.round(totalFuel) + 'л';
             document.getElementById('b-tot').style.height = Math.max((totalFuel / maxF) * 100, 5) + '%';
 
-            // ГЕНЕРАЦІЯ ТЕКСТУ БОЙОВОЇ ЗАЯВКИ
             generateReportText({
                 dugout: fDugout, store: fStore, pilot: fPilot, caponier: fCaponier, wc: fWc, gen: fGen, trench: fTrench,
                 logs: totalLogs, lumber: totalLumber, film: totalFilm, staples: totalStaples, pipes: totalPipes,
@@ -1421,7 +1445,7 @@
             let addSpecs = [];
             if (d.pipes > 0) addSpecs.push(`• Труба вентиляційна/вихлопна (⌀120мм): ${d.pipes} шт`);
 
-            const report = `Бажаю міцного, непохитного здоров'я!
+            const report = `Бажаю міцного!
 
 ЗАЯВКА НА МАТЕРІАЛИ ТА ТЕХНІКУ (ФОРТИФІКАЦІЯ)
 Дата: ${new Date().toLocaleDateString('uk-UA')}
@@ -1435,24 +1459,23 @@ ${listObj.length > 0 ? listObj.join('\n') : '• Об\'єкти не обран�
 • Плівка гідроізоляційна (300 мкм): ${d.film} м²
 • Скоби будівельні: ${d.staples} шт
 ${addSpecs.length > 0 ? addSpecs.join('\n') + '\n' : ''}
-2. ДОСТАВКА МАТЕРІАЛІВ (ЛОГІСТИКА КОЛОД):
+2. ДОСТАВКА МАТЕРІАЛІВ:
 • Вантажний самоскид (до 14 м³): ${d.dumpTrips} рейсів
 • НРК «ЛОСЬ» (до 3.2 м³): ${d.losTrips} рейсів
 • НРК «Змій» (до 1.2 м³): ${d.zmiyTrips} рейсів
 
 3. ТЕХНІКА ТА ПАЛЬНЕ:
 • Спосіб робіт: ${digName}
-• Екскаватори: ${d.excavators} шт (потреб. ${d.techHours.toFixed(1)} мотогодин)
+• Екскаватори: ${d.excavators} шт (${d.techHours.toFixed(1)} мотогодин)
 • ДП Пальне: ${Math.round(d.fuel)} л
 
 4. ОСОБОВИЙ СКЛАД ТА ІНСТРУМЕНТ:
-• Особовий склад: ${d.people} о/с (${d.activeCrews} активних робочих груп)
-• Лопати БПЛ/СПЛ: ${d.shovels} шт
-• Кирки/відбійники: ${d.picks} шт
+• Особовий склад: ${d.people} о/с (${d.activeCrews} активних груп)
+• Лопати: ${d.shovels} шт | Кирки: ${d.picks} шт
 
 5. РОЗРАХУНКОВИЙ ТЕРМІН (ETA):
-• Тривалість виконання: ${d.days} діб (${d.pureHours.toFixed(1)} робочих годин)
-• Режим робіт: ${d.shifts} змін (${d.hoursPerDay} год/добу)
+• Тривалість: ${d.days} діб (${d.pureHours.toFixed(1)} робочих годин)
+• Режим: ${d.shifts} змін (${d.hoursPerDay} год/добу)
 • Очікуваний фініш: ${d.etaFormatted}`;
 
             const preview = document.getElementById('report-preview-text');
@@ -1470,6 +1493,32 @@ ${addSpecs.length > 0 ? addSpecs.join('\n') + '\n' : ''}
 
             localStorage.setItem('fort_theme', theme);
             calc();
+        }
+
+        function setupCollapsible(toggleId, wrapperId, iconId, storageKey) {
+            const toggleEl = document.getElementById(toggleId);
+            const wrapperEl = document.getElementById(wrapperId);
+            const iconEl = document.getElementById(iconId);
+
+            if (!toggleEl || !wrapperEl || !iconEl) return;
+
+            // Перевіряємо збережений стан або використовуємо за замовчуванням 'true' (згорнуто)
+            const savedState = localStorage.getItem(storageKey);
+            const isCollapsed = savedState === null ? true : savedState === 'true';
+
+            if (isCollapsed) {
+                wrapperEl.classList.add('collapsed');
+                iconEl.classList.add('collapsed');
+            } else {
+                wrapperEl.classList.remove('collapsed');
+                iconEl.classList.remove('collapsed');
+            }
+
+            toggleEl.addEventListener('click', function() {
+                const nowCollapsed = wrapperEl.classList.toggle('collapsed');
+                iconEl.classList.toggle('collapsed', nowCollapsed);
+                localStorage.setItem(storageKey, nowCollapsed);
+            });
         }
 
         document.addEventListener('DOMContentLoaded', function() {
@@ -1521,7 +1570,6 @@ ${addSpecs.length > 0 ? addSpecs.join('\n') + '\n' : ''}
                 });
             }
 
-            // Перемикач схем у новому блоці
             const blueprintBtns = document.querySelectorAll('.blueprint-btn');
             blueprintBtns.forEach(btn => {
                 btn.addEventListener('click', function() {
@@ -1530,63 +1578,21 @@ ${addSpecs.length > 0 ? addSpecs.join('\n') + '\n' : ''}
                     renderBlueprint(this.getAttribute('data-schema'));
                 });
             });
-            renderBlueprint('dugout_main'); // Ініціалізація першої схеми
+            renderBlueprint('dugout_main');
 
-            const btnToggleBlueprints = document.getElementById('btn-toggle-blueprints');
-            const wrapperBlueprints = document.getElementById('wrapper-blueprints');
-            const iconBlueprints = document.getElementById('icon-blueprints');
-
-            btnToggleBlueprints.addEventListener('click', function() {
-                const isCollapsed = wrapperBlueprints.classList.toggle('collapsed');
-                iconBlueprints.classList.toggle('collapsed', isCollapsed);
-                localStorage.setItem('fort_blueprints_collapsed', isCollapsed);
-            });
-
-            if (localStorage.getItem('fort_blueprints_collapsed') === 'true') {
-                wrapperBlueprints.classList.add('collapsed');
-                iconBlueprints.classList.add('collapsed');
-            }
-
-            const btnToggleCompare = document.getElementById('btn-toggle-compare');
-            const wrapperCompare = document.getElementById('wrapper-compare');
-            const iconCompare = document.getElementById('icon-compare');
-
-            btnToggleCompare.addEventListener('click', function() {
-                const isCollapsed = wrapperCompare.classList.toggle('collapsed');
-                iconCompare.classList.toggle('collapsed', isCollapsed);
-                localStorage.setItem('fort_compare_collapsed', isCollapsed);
-            });
-
-            if (localStorage.getItem('fort_compare_collapsed') === 'true') {
-                wrapperCompare.classList.add('collapsed');
-                iconCompare.classList.add('collapsed');
-            }
-
-            const btnToggleSpec = document.getElementById('btn-toggle-spec');
-            const wrapperSpec = document.getElementById('wrapper-spec');
-            const iconSpec = document.getElementById('icon-spec');
-
-            btnToggleSpec.addEventListener('click', function() {
-                const isCollapsed = wrapperSpec.classList.toggle('collapsed');
-                iconSpec.classList.toggle('collapsed', isCollapsed);
-                localStorage.setItem('fort_spec_collapsed', isCollapsed);
-            });
-
-            if (localStorage.getItem('fort_spec_collapsed') === 'true') {
-                wrapperSpec.classList.add('collapsed');
-                iconSpec.classList.add('collapsed');
-            }
+            // Ініціалізація згортання вкладок за замовчуванням (Default Collapsed)
+            setupCollapsible('btn-toggle-blueprints', 'wrapper-blueprints', 'icon-blueprints', 'fort_blueprints_collapsed');
+            setupCollapsible('btn-toggle-compare', 'wrapper-compare', 'icon-compare', 'fort_compare_collapsed');
+            setupCollapsible('btn-toggle-spec', 'wrapper-spec', 'icon-spec', 'fort_spec_collapsed');
 
             const savedTheme = localStorage.getItem('fort_theme') || 'default';
             setTheme(savedTheme);
         });
 
-        // PWA REGISTRATION
+        // PWA Registration
         if ('serviceWorker' in navigator) {
             window.addEventListener('load', () => {
-                navigator.serviceWorker.register('./sw.js')
-                    .then(reg => console.log('PWA Service Worker зареєстровано успішно!'))
-                    .catch(err => console.log('Помилка реєстрації Service Worker:', err));
+                navigator.serviceWorker.register('./sw.js').catch(err => console.log('SW error:', err));
             });
         }
     </script>
