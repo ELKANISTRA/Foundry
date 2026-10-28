@@ -331,6 +331,17 @@
             width: 100%; 
         }
 
+        .custom-dimensions-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 6px;
+            margin-top: 4px;
+            padding: 6px;
+            background: rgba(245, 158, 11, 0.08);
+            border: 1px dashed var(--accent-amber);
+            border-radius: 6px;
+        }
+
         .sum-box { 
             background: var(--subpanel-bg); 
             border-left: 3px solid var(--accent-cyan); 
@@ -433,7 +444,7 @@
         .req-text { font-size: 9px; color: var(--text-main); }
 
         .export-box { background: var(--subpanel-bg); border-radius: 6px; padding: 8px; display: flex; flex-direction: column; gap: 6px; }
-        .btn-export { width: 100%; background: var(--panel-bg); border: 1px solid var(--accent-cyan); color: var(--accent-cyan); padding: 6px; border-radius: 4px; font-size: 10px; font-weight: 600; }
+        .btn-export { width: 100%; background: var(--panel-bg); border: 1px solid var(--accent-cyan); color: var(--accent-cyan); padding: 6px; border-radius: 4px; font-size: 10px; font-weight: 600; cursor: pointer; }
         .report-preview { background: var(--panel-bg); border: 1px solid var(--panel-border); border-radius: 4px; padding: 8px; font-family: monospace; font-size: 9px; color: var(--text-title); white-space: pre-wrap; max-height: 150px; overflow-y: auto; }
     </style>
 </head>
@@ -508,6 +519,7 @@
                     <button class="filter-btn" data-filter="wc">Вбиральні</button>
                     <button class="filter-btn" data-filter="gen">Генераторні</button>
                     <button class="filter-btn" data-filter="trench">Траншеї</button>
+                    <button class="filter-btn" data-filter="custom" style="color:var(--accent-amber); font-weight:700;">Власний формат</button>
                 </div>
 
                 <!-- Блок Вибору Способу Копання -->
@@ -528,6 +540,22 @@
                     <div class="input-box"><label>Вбиральні (2.2х2м)</label><input type="number" id="i-wc" value="0" min="0"></div>
                     <div class="input-box"><label>Генераторні (1.2м)</label><input type="number" id="i-gen" value="0" min="0"></div>
                     <div class="input-box"><label>Траншеї (м)</label><input type="number" id="i-trench" value="0" min="0"></div>
+                    
+                    <!-- Власний Формат -->
+                    <div class="input-box" style="grid-column: span 2;">
+                        <label style="color: var(--accent-amber); font-weight:700;"><i class="fa-solid fa-ruler-combined"></i> Власний формат (кількість шт)</label>
+                        <input type="number" id="i-custom" value="0" min="0" style="border-color: var(--accent-amber);">
+                        <div class="custom-dimensions-grid">
+                            <div class="input-box">
+                                <label style="color: var(--accent-amber);">Довжина (м)</label>
+                                <input type="number" id="i-custom-l" value="4" min="1" step="0.5">
+                            </div>
+                            <div class="input-box">
+                                <label style="color: var(--accent-amber);">Ширина (м)</label>
+                                <input type="number" id="i-custom-w" value="3" min="1" step="0.5">
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
 
@@ -684,6 +712,7 @@
                                 <tr id="row-wc"><td><strong>Вбиральня</strong></td><td>2.2х2 м</td><td>2.5 м<sup>3</sup></td><td>2.0 м<sup>3</sup></td><td>50 шт</td><td>12 / 45</td></tr>
                                 <tr id="row-gen"><td><strong>Генераторна</strong></td><td>Гл. 1.2м</td><td>—</td><td>2.0 м<sup>3</sup></td><td>—</td><td>6 / 18</td></tr>
                                 <tr id="row-trench"><td><strong>Траншея (1м)</strong></td><td>Шир. 1.5м</td><td>—</td><td>0.04 м<sup>3</sup></td><td>1 шт</td><td>1.5 / 5.0</td></tr>
+                                <tr id="row-custom"><td><strong>Власний формат</strong></td><td id="row-custom-dim">4х3 м</td><td id="row-custom-logs">14 м<sup>3</sup></td><td id="row-custom-lum">3.0 м<sup>3</sup></td><td id="row-custom-stp">280 шт</td><td id="row-custom-mh">30 / 140</td></tr>
                             </tbody>
                         </table>
                     </div>
@@ -735,6 +764,22 @@
 
         <!-- Права колонка -->
         <div>
+            <!-- Повідомлення про необхідність узгодження власного формату -->
+            <div id="custom-approval-panel" class="panel" style="display:none; border: 1px solid var(--accent-amber); background: rgba(245, 158, 11, 0.08);">
+                <div class="panel-title" style="color:var(--accent-amber); border-bottom-color: rgba(245, 158, 11, 0.3);">
+                    <i class="fa-solid fa-triangle-exclamation"></i> Погодження конфігурації
+                </div>
+                <div style="font-size: 11px; color: var(--text-title); line-height: 1.4; margin-bottom: 8px;">
+                    Ваша конфігурація потребує узгодження з начальником інженерної служби бригади (поз. <strong>«Аль-Каїда»</strong>)!
+                </div>
+                <div style="display: flex; align-items: center; justify-content: space-between; background: var(--subpanel-bg); padding: 6px 8px; border-radius: 6px; border: 1px solid var(--subpanel-border);">
+                    <span style="font-family: monospace; font-weight: 700; color: var(--accent-amber); font-size: 11px;" id="phone-number-txt">+38 (095) 8 777 067</span>
+                    <button id="btn-copy-phone" class="btn-export" style="width: auto; padding: 4px 8px; font-size: 10px; margin: 0;">
+                        <i class="fa-solid fa-copy"></i> Копіювати
+                    </button>
+                </div>
+            </div>
+
             <!-- Розподіл трудомісткості -->
             <div class="panel">
                 <div class="panel-title" style="color:var(--accent-purple);"><i class="fa-solid fa-bars-progress"></i> Розподіл робіт (Люд-Год)</div>
@@ -979,11 +1024,11 @@
             };
         }
 
-        function drawDonut(d, s, p, c, w) {
+        function drawDonut(d, s, p, c, w, cust) {
             const svg = document.getElementById('donut');
             if (!svg) return;
             const colors = getThemeColors();
-            const total = d + s + p + c + w;
+            const total = d + s + p + c + w + cust;
 
             if (total === 0) { 
                 svg.innerHTML = `<circle cx="21" cy="21" r="15.5" fill="transparent" stroke="${colors.border}" stroke-width="6"></circle>`; 
@@ -994,7 +1039,7 @@
             const p2 = (s / total) * 100;
             const p3 = (p / total) * 100;
             const p4 = (c / total) * 100;
-            const p5 = (w / total) * 100;
+            const p5 = ((w + cust) / total) * 100;
 
             const o1 = 25;
             const o2 = o1 - p1;
@@ -1015,7 +1060,7 @@
         }
 
         function updateHighlights() {
-            ['dugout', 'store', 'pilot', 'caponier', 'wc', 'gen', 'trench'].forEach(type => {
+            ['dugout', 'store', 'pilot', 'caponier', 'wc', 'gen', 'trench', 'custom'].forEach(type => {
                 const row = document.getElementById(`row-${type}`);
                 if (row) {
                     if (activeFilter === 'all' || activeFilter === type) {
@@ -1026,7 +1071,7 @@
                 }
             });
 
-            const colsMap = { 'dugout': [1], 'store': [2], 'pilot': [3], 'caponier': [4], 'wc': [5], 'gen': [6], 'trench': [7] };
+            const colsMap = { 'dugout': [1], 'store': [2], 'pilot': [3], 'caponier': [4], 'wc': [5], 'gen': [6], 'trench': [7], 'custom': [1] };
 
             for (let i = 1; i <= 6; i++) {
                 const colH = document.getElementById(`col-h-${i}`);
@@ -1052,7 +1097,22 @@
             let wc = parseFloat(document.getElementById('i-wc').value) || 0;
             let gen = parseFloat(document.getElementById('i-gen').value) || 0;
             let trench = parseFloat(document.getElementById('i-trench').value) || 0;
-            
+
+            // Власний формат
+            let customCount = parseFloat(document.getElementById('i-custom').value) || 0;
+            let customL = Math.max(parseFloat(document.getElementById('i-custom-l').value) || 4, 0.5);
+            let customW = Math.max(parseFloat(document.getElementById('i-custom-w').value) || 3, 0.5);
+            let customArea = customL * customW;
+            let scaleFactor = customArea / 12.0; // Відносно базового бліндажа 3х4м (12м²)
+
+            // Показати або приховати попередження про погодження Власного Формату
+            const customApprovalPanel = document.getElementById('custom-approval-panel');
+            if (customCount > 0) {
+                customApprovalPanel.style.display = 'block';
+            } else {
+                customApprovalPanel.style.display = 'none';
+            }
+
             const rawExcavators = Math.max(parseFloat(document.getElementById('i-excavators').value) || 1, 1);
             const people = Math.max(parseFloat(document.getElementById('i-people').value) || 1, 1);
             let hoursPerDay = parseFloat(document.getElementById('i-shifts').value) || 8;
@@ -1070,33 +1130,49 @@
             let fWc = (activeFilter === 'all' || activeFilter === 'wc') ? wc : 0;
             let fGen = (activeFilter === 'all' || activeFilter === 'gen') ? gen : 0;
             let fTrench = (activeFilter === 'all' || activeFilter === 'trench') ? trench : 0;
+            let fCustom = (activeFilter === 'all' || activeFilter === 'custom') ? customCount : 0;
 
-            const totalObjects = fDugout + fStore + fPilot + fCaponier + fWc + fGen + (fTrench > 0 ? 1 : 0);
+            const totalObjects = fDugout + fStore + fPilot + fCaponier + fWc + fGen + fCustom + (fTrench > 0 ? 1 : 0);
             
             const activeExcavators = (totalObjects > 0) ? Math.min(rawExcavators, totalObjects) : 0;
             const availableCrews = Math.max(Math.floor(people / 5), 1);
             const activeCrews = (totalObjects > 0) ? Math.min(availableCrews, totalObjects) : 0;
             const activePeopleWorking = activeCrews * 5;
 
-            const logD = fDugout * 14; const logS = fStore * 8; const logP = fPilot * 18; const logC = fCaponier * 5; const logW = fWc * 2.5;
-            const lumD = fDugout * 3; const lumS = fStore * 2.5; const lumP = fPilot * 4.2; const lumC = fCaponier * 3; const lumW = fWc * 2.0; const lumG = fGen * 2.0; const lumT = fTrench * 0.04;
-            const stpD = fDugout * 280; const stpS = fStore * 220; const stpP = fPilot * 350; const stpC = fCaponier * 50; const stpW = fWc * 50; const stpT = fTrench * 1;
+            // Масштабовані матеріали для власного формату
+            const custLogsPerUnit = 14 * scaleFactor;
+            const custLumPerUnit = 3.0 * scaleFactor;
+            const custFilmPerUnit = 60 * scaleFactor;
+            const custStpPerUnit = 280 * scaleFactor;
+            const custMhExcUnit = (5 * scaleFactor * kMan) + (25 * scaleFactor);
+            const custMhManUnit = (84 * scaleFactor * kMan) + (56 * scaleFactor);
 
-            const totalLogs = logD + logS + logP + logC + logW;
-            const totalLumber = lumD + lumS + lumP + lumC + lumW + lumG + lumT;
-            const totalFilm = (fDugout * 60) + (fStore * 45) + (fPilot * 90) + (fCaponier * 72) + (fWc * 40) + (fGen * 4) + (fTrench * 2);
-            const totalStaples = stpD + stpS + stpP + stpC + stpW + stpT;
+            // Оновлення таблиці специфікації для власного формату
+            document.getElementById('row-custom-dim').innerText = `${customL}х${customW} м`;
+            document.getElementById('row-custom-logs').innerText = `${custLogsPerUnit.toFixed(1)} м³`;
+            document.getElementById('row-custom-lum').innerText = `${custLumPerUnit.toFixed(1)} м³`;
+            document.getElementById('row-custom-stp').innerText = `${Math.round(custStpPerUnit)} шт`;
+            document.getElementById('row-custom-mh').innerText = `${Math.round(custMhExcUnit)} / ${Math.round(custMhManUnit)}`;
+
+            const logD = fDugout * 14; const logS = fStore * 8; const logP = fPilot * 18; const logC = fCaponier * 5; const logW = fWc * 2.5; const logCust = fCustom * custLogsPerUnit;
+            const lumD = fDugout * 3; const lumS = fStore * 2.5; const lumP = fPilot * 4.2; const lumC = fCaponier * 3; const lumW = fWc * 2.0; const lumG = fGen * 2.0; const lumT = fTrench * 0.04; const lumCust = fCustom * custLumPerUnit;
+            const stpD = fDugout * 280; const stpS = fStore * 220; const stpP = fPilot * 350; const stpC = fCaponier * 50; const stpW = fWc * 50; const stpT = fTrench * 1; const stpCust = fCustom * custStpPerUnit;
+
+            const totalLogs = logD + logS + logP + logC + logW + logCust;
+            const totalLumber = lumD + lumS + lumP + lumC + lumW + lumG + lumT + lumCust;
+            const totalFilm = (fDugout * 60) + (fStore * 45) + (fPilot * 90) + (fCaponier * 72) + (fWc * 40) + (fGen * 4) + (fTrench * 2) + (fCustom * custFilmPerUnit);
+            const totalStaples = stpD + stpS + stpP + stpC + stpW + stpT + stpCust;
             const totalPipes = fGen * 1;
 
-            const mhExc = ((fDugout * 5 + fStore * 4 + fPilot * 6 + fCaponier * 5 + fWc * 3 + fGen * 1.5 + fTrench * 1.5) * kMan) +
-                          ((fDugout * 25 + fStore * 16 + fPilot * 34 + fCaponier * 20 + fWc * 9 + fGen * 4.5));
+            const mhExc = ((fDugout * 5 + fStore * 4 + fPilot * 6 + fCaponier * 5 + fWc * 3 + fGen * 1.5 + fTrench * 1.5 + fCustom * 5 * scaleFactor) * kMan) +
+                          ((fDugout * 25 + fStore * 16 + fPilot * 34 + fCaponier * 20 + fWc * 9 + fGen * 4.5 + fCustom * 25 * scaleFactor));
             
-            const mhMan = ((fDugout * 84 + fStore * 54 + fPilot * 108 + fCaponier * 132 + fWc * 27 + fGen * 11 + fTrench * 5.0) * kMan) +
-                          ((fDugout * 56 + fStore * 36 + fPilot * 72 + fCaponier * 88 + fWc * 18 + fGen * 7));
+            const mhMan = ((fDugout * 84 + fStore * 54 + fPilot * 108 + fCaponier * 132 + fWc * 27 + fGen * 11 + fTrench * 5.0 + fCustom * 84 * scaleFactor) * kMan) +
+                          ((fDugout * 56 + fStore * 36 + fPilot * 72 + fCaponier * 88 + fWc * 18 + fGen * 7 + fCustom * 56 * scaleFactor));
 
             const currentMH = (activeDigMethod === 'excavator') ? mhExc : mhMan;
 
-            const staticBaseMachineHours = ((fDugout * 4) + (fStore * 3.5) + (fPilot * 6) + (fCaponier * 8) + (fWc * 2.5) + (fGen * 1.0) + (fTrench * 0.5)) * kMach;
+            const staticBaseMachineHours = ((fDugout * 4) + (fStore * 3.5) + (fPilot * 6) + (fCaponier * 8) + (fWc * 2.5) + (fGen * 1.0) + (fTrench * 0.5) + (fCustom * 4.0 * scaleFactor)) * kMach;
             let baseMachineHours = (activeDigMethod === 'manual') ? 0 : staticBaseMachineHours;
 
             const totalFuel = baseMachineHours * 9;
@@ -1106,7 +1182,7 @@
             let pureWorkHours = 0;
             if (totalObjects > 0 && activePeopleWorking > 0) {
                 if (activeDigMethod === 'excavator') {
-                    const digBaseMH = (fDugout*5 + fStore*4 + fPilot*6 + fCaponier*5 + fWc*3 + fGen*1.5 + fTrench*1.5) * kMan;
+                    const digBaseMH = (fDugout*5 + fStore*4 + fPilot*6 + fCaponier*5 + fWc*3 + fGen*1.5 + fTrench*1.5 + fCustom*5*scaleFactor) * kMan;
                     const buildMH = currentMH - digBaseMH;
                     pureWorkHours = actualTechHours + (buildMH / activePeopleWorking);
                 } else {
@@ -1125,10 +1201,10 @@
             const losTrips = Math.ceil(totalLogs / 3.2);
             const zmiyTrips = Math.ceil(totalLogs / 1.2);
 
-            document.getElementById('c-logs').innerHTML = totalLogs + ' м<sup>3</sup>';
+            document.getElementById('c-logs').innerHTML = totalLogs.toFixed(1) + ' м<sup>3</sup>';
             document.getElementById('c-lumber').innerHTML = totalLumber.toFixed(2) + ' м<sup>3</sup>';
-            document.getElementById('c-film').innerHTML = totalFilm + ' м<sup>2</sup>';
-            document.getElementById('c-staples').innerText = totalStaples + ' шт';
+            document.getElementById('c-film').innerHTML = Math.round(totalFilm) + ' м<sup>2</sup>';
+            document.getElementById('c-staples').innerText = Math.round(totalStaples) + ' шт';
             
             document.getElementById('c-manhours').innerText = Math.round(currentMH) + ' год';
             document.getElementById('c-manhours-sub').innerText = `${people} о/с (${activeCrews} гр)`;
@@ -1136,10 +1212,10 @@
             document.getElementById('c-hours').innerText = baseMachineHours.toFixed(1) + ' год';
             document.getElementById('c-hours-sub').innerText = `${activeExcavators} екск`;
 
-            document.getElementById('s-logs').innerHTML = totalLogs + ' м<sup>3</sup>';
+            document.getElementById('s-logs').innerHTML = totalLogs.toFixed(1) + ' м<sup>3</sup>';
             document.getElementById('s-lumber').innerHTML = totalLumber.toFixed(2) + ' м<sup>3</sup>';
-            document.getElementById('s-film').innerHTML = totalFilm + ' м<sup>2</sup>';
-            document.getElementById('s-staples').innerText = totalStaples + ' шт';
+            document.getElementById('s-film').innerHTML = Math.round(totalFilm) + ' м<sup>2</sup>';
+            document.getElementById('s-staples').innerText = Math.round(totalStaples) + ' шт';
 
             document.getElementById('s-manhours').innerText = Math.round(currentMH) + ' год';
             document.getElementById('s-teams').innerText = `${activeCrews} з ${availableCrews} гр`;
@@ -1166,7 +1242,7 @@
             document.getElementById('comp-mh-diff').innerText = `+${mhRatio - 100}%`;
 
             const staticActualTechHours = (activeExcavators > 0) ? (staticBaseMachineHours / activeExcavators) : 0;
-            const daysExc = (activePeopleWorking > 0) ? (((staticActualTechHours + (mhExc - (fDugout*5 + fStore*4 + fPilot*6 + fCaponier*5 + fWc*3 + fGen*1.5)*kMan)/activePeopleWorking)) / hoursPerDay).toFixed(1) : 0;
+            const daysExc = (activePeopleWorking > 0) ? (((staticActualTechHours + (mhExc - (fDugout*5 + fStore*4 + fPilot*6 + fCaponier*5 + fWc*3 + fGen*1.5 + fCustom*5*scaleFactor)*kMan)/activePeopleWorking)) / hoursPerDay).toFixed(1) : 0;
             const daysMan = (activePeopleWorking > 0) ? ((mhMan / activePeopleWorking) / hoursPerDay).toFixed(1) : 0;
             
             document.getElementById('comp-days-exc').innerText = daysExc + ' дн';
@@ -1204,7 +1280,7 @@
             document.getElementById('t-los').innerText = losTrips + ' рейсів';
             document.getElementById('t-zmiy').innerText = zmiyTrips + ' рейсів';
 
-            drawDonut(logD, logS, logP, logC, logW);
+            drawDonut(logD, logS, logP, logC, logW, logCust);
 
             document.getElementById('lum-tot-txt').innerText = totalLumber.toFixed(2) + ' м³';
             const lumTot = Math.max(totalLumber, 0.001);
@@ -1212,15 +1288,15 @@
             document.getElementById('lum-p2').style.width = (lumS / lumTot * 100) + '%';
             document.getElementById('lum-p3').style.width = (lumP / lumTot * 100) + '%';
             document.getElementById('lum-p4').style.width = (lumC / lumTot * 100) + '%';
-            document.getElementById('lum-p5').style.width = ((lumW + lumG + lumT) / lumTot * 100) + '%';
+            document.getElementById('lum-p5').style.width = ((lumW + lumG + lumT + lumCust) / lumTot * 100) + '%';
 
-            document.getElementById('stp-tot-txt').innerText = totalStaples + ' шт';
+            document.getElementById('stp-tot-txt').innerText = Math.round(totalStaples) + ' шт';
             const stpTot = Math.max(totalStaples, 0.001);
             document.getElementById('stp-p1').style.width = (stpD / stpTot * 100) + '%';
             document.getElementById('stp-p2').style.width = (stpS / stpTot * 100) + '%';
             document.getElementById('stp-p3').style.width = (stpP / stpTot * 100) + '%';
             document.getElementById('stp-p4').style.width = (stpC / stpTot * 100) + '%';
-            document.getElementById('stp-p5').style.width = ((stpW + stpT) / stpTot * 100) + '%';
+            document.getElementById('stp-p5').style.width = ((stpW + stpT + stpCust) / stpTot * 100) + '%';
 
             const mh1 = (activeDigMethod === 'excavator') ? (fDugout * 5 * kMan + fDugout * 25) : (fDugout * 84 * kMan + fDugout * 56);
             const mh2 = (activeDigMethod === 'excavator') ? (fStore * 4 * kMan + fStore * 16) : (fStore * 54 * kMan + fStore * 36);
@@ -1282,7 +1358,8 @@
             document.getElementById('b-tot').style.height = Math.max((totalFuel / maxF) * 100, 5) + '%';
 
             generateReportText({
-                dugout: fDugout, store: fStore, pilot: fPilot, caponier: fCaponier, wc: fWc, gen: fGen, trench: fTrench,
+                dugout: fDugout, store: fStore, pilot: fPilot, caponier: fCaponier, wc: fWc, gen: fGen, trench: fTrench, custom: fCustom,
+                customL, customW,
                 logs: totalLogs, lumber: totalLumber, film: totalFilm, staples: totalStaples, pipes: totalPipes,
                 dumpTrips, losTrips, zmiyTrips,
                 people, activeCrews, shovels: Math.ceil(people * 1.2), picks: Math.ceil(people * pickRatio),
@@ -1302,6 +1379,7 @@
             if (d.wc > 0) listObj.push(`• Вбиральня (2.2х2м): ${d.wc} шт`);
             if (d.gen > 0) listObj.push(`• Генераторна (гл. 1.2м): ${d.gen} шт`);
             if (d.trench > 0) listObj.push(`• Траншея: ${d.trench} м`);
+            if (d.custom > 0) listObj.push(`• Власний формат (${d.customL}х${d.customW}м): ${d.custom} шт [Потребує узгодження з НІС бригади, поз. «Аль-Каїда»!]`);
 
             const digName = (d.digMethod === 'excavator') ? 'Екскаватор + Добор' : 'Повністю Вручну';
 
@@ -1317,10 +1395,10 @@
 ${listObj.length > 0 ? listObj.join('\n') : '• Об\'єкти не обрані'}
 
 1. ПОТРЕБА В МАТЕРІАЛАХ:
-• Колоди (⌀18-22см): ${d.logs} м³
+• Колоди (⌀18-22см): ${d.logs.toFixed(1)} м³
 • Брус/Дошка обрізна: ${d.lumber.toFixed(2)} м³
-• Плівка гідроізоляційна (300 мкм): ${d.film} м²
-• Скоби будівельні: ${d.staples} шт
+• Плівка гідроізоляційна (300 мкм): ${Math.round(d.film)} м²
+• Скоби будівельні: ${Math.round(d.staples)} шт
 ${addSpecs.length > 0 ? addSpecs.join('\n') + '\n' : ''}
 2. ДОСТАВКА МАТЕРІАЛІВ:
 • Вантажний самоскид (до 14 м³): ${d.dumpTrips} рейсів
@@ -1429,6 +1507,24 @@ ${addSpecs.length > 0 ? addSpecs.join('\n') + '\n' : ''}
                             btnCopyReport.style.background = 'var(--panel-bg)';
                             btnCopyReport.style.color = 'var(--accent-cyan)';
                             btnCopyReport.innerHTML = `<i class="fa-solid fa-copy"></i> Скопіювати рапорт`;
+                        }, 2000);
+                    });
+                });
+            }
+
+            // Копіювання номера телефону Начальника інженерної служби
+            const btnCopyPhone = document.getElementById('btn-copy-phone');
+            if (btnCopyPhone) {
+                btnCopyPhone.addEventListener('click', function() {
+                    const phone = document.getElementById('phone-number-txt').innerText;
+                    navigator.clipboard.writeText(phone).then(() => {
+                        btnCopyPhone.style.background = 'var(--accent-green)';
+                        btnCopyPhone.style.color = '#000';
+                        btnCopyPhone.innerHTML = `<i class="fa-solid fa-check"></i> Скопійовано`;
+                        setTimeout(() => {
+                            btnCopyPhone.style.background = 'var(--panel-bg)';
+                            btnCopyPhone.style.color = 'var(--accent-cyan)';
+                            btnCopyPhone.innerHTML = `<i class="fa-solid fa-copy"></i> Копіювати`;
                         }, 2000);
                     });
                 });
