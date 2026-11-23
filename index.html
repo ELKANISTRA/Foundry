@@ -126,7 +126,7 @@
             gap: 6px; 
         }
         .header h1 i { color: var(--accent-cyan); }
-        .header-actions { display: flex; align-items: center; gap: 6px; justify-content: space-between; width: 100%; }
+        .header-actions { display: flex; align-items: center; gap: 6px; justify-content: space-between; width: 100%; flex-wrap: wrap; }
         @media (min-width: 600px) { .header-actions { width: auto; } }
         
         .badge { 
@@ -138,6 +138,15 @@
             font-size: 9px; 
             font-weight: 600; 
             white-space: nowrap;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+        }
+        .badge.amber {
+            background: rgba(245, 158, 11, 0.12);
+            border-color: var(--accent-amber);
+            color: var(--accent-amber);
         }
 
         .theme-selector {
@@ -228,6 +237,7 @@
             border-radius: 4px;
             font-size: 10px;
             font-weight: 500;
+            cursor: pointer;
         }
         .filter-btn.active {
             background: var(--accent-cyan);
@@ -265,6 +275,7 @@
             align-items: center;
             justify-content: center;
             gap: 3px;
+            cursor: pointer;
         }
         .dig-btn.active { background: var(--accent-amber); color: #000; }
 
@@ -342,6 +353,45 @@
             border-radius: 6px;
         }
 
+        .achilles-card {
+            background: var(--subpanel-bg);
+            border: 1px solid var(--subpanel-border);
+            border-left: 3px solid var(--accent-amber);
+            border-radius: 6px;
+            padding: 8px;
+            margin-top: 8px;
+        }
+        .achilles-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 6px;
+            margin: 8px 0;
+        }
+        @media (min-width: 500px) {
+            .achilles-grid { grid-template-columns: repeat(3, 1fr); }
+        }
+        .achilles-stat {
+            background: var(--panel-bg);
+            border: 1px solid var(--panel-border);
+            border-radius: 4px;
+            padding: 5px 6px;
+        }
+        .achilles-stat-lbl { font-size: 8px; color: var(--text-muted); text-transform: uppercase; }
+        .achilles-stat-val { font-family: 'Outfit', sans-serif; font-size: 12px; font-weight: 600; color: var(--text-title); }
+        .achilles-meta {
+            font-size: 10px;
+            color: var(--text-main);
+            line-height: 1.4;
+            padding-top: 6px;
+            border-top: 1px dashed var(--panel-border);
+        }
+        .achilles-actions {
+            display: flex;
+            gap: 6px;
+            margin-top: 8px;
+            flex-wrap: wrap;
+        }
+
         .sum-box { 
             background: var(--subpanel-bg); 
             border-left: 3px solid var(--accent-cyan); 
@@ -363,7 +413,7 @@
         .collapsible-wrapper {
             transition: max-height 0.35s ease, opacity 0.25s ease;
             overflow: hidden;
-            max-height: 1500px;
+            max-height: 2500px;
             opacity: 1;
             margin-top: 8px;
         }
@@ -383,6 +433,7 @@
         .compare-table, table { width: 100%; border-collapse: collapse; font-size: 10px; }
         .compare-table th, .compare-table td, th, td { padding: 4px 6px; border: 1px solid var(--panel-border); text-align: center; }
         th { background: var(--subpanel-bg); color: var(--accent-cyan); font-size: 9px; text-transform: uppercase; }
+        tr.active-row { background: rgba(56, 189, 248, 0.08); }
 
         .blueprint-nav {
             display: flex;
@@ -401,14 +452,16 @@
             border-radius: 4px;
             font-size: 10px;
             white-space: nowrap;
+            cursor: pointer;
         }
         .blueprint-btn.active { background: var(--accent-cyan); color: var(--panel-bg); }
         .blueprint-viewer { background: #000; border: 1px solid var(--subpanel-border); border-radius: 6px; padding: 6px; width: 100%; }
-        .blueprint-img { width: 100%; max-height: 280px; object-fit: contain; background: #fff; border-radius: 4px; }
+        .blueprint-img { width: 100%; max-height: 280px; object-fit: contain; background: #fff; border-radius: 4px; cursor: pointer; }
 
-        .transport-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(90px, 1fr)); gap: 6px; }
+        .transport-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(95px, 1fr)); gap: 6px; }
         .transport-card { background: var(--subpanel-bg); border: 1px solid var(--subpanel-border); border-radius: 6px; padding: 6px; }
         .transport-name { color: var(--text-title); font-weight: 600; font-size: 10px; }
+        .transport-cap { font-size: 8px; color: var(--text-muted); }
         .transport-trips { font-family: 'Outfit', sans-serif; font-size: 14px; color: var(--accent-cyan); }
 
         .reminders-grid { display: flex; flex-direction: column; gap: 6px; }
@@ -422,18 +475,34 @@
         .pie-left { display: flex; justify-content: center; width: 100%; }
         .pie-right { width: 100%; display: flex; flex-direction: column; gap: 6px; }
 
+        .mini-stat-title { font-size: 9px; font-weight: 700; color: var(--accent-cyan); text-transform: uppercase; display: flex; align-items: center; justify-content: space-between; margin-bottom: 2px; }
+        .mini-stat-val { font-family: 'Outfit', sans-serif; font-size: 11px; color: var(--text-title); }
+        .progress-bar { width: 100%; height: 5px; background: var(--subpanel-bg); border-radius: 3px; overflow: hidden; display: flex; }
+        .progress-segment { height: 100%; transition: width 0.2s ease; }
+
         .work-progress-list { display: flex; flex-direction: column; gap: 6px; }
         .work-info { display: flex; justify-content: space-between; font-size: 9px; }
         .work-bar { width: 100%; height: 4px; background: var(--subpanel-bg); border-radius: 2px; overflow: hidden; }
         .work-fill { height: 100%; border-radius: 2px; }
 
         .time-widget-box { background: var(--subpanel-bg); border-radius: 6px; padding: 8px; display: flex; flex-direction: column; gap: 6px; }
+        .time-main-display { display: flex; align-items: center; justify-content: space-between; border-bottom: 1px dashed var(--panel-border); padding-bottom: 6px; }
         .time-big-val { font-family: 'Outfit', sans-serif; font-size: 18px; color: var(--accent-green); font-weight: 700; }
+        .time-big-lbl { font-size: 9px; color: var(--text-muted); text-transform: uppercase; }
         .time-details-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 4px; font-size: 9px; }
+        .time-detail-item { display: flex; flex-direction: column; }
+        .time-detail-lbl { font-size: 8px; color: var(--text-muted); text-transform: uppercase; }
+        .time-detail-val { font-weight: 600; color: var(--text-title); }
 
         .bar-chart { display: flex; align-items: flex-end; justify-content: space-between; height: 110px; width: 100%; border-bottom: 1px solid var(--panel-border); padding-top: 6px; }
         .bar-col { display: flex; flex-direction: column; align-items: center; width: 13%; height: 100%; justify-content: flex-end; }
+        .bar-col.dimmed { opacity: 0.25; }
         .bar-fill { width: 100%; max-width: 18px; background: var(--accent-amber); border-radius: 2px 2px 0 0; min-height: 3px; }
+        .bar-fill.blue { background: var(--accent-cyan); }
+        .bar-fill.purple { background: var(--accent-purple); }
+        .bar-txt { font-size: 8px; color: var(--accent-amber); margin-bottom: 2px; }
+        .bar-txt.blue { color: var(--accent-cyan); }
+        .bar-txt.purple { color: var(--accent-purple); font-weight: 600; }
         .bar-lbl { font-size: 7px; color: var(--text-main); margin-top: 2px; text-align: center; }
 
         .req-container { display: flex; flex-direction: column; gap: 6px; }
@@ -444,8 +513,9 @@
         .req-text { font-size: 9px; color: var(--text-main); }
 
         .export-box { background: var(--subpanel-bg); border-radius: 6px; padding: 8px; display: flex; flex-direction: column; gap: 6px; }
-        .btn-export { width: 100%; background: var(--panel-bg); border: 1px solid var(--accent-cyan); color: var(--accent-cyan); padding: 6px; border-radius: 4px; font-size: 10px; font-weight: 600; cursor: pointer; }
-        .report-preview { background: var(--panel-bg); border: 1px solid var(--panel-border); border-radius: 4px; padding: 8px; font-family: monospace; font-size: 9px; color: var(--text-title); white-space: pre-wrap; max-height: 150px; overflow-y: auto; }
+        .btn-export { width: 100%; background: var(--panel-bg); border: 1px solid var(--accent-cyan); color: var(--accent-cyan); padding: 6px; border-radius: 4px; font-size: 10px; font-weight: 600; cursor: pointer; text-align: center; text-decoration: none; display: inline-flex; align-items: center; justify-content: center; gap: 5px; }
+        .btn-export.amber { border-color: var(--accent-amber); color: var(--accent-amber); }
+        .report-preview { background: var(--panel-bg); border: 1px solid var(--panel-border); border-radius: 4px; padding: 8px; font-family: monospace; font-size: 9px; color: var(--text-title); white-space: pre-wrap; max-height: 180px; overflow-y: auto; }
     </style>
 </head>
 <body>
@@ -458,7 +528,10 @@
                 <button class="theme-btn" data-theme="night" title="Світломаскування"><i class="fa-solid fa-moon"></i> Ніч</button>
                 <button class="theme-btn" data-theme="mask" title="Червоне"><i class="fa-solid fa-triangle-exclamation"></i> Маск</button>
             </div>
-            <span class="badge">ТАКТИЧНИЙ</span>
+            <a href="docs/positions_achilles.pdf" target="_blank" class="badge amber" title="Відкрити каталог позицій БПС у PDF">
+                <i class="fa-solid fa-file-pdf"></i> КАТАЛОГ PDF
+            </a>
+            <span class="badge">429 ОБР БПС</span>
         </div>
     </div>
 
@@ -504,6 +577,86 @@
     <div class="grid">
         <!-- Ліва колонка -->
         <div>
+            <!-- Каталог позицій БПС (429 оБр «АХІЛЛЕС») -->
+            <div class="panel">
+                <div class="panel-title-toggle panel-title" id="btn-toggle-achilles" style="color: var(--accent-amber);">
+                    <span><i class="fa-solid fa-crosshairs"></i> Каталог позицій БПС «АХІЛЛЕС»</span>
+                    <i class="fa-solid fa-chevron-down toggle-icon collapsed" id="icon-achilles"></i>
+                </div>
+                <div class="collapsible-wrapper collapsed" id="wrapper-achilles">
+                    <div class="input-box">
+                        <label style="color:var(--accent-amber); font-weight:600;">Оберіть типову конфігурацію позиції (додається в розрахунок):</label>
+                        <select id="i-achilles-preset" style="border-color: var(--accent-amber);">
+                            <option value="none" selected>— Не обрано (тільки об'єкти нижче) —</option>
+                            <optgroup label="Розвідувальний мультиротор">
+                                <option value="recon_multi_ideal">Розвід. мультиротор — Ідеальні умови (1×1.1, 1×1.2, 1×2.2, 1×3.2)</option>
+                                <option value="recon_multi_min">Розвід. мультиротор — Мінімально (3×1.1, 1×2.3)</option>
+                            </optgroup>
+                            <optgroup label="FPV розрахунки">
+                                <option value="fpv_ideal">FPV — Ідеальні умови (1×1.1, 1×1.2, 1×2.6, 1×2.8, 1×3.2)</option>
+                                <option value="fpv_min">FPV — Мінімально (1×1.1, 1×2.6, 1×3.2)</option>
+                            </optgroup>
+                            <optgroup label="Ударний та логістичний бомбер">
+                                <option value="bomber_strike_ideal">Ударний бомбер — Ідеальні умови (2×1.1, 1×1.2, 1×2.6, 2×3.2)</option>
+                                <option value="bomber_strike_min">Ударний бомбер — Мінімально (1×1.1, 1×2.3, 1×2.6)</option>
+                                <option value="bomber_log_ideal">Логістичний бомбер — Ідеальні умови (2×1.1, 1×1.2, 1×2.6, 2×3.2)</option>
+                                <option value="bomber_log_min">Логістичний бомбер — Мінімально (1×1.1, 1×1.2, 1×2.6, 1×3.2)</option>
+                                <option value="bomber_multi_combo">Логістичний бомбер + Мультиротор розвід. (3×1.1, 2×1.2, 1×2.3, 1×2.6, 2×3.2)</option>
+                            </optgroup>
+                            <optgroup label="Розвідувальні та ударні крила">
+                                <option value="wings_recon">Розвідувальні крила (2×1.1, 1×1.2, 1×1.3, 2×3.2)</option>
+                                <option value="wings_strike">Ударні крила: Передня + Задня 1км (3×1.1, 3×1.2, 4×3.2, 1×5.1)</option>
+                                <option value="wings_rdu">Ударні крила (РДУ) (1×1.1, 1×1.2, 1×3.3, 1×4.1)</option>
+                            </optgroup>
+                            <optgroup label="Перехоплювачі (ППО / Антишахед)">
+                                <option value="int_multi_ideal">Перехоплювачі (мультиротор) — Ідеальні (1×1.1, 1×1.2, 1×3.2, 1×3.6)</option>
+                                <option value="int_multi_min">Перехоплювачі (мультиротор) — Мінімально (1×1.1, 1×2.6, 1×3.2)</option>
+                                <option value="int_shahed_ideal">Перехоплювачі (Антишахед) — Ідеальні (2×1.1, 1×1.2, 1×2.4, 1×2.7, 2×3.3)</option>
+                                <option value="int_shahed_min">Перехоплювачі (Антишахед) — Мінімально (1×1.1, 1×2.4, 1×2.9, 1×3.3)</option>
+                                <option value="int_bn_ideal">Перехоплювачі (Крило/мультиротор) Батальйон — Ідеальні (1×1.1, 1×1.2, 1×3.5, 1×3.6)</option>
+                                <option value="int_bn_min">Перехоплювачі (Крило/мультиротор) Батальйон — Мінімально (1×1.1, 1×1.2, 1×2.6, 1×3.5)</option>
+                            </optgroup>
+                            <optgroup label="Спеціальні позиції">
+                                <option value="medevac">Медична евакуація (1×1.1, 1×1.2, 1×3.3, 1×4.1)</option>
+                                <option value="ugv_nrk">Позиція НРК (3×1.1, 1×1.2, 1×3.2, 1×4.1, 2×4.2)</option>
+                            </optgroup>
+                        </select>
+                    </div>
+
+                    <div id="achilles-preset-details" class="achilles-card" style="display:none;"></div>
+
+                    <div class="achilles-actions">
+                        <a href="docs/positions_achilles.pdf" target="_blank" class="btn-export amber" style="flex:1;">
+                            <i class="fa-solid fa-file-pdf"></i> Відкрити PDF-каталог
+                        </a>
+                        <button type="button" id="btn-toggle-catalog-table" class="btn-export" style="flex:1;">
+                            <i class="fa-solid fa-table-list"></i> Довідник кодів (1.1–6.2)
+                        </button>
+                    </div>
+
+                    <div id="achilles-catalog-table-wrap" style="display:none; margin-top:8px;">
+                        <div class="table-responsive">
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th>Код</th>
+                                        <th>Тип / Накати</th>
+                                        <th>Розмір (м)</th>
+                                        <th>Кругляк</th>
+                                        <th>Плівка</th>
+                                        <th>Скоби</th>
+                                        <th>Цвяхи</th>
+                                        <th>Брус/Дошка</th>
+                                        <th>4 о/с (Руч/Екс)</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="achilles-catalog-tbody"></tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
             <!-- Панель 1: Калькулятор об'єктів -->
             <div class="panel">
                 <div class="panel-title"><i class="fa-solid fa-calculator"></i> Калькулятор об'єктів</div>
@@ -533,13 +686,13 @@
 
                 <!-- Вхідні дані споруд -->
                 <div class="inputs">
-                    <div class="input-box"><label>Бліндажі (3х4м)</label><input type="number" id="i-dugout" value="1" min="0"></div>
-                    <div class="input-box"><label>Склади (3х3м)</label><input type="number" id="i-store" value="0" min="0"></div>
-                    <div class="input-box"><label>Укриття (6х3м)</label><input type="number" id="i-pilot" value="0" min="0"></div>
-                    <div class="input-box"><label>Капоніри (4.5х18м)</label><input type="number" id="i-caponier" value="0" min="0"></div>
-                    <div class="input-box"><label>Вбиральні (2.2х2м)</label><input type="number" id="i-wc" value="0" min="0"></div>
-                    <div class="input-box"><label>Генераторні (1.2м)</label><input type="number" id="i-gen" value="0" min="0"></div>
-                    <div class="input-box"><label>Траншеї (м)</label><input type="number" id="i-trench" value="0" min="0"></div>
+                    <div class="input-box"><label>Бліндажі (3х4м, 3.2)</label><input type="number" id="i-dugout" value="1" min="0"></div>
+                    <div class="input-box"><label>Склади (3х3м, 2.2/3.1)</label><input type="number" id="i-store" value="0" min="0"></div>
+                    <div class="input-box"><label>Укриття (6х3м, 3.4)</label><input type="number" id="i-pilot" value="0" min="0"></div>
+                    <div class="input-box"><label>Капоніри (4.5х18м, 4.1)</label><input type="number" id="i-caponier" value="0" min="0"></div>
+                    <div class="input-box"><label>Вбиральні (2х1.5м, 1.2)</label><input type="number" id="i-wc" value="0" min="0"></div>
+                    <div class="input-box"><label>Генераторні (1.5х1.5м, 1.1)</label><input type="number" id="i-gen" value="0" min="0"></div>
+                    <div class="input-box"><label>Траншеї (м.п., 6.2)</label><input type="number" id="i-trench" value="0" min="0"></div>
                     
                     <!-- Власний Формат -->
                     <div class="input-box" style="grid-column: span 2;">
@@ -564,8 +717,8 @@
                 <div class="panel-title" style="color: var(--accent-amber);"><i class="fa-solid fa-sliders"></i> Ресурси та умови робіт</div>
                 <div class="inputs">
                     <div class="input-box">
-                        <label style="color:var(--accent-purple);">Людей (о/с)</label>
-                        <input type="number" id="i-people" value="12" min="1" style="border-color:var(--accent-purple);">
+                        <label style="color:var(--accent-purple);">Людей (о/с, норма 4 о/с)</label>
+                        <input type="number" id="i-people" value="4" min="1" style="border-color:var(--accent-purple);">
                     </div>
                     <div class="input-box">
                         <label style="color:var(--accent-amber);">Екскаватори</label>
@@ -620,9 +773,7 @@
                         <button class="blueprint-btn" data-schema="tortuga"><i class="fa-solid fa-shield-dog"></i> Модуль «ТОРТУГА»</button>
                         <button class="blueprint-btn" data-schema="cargo"><i class="fa-solid fa-container-storage"></i> Контейнер Cargo 12м</button>
                     </div>
-                    <div class="blueprint-viewer" id="blueprint-content">
-                        <!-- Завантажується JS -->
-                    </div>
+                    <div class="blueprint-viewer" id="blueprint-content"></div>
                 </div>
             </div>
 
@@ -638,7 +789,7 @@
                 <!-- Підсумки Люд-Годин та Інструменту -->
                 <div class="sum-box purple">
                     <div class="sum-item"><span class="lbl">Всього люд-годин</span><span class="val purple" id="s-manhours">0 год</span></div>
-                    <div class="sum-item"><span class="lbl">Активні групи</span><span class="val purple" id="s-teams">0 гр</span></div>
+                    <div class="sum-item"><span class="lbl">Робочі групи (по 4 о/с)</span><span class="val purple" id="s-teams">0 гр</span></div>
                     <div class="sum-item"><span class="lbl">Лопати</span><span class="val purple" id="s-shovels">0 шт</span></div>
                     <div class="sum-item"><span class="lbl">Кирки/Відбійники</span><span class="val purple" id="s-picks">0 шт</span></div>
                 </div>
@@ -694,7 +845,7 @@
 
                 <!-- Згорнута за замовчуванням Специфікація -->
                 <div class="panel-title panel-title-toggle" id="btn-toggle-spec" style="margin-top:10px;">
-                    <span><i class="fa-solid fa-list"></i> Специфікація об'єктів</span>
+                    <span><i class="fa-solid fa-list"></i> Специфікація об'єктів (норми 4 о/с)</span>
                     <i class="fa-solid fa-chevron-down toggle-icon collapsed" id="icon-spec"></i>
                 </div>
 
@@ -702,17 +853,17 @@
                     <div class="table-responsive">
                         <table>
                             <thead>
-                                <tr><th>Споруда</th><th>Габарити</th><th>Колоди</th><th>Дошка</th><th>Скоби</th><th>Люд-год (Екс/Руч)</th></tr>
+                                <tr><th>Споруда (Код)</th><th>Габарити</th><th>Колоди</th><th>Дошка/Брус</th><th>Скоби</th><th>Люд-год (Екс/Руч)</th></tr>
                             </thead>
                             <tbody>
-                                <tr id="row-dugout"><td><strong>Бліндаж</strong></td><td>3х4 м</td><td>14 м<sup>3</sup></td><td>3.0 м<sup>3</sup></td><td>280 шт</td><td>30 / 140</td></tr>
-                                <tr id="row-store"><td><strong>Склад</strong></td><td>3х3 м</td><td>8 м<sup>3</sup></td><td>2.5 м<sup>3</sup></td><td>220 шт</td><td>20 / 90</td></tr>
-                                <tr id="row-pilot"><td><strong>Укриття</strong></td><td>6х3 м</td><td>18 м<sup>3</sup></td><td>4.2 м<sup>3</sup></td><td>350 шт</td><td>40 / 180</td></tr>
-                                <tr id="row-caponier"><td><strong>Капонір</strong></td><td>4.5х18 м</td><td>5 м<sup>3</sup></td><td>3.0 м<sup>3</sup></td><td>50 шт</td><td>25 / 220</td></tr>
-                                <tr id="row-wc"><td><strong>Вбиральня</strong></td><td>2.2х2 м</td><td>2.5 м<sup>3</sup></td><td>2.0 м<sup>3</sup></td><td>50 шт</td><td>12 / 45</td></tr>
-                                <tr id="row-gen"><td><strong>Генераторна</strong></td><td>Гл. 1.2м</td><td>—</td><td>2.0 м<sup>3</sup></td><td>—</td><td>6 / 18</td></tr>
-                                <tr id="row-trench"><td><strong>Траншея (1м)</strong></td><td>Шир. 1.5м</td><td>—</td><td>0.04 м<sup>3</sup></td><td>1 шт</td><td>1.5 / 5.0</td></tr>
-                                <tr id="row-custom"><td><strong>Власний формат</strong></td><td id="row-custom-dim">4х3 м</td><td id="row-custom-logs">14 м<sup>3</sup></td><td id="row-custom-lum">3.0 м<sup>3</sup></td><td id="row-custom-stp">280 шт</td><td id="row-custom-mh">30 / 140</td></tr>
+                                <tr id="row-dugout"><td><strong>Бліндаж (3.2)</strong></td><td>3×4 м</td><td>14 м<sup>3</sup> (115шт)</td><td>3.0 м<sup>3</sup></td><td>240 шт</td><td>160 / 608 (5/19 дн)</td></tr>
+                                <tr id="row-store"><td><strong>Склад (2.2/3.1)</strong></td><td>3×3 м</td><td>8.5 м<sup>3</sup> (70шт)</td><td>2.5 м<sup>3</sup></td><td>160 шт</td><td>160 / 544 (5/17 дн)</td></tr>
+                                <tr id="row-pilot"><td><strong>Укриття (3.4)</strong></td><td>6×3 м</td><td>21 м<sup>3</sup> (170шт)</td><td>4.2 м<sup>3</sup></td><td>380 шт</td><td>256 / 736 (8/23 дн)</td></tr>
+                                <tr id="row-caponier"><td><strong>Капонір (4.1)</strong></td><td>4.5×18 м</td><td>3.5 м<sup>3</sup> (28шт)</td><td>3.0 м<sup>3</sup></td><td>50 шт</td><td>480 / 960 (15/30 дн)</td></tr>
+                                <tr id="row-wc"><td><strong>Вбиральня (1.2)</strong></td><td>2×1.5 м</td><td>1.5 м<sup>3</sup> (12шт)</td><td>1.0 м<sup>3</sup></td><td>24 шт</td><td>64 / 96 (2/3 дн)</td></tr>
+                                <tr id="row-gen"><td><strong>Генераторна (1.1)</strong></td><td>1.5×1.5 м</td><td>1.2 м<sup>3</sup> (10шт)</td><td>0.5 м<sup>3</sup></td><td>18 шт</td><td>64 / 96 (2/3 дн)</td></tr>
+                                <tr id="row-trench"><td><strong>Траншея (6.2, 1м)</strong></td><td>1 м.п.</td><td>0.5 м<sup>3</sup> (4шт)</td><td>0.15 м<sup>3</sup></td><td>10 шт</td><td>4 / 12</td></tr>
+                                <tr id="row-custom"><td><strong>Власний формат</strong></td><td id="row-custom-dim">4×3 м</td><td id="row-custom-logs">14 м<sup>3</sup></td><td id="row-custom-lum">3.0 м<sup>3</sup></td><td id="row-custom-stp">240 шт</td><td id="row-custom-mh">160 / 608</td></tr>
                             </tbody>
                         </table>
                     </div>
@@ -721,18 +872,31 @@
 
             <!-- Доставка матеріалів -->
             <div class="panel">
-                <div class="panel-title"><i class="fa-solid fa-truck-ramp-box"></i> Доставка матеріалів</div>
+                <div class="panel-title"><i class="fa-solid fa-truck-ramp-box"></i> Доставка матеріалів (колоди)</div>
                 <div class="transport-grid">
                     <div class="transport-card">
                         <div class="transport-name"><i class="fa-solid fa-truck"></i> Самоскид</div>
+                        <div class="transport-cap">до 14 м³ (~110 шт)</div>
                         <div class="transport-trips" id="t-dump">0 рейсів</div>
                     </div>
                     <div class="transport-card">
+                        <div class="transport-name"><i class="fa-solid fa-snowplow"></i> БВ206</div>
+                        <div class="transport-cap">до 25 шт (1650 кг)</div>
+                        <div class="transport-trips" id="t-bv206">0 рейсів</div>
+                    </div>
+                    <div class="transport-card">
                         <div class="transport-name"><i class="fa-solid fa-robot"></i> НРК «ЛОСЬ»</div>
+                        <div class="transport-cap">до 3.2 м³ (~25 шт)</div>
                         <div class="transport-trips" id="t-los">0 рейсів</div>
                     </div>
                     <div class="transport-card">
+                        <div class="transport-name"><i class="fa-solid fa-trailer"></i> Змій + причіп</div>
+                        <div class="transport-cap">до 10 шт (700 кг)</div>
+                        <div class="transport-trips" id="t-zmiy-trailer">0 рейсів</div>
+                    </div>
+                    <div class="transport-card">
                         <div class="transport-name"><i class="fa-solid fa-robot"></i> НРК «Змій»</div>
+                        <div class="transport-cap">до 1.2 м³ (~9 шт)</div>
                         <div class="transport-trips" id="t-zmiy">0 рейсів</div>
                     </div>
                 </div>
@@ -955,33 +1119,286 @@
         let activeFilter = 'all';
         let activeDigMethod = 'excavator';
 
+        // База даних пресетів із каталогу «Позиції пілотів Ахіллес» (429 оБр БПС)
+        // Коефіцієнти перерахунку: 1 колода (17-20см × 4м) ≈ 0.125 м³; 1 м.п. плівки (рулон 3м) ≈ 3 м²; 1 брус ≈ 0.02 м³, 1 дошка ≈ 0.01 м³
+        const achillesPresets = {
+            recon_multi_ideal: {
+                name: "Розвідувальний мультиротор (Ідеальні умови)",
+                objects: "1×1.1 (Генератор), 1×1.2 (Туалет), 1×2.2 (Склад), 1×3.2 (Бліндаж пілотів)",
+                distance: "Генератор ≥15 м від бліндажа; траншея 25–40 м",
+                logs: 207, film: 95, staples: 446, nails: 18, timber: 65, boardsNum: 135, boards: "135 шт",
+                extra: "",
+                daysManual: 40, daysExc: 14, machHours: 24
+            },
+            recon_multi_min: {
+                name: "Розвідувальний мультиротор (Мінімально)",
+                objects: "3×1.1 (Генератор, Склад, Туалет), 1×2.3 (Бліндаж пілотів 2 накати)",
+                distance: "Генератор ≥15 м; траншея 15–25 м",
+                logs: 120, film: 52, staples: 244, nails: 13, timber: 42, boardsNum: 85, boards: "85 шт",
+                extra: "",
+                daysManual: 28, daysExc: 11, machHours: 16
+            },
+            fpv_ideal: {
+                name: "FPV (Ідеальні умови)",
+                objects: "1×1.1 (Генератор), 1×1.2 (Туалет), 1×2.6 (Заряджаючий), 1×2.8 (Дод. склад), 1×3.2 (Бліндаж пілотів)",
+                distance: "Генератор ≥15 м; ходи сполучень (траншея) 20–35 м",
+                logs: 387, film: 175, staples: 826, nails: 38, timber: 125, boardsNum: 254, boards: "254 шт",
+                extra: "",
+                daysManual: 60, daysExc: 19, machHours: 36
+            },
+            fpv_min: {
+                name: "FPV (Мінімально)",
+                objects: "1×1.1 (Генератор), 1×2.6 (Склад), 1×3.2 (Бліндаж пілотів)",
+                distance: "Базова компактна позиція",
+                logs: 215, film: 94, staples: 458, nails: 21, timber: 65, boardsNum: 130, boards: "130 шт",
+                extra: "",
+                daysManual: 40, daysExc: 12, machHours: 20
+            },
+            bomber_strike_ideal: {
+                name: "Ударний бомбер (Ідеальні умови)",
+                objects: "2×1.1 (Генератори), 1×1.2 (Туалет), 1×2.6 (Склад), 2×3.2 (Бліндаж техніка + Бліндаж пілотів)",
+                distance: "Генератори ≥15 м від бліндажів; траншея 20–35 м",
+                logs: 352, film: 154, staples: 754, nails: 33, timber: 105, boardsNum: 210, boards: "210 шт",
+                extra: "",
+                daysManual: 85, daysExc: 30, machHours: 48
+            },
+            bomber_strike_min: {
+                name: "Ударний бомбер (Мінімально)",
+                objects: "1×1.1 (Генератор), 1×2.3 (Бліндаж пілотів), 1×2.6 (Бліндаж техніка)",
+                distance: "Компактне розміщення",
+                logs: 190, film: 84, staples: 398, nails: 21, timber: 65, boardsNum: 130, boards: "130 шт",
+                extra: "",
+                daysManual: 40, daysExc: 13, machHours: 20
+            },
+            bomber_log_ideal: {
+                name: "Логістичний бомбер (Ідеальні умови)",
+                objects: "2×1.1 (Генератори), 1×1.2 (Туалет), 1×2.6 (Склад), 2×3.2 (Бліндаж пілотів + Бліндаж техніка)",
+                distance: "Відстань до генераторів ≥15 м",
+                logs: 352, film: 154, staples: 744, nails: 33, timber: 105, boardsNum: 210, boards: "210 шт",
+                extra: "",
+                daysManual: 63, daysExc: 21, machHours: 40
+            },
+            bomber_log_min: {
+                name: "Логістичний бомбер (Мінімально)",
+                objects: "1×1.1 (Генератор), 1×1.2 (Туалет), 1×2.6 (Склад), 1×3.2 (Бліндаж пілотів)",
+                distance: "Мінімальна конфігурація",
+                logs: 227, film: 100, staples: 496, nails: 22, timber: 71, boardsNum: 142, boards: "142 шт",
+                extra: "",
+                daysManual: 45, daysExc: 15, machHours: 24
+            },
+            bomber_multi_combo: {
+                name: "Логістичний бомбер + Мультиротор розвід.",
+                objects: "3×1.1 (Генератори), 2×1.2 (Туалети), 1×2.3 (Бліндаж пілотів), 1×2.6 (Склад), 2×3.2 (Бліндажі)",
+                distance: "Рознесення груп 200 м; генератори ≥15 м",
+                logs: 454, film: 198, staples: 982, nails: 44, timber: 145, boardsNum: 290, boards: "290 шт",
+                extra: "",
+                daysManual: 90, daysExc: 30, machHours: 56
+            },
+            wings_recon: {
+                name: "Розвідувальні крила",
+                objects: "2×1.1 (Генератори), 1×1.2 (Туалет), 1×1.3 (Бліндаж техніка), 2×3.2 (Бліндаж пілотів + відпочинку)",
+                distance: "Відстань між бліндажами 100 м",
+                logs: 327, film: 144, staples: 696, nails: 30, timber: 105, boardsNum: 210, boards: "210 шт",
+                extra: "",
+                daysManual: 65, daysExc: 21, machHours: 40
+            },
+            wings_strike: {
+                name: "Ударні крила (Передня + Задня посадка)",
+                objects: "3×1.1 (Генератори), 3×1.2 (Туалети), 4×3.2 (Бліндажі/Склад), 1×5.1 (Укриття УГТ-2 Технік)",
+                distance: "Між бліндажами 30–100 м; між посадкою 1 км",
+                logs: 530, film: 240, staples: 1120, nails: 46, timber: 150, boardsNum: 300, boards: "300 шт",
+                extra: "УГТ-2: 12 шт | Зварна сітка: 24 м² | Маск. сітка: 60 м.п. | Агроволокно: 24 м² | Метал. кріплення: 60 шт",
+                daysManual: 110, daysExc: 30, machHours: 64
+            },
+            wings_rdu: {
+                name: "Ударні крила (РДУ)",
+                objects: "1×1.1 (Генератор), 1×1.2 (Туалет), 1×3.3 (Бліндаж пілотів), 1×4.1 (Капонір)",
+                distance: "Відстань від капоніру 25–35 м",
+                logs: 160, film: 135, staples: 332, nails: 26, timber: 80, boardsNum: 146, boards: "146 шт",
+                extra: "Буд. сміття: 15 м³ | Маск. сітка: 75 м.п.",
+                daysManual: 50, daysExc: 24, machHours: 32
+            },
+            int_multi_ideal: {
+                name: "Перехоплювачі (мультиротор) — Ідеальні умови",
+                objects: "1×1.1 (Генератор), 1×1.2 (Туалет), 1×3.2 (Бліндаж пілотів), 1×3.6 (Заряджаючий)",
+                distance: "Генератор ≥15 м; траншея 20–35 м",
+                logs: 238, film: 104, staples: 508, nails: 22, timber: 70, boardsNum: 140, boards: "140 шт",
+                extra: "",
+                daysManual: 45, daysExc: 15, machHours: 28
+            },
+            int_multi_min: {
+                name: "Перехоплювачі (мультиротор) — Мінімально",
+                objects: "1×1.1 (Генератор), 1×2.6 (Заряджаючий), 1×3.2 (Бліндаж пілотів)",
+                distance: "Мінімальна конфігурація",
+                logs: 215, film: 94, staples: 458, nails: 20, timber: 65, boardsNum: 130, boards: "130 шт",
+                extra: "",
+                daysManual: 40, daysExc: 13, machHours: 22
+            },
+            int_shahed_ideal: {
+                name: "Перехоплювачі (Антишахед) — Ідеальні умови",
+                objects: "2×1.1 (Генератори), 1×1.2 (Туалет), 1×2.4 (Склад майна), 1×2.7 (Склад БК), 2×3.3 (КВС-У/бліндажі)",
+                distance: "Суцільні ходи сполучень «Траншея» до 60 м",
+                logs: 477, film: 219, staples: 1060, nails: 38.5, timber: 135, boardsNum: 285, boards: "285 шт",
+                extra: "",
+                daysManual: 80, daysExc: 35, machHours: 56
+            },
+            int_shahed_min: {
+                name: "Перехоплювачі (Антишахед) — Мінімально",
+                objects: "1×1.1 (Генератор), 1×2.4 (Склад майна), 1×2.9 (Склад БК), 1×3.3 (Бліндаж пілотів)",
+                distance: "Мінімальна конфігурація",
+                logs: 315, film: 144, staples: 680, nails: 25, timber: 90, boardsNum: 190, boards: "190 шт",
+                extra: "",
+                daysManual: 40, daysExc: 21, machHours: 32
+            },
+            int_bn_ideal: {
+                name: "Перехоплювачі (Крило/мультиротор) Батальйон — Ідеальні",
+                objects: "1×1.1 (Генератор), 1×1.2 (Туалет), 1×3.5 (Бліндаж пілотів 6×3.5), 1×3.6 (Технік)",
+                distance: "Генератор ≥15 м; траншея 20–35 м",
+                logs: 290, film: 130, staples: 640, nails: 26, timber: 80, boardsNum: 160, boards: "160 шт",
+                extra: "",
+                daysManual: 35, daysExc: 18, machHours: 32
+            },
+            int_bn_min: {
+                name: "Перехоплювачі (Крило/мультиротор) Батальйон — Мінімально",
+                objects: "1×1.1 (Генератор), 1×1.2 (Туалет), 1×2.6 (Заряджаючий), 1×3.5 (Бліндаж пілотів 6×3.5)",
+                distance: "Мінімальна конфігурація",
+                logs: 290, film: 128, staples: 642, nails: 26, timber: 80, boardsNum: 168, boards: "168 шт",
+                extra: "",
+                daysManual: 35, daysExc: 18, machHours: 32
+            },
+            medevac: {
+                name: "Медична евакуація",
+                objects: "1×1.1 (Генератор), 1×1.2 (Туалет), 1×3.3 (Бліндаж 5×3), 1×4.1 (Капонір 18×4.5)",
+                distance: "Відстань від капоніру 50–70 м",
+                logs: 260, film: 115, staples: 540, nails: 24, timber: 72, boardsNum: 188, boards: "188 шт",
+                extra: "Маск. сітка: 75 м.п. | Буд. сміття: 15 м³",
+                daysManual: 50, daysExc: 24, machHours: 36
+            },
+            ugv_nrk: {
+                name: "Позиція НРК (Наземні роботизовані комплекси)",
+                objects: "3×1.1 (Генератори), 1×1.2 (Туалет), 1×3.2 (Бліндаж), 1×4.1 (Капонір вант.), 2×4.2 (Капоніри НРК)",
+                distance: "Відстань між капонірами 30–50 м; система траншей",
+                logs: 233, film: 258, staples: 458, nails: 45, timber: 152, boardsNum: 600, boards: "6 м³",
+                extra: "Буд. сміття: 39 м³ | Маск. сітка: 215 м.п.",
+                daysManual: 90, daysExc: 35, machHours: 64
+            }
+        };
+
+        const achillesCatalogItems = [
+            { code: "1.1", type: "1 накат (Генератор/Склад)", dim: "1,5×1,5×2", logs: "10 шт", film: "4 м.п.", staples: "18", nails: "1 кг", wood: "—", time: "3 / 2 дн" },
+            { code: "1.2", type: "1 накат (Туалет)", dim: "2×1,5×2", logs: "12 шт", film: "6 м.п.", staples: "24", nails: "1 кг", wood: "4 / 4 шт", time: "3 / 2 дн" },
+            { code: "1.3", type: "1 накат (Бліндаж техн.)", dim: "3×4×2,5", logs: "65 шт", film: "30 м.п.", staples: "135", nails: "8 кг", wood: "30 / 60 шт", time: "19 / 5 дн" },
+            { code: "2.1", type: "2 накати", dim: "3×2×2", logs: "50 шт", film: "20 м.п.", staples: "110", nails: "1.5 кг", wood: "15 / 49 шт", time: "12 / 4 дн" },
+            { code: "2.2", type: "2 накати (Склад)", dim: "3×3×2,5", logs: "70 шт", film: "35 м.п.", staples: "160", nails: "6 кг", wood: "25 / 54 шт", time: "17 / 5 дн" },
+            { code: "2.3", type: "2 накати (Бліндаж)", dim: "3×4×2,5", logs: "90 шт", film: "40 м.п.", staples: "190", nails: "8 кг", wood: "30 / 60 шт", time: "19 / 5 дн" },
+            { code: "2.4", type: "2 накати (Склад майна)", dim: "3×5×2,5", logs: "110 шт", film: "55 м.п.", staples: "240", nails: "10 кг", wood: "35 / 70 шт", time: "21 / 6 дн" },
+            { code: "2.5", type: "2 накати", dim: "3×6×2,5", logs: "125 шт", film: "50 м.п.", staples: "270", nails: "14 кг", wood: "40 / 80 шт", time: "23 / 8 дн" },
+            { code: "2.6", type: "2 накати (Заряд./Склад)", dim: "4×3×2,5", logs: "80 шт", film: "35 м.п.", staples: "180", nails: "7 кг", wood: "30 / 55 шт", time: "19 / 5 дн" },
+            { code: "2.7", type: "2 накати (Склад БК)", dim: "2×3×2,5", logs: "50 шт", film: "20 м.п.", staples: "110", nails: "1.5 кг", wood: "15 / 47 шт", time: "12 / 4 дн" },
+            { code: "2.8", type: "2 накати (Дод. склад)", dim: "3×3×2,5", logs: "60 шт", film: "30 м.п.", staples: "140", nails: "5 кг", wood: "20 / 40 шт", time: "17 / 5 дн" },
+            { code: "2.9", type: "2 накати (Склад БК)", dim: "2×3×2,5", logs: "45 шт", film: "20 м.п.", staples: "100", nails: "1.5 кг", wood: "15 / 45 шт", time: "12 / 4 дн" },
+            { code: "3.1", type: "3 накати", dim: "3×3×2,5", logs: "90 шт", film: "45 м.п.", staples: "190", nails: "6 кг", wood: "25 / 54 шт", time: "17 / 5 дн" },
+            { code: "3.2", type: "3 накати (Бліндаж пілотів)", dim: "3×4×2,5", logs: "115 шт", film: "50 м.п.", staples: "240", nails: "10 кг", wood: "30 / 60 шт", time: "19 / 5 дн" },
+            { code: "3.3", type: "3 накати (КВС-У / Блінд.)", dim: "3×5×2,5", logs: "150 шт", film: "65 м.п.", staples: "320", nails: "12 кг", wood: "35 / 70 шт", time: "21 / 6 дн" },
+            { code: "3.4", type: "3 накати", dim: "3×6×2,5", logs: "170 шт", film: "70 м.п.", staples: "380", nails: "14 кг", wood: "40 / 80 шт", time: "23 / 8 дн" },
+            { code: "3.5", type: "3 накати (Блінд. бат.)", dim: "3,5×6×2,5", logs: "180 шт", film: "80 м.п.", staples: "410", nails: "14 кг", wood: "42 / 90 шт", time: "23 / 8 дн" },
+            { code: "3.6", type: "3 накати (Заряд./Техн.)", dim: "4×2×2,5", logs: "92 шт", film: "47 м.п.", staples: "200", nails: "5 кг", wood: "26 / 60 шт", time: "17 / 5 дн" },
+            { code: "4.1", type: "Капонір (вант. техн.)", dim: "18×4,5×3", logs: "28 шт", film: "70 м.п.", staples: "50", nails: "12 кг", wood: "40шт / 2м³", time: "— / 15 дн" },
+            { code: "4.2", type: "Капонір (для НРК)", dim: "12×3,5×3", logs: "24 шт", film: "60 м.п.", staples: "40", nails: "9 кг", wood: "33шт / 1.5м³", time: "— / 14 дн" },
+            { code: "5.1", type: "Укриття УГТ-2 (12 шт)", dim: "6×1,5×2,5", logs: "—", film: "Агро 24м²", staples: "Кріп. 60", nails: "Сітка 24м²", wood: "12 / 24 шт", time: "14 / 5 дн" },
+            { code: "6.1", type: "Траншея УГТ-2 (1 м.п.)", dim: "шир. 0,99", logs: "—", film: "Агро 4м²", staples: "Кріп. 10", nails: "УГТ-2: 2шт", wood: "— / 2 шт", time: "1 / 1 дн" },
+            { code: "6.2", type: "Траншея перекрита (1 м.п.)", dim: "1 м.п.", logs: "4 шт", film: "1.2 м.п.", staples: "10", nails: "—", wood: "3 / 6 шт", time: "1 / 1 дн" }
+        ];
+
+        function renderAchillesCatalogTable() {
+            const tbody = document.getElementById('achilles-catalog-tbody');
+            if (!tbody) return;
+            tbody.innerHTML = achillesCatalogItems.map(item => `
+                <tr>
+                    <td><strong>${item.code}</strong></td>
+                    <td style="text-align:left;">${item.type}</td>
+                    <td>${item.dim}</td>
+                    <td>${item.logs}</td>
+                    <td>${item.film}</td>
+                    <td>${item.staples}</td>
+                    <td>${item.nails}</td>
+                    <td>${item.wood}</td>
+                    <td>${item.time}</td>
+                </tr>
+            `).join('');
+        }
+
+        function renderAchillesPreset(people, hoursPerDay, kMan, kMach, activeExcavators) {
+            const key = document.getElementById('i-achilles-preset').value;
+            const container = document.getElementById('achilles-preset-details');
+            if (!container) return;
+
+            if (key === 'none' || !achillesPresets[key]) {
+                container.style.display = 'none';
+                container.innerHTML = '';
+                return;
+            }
+
+            const p = achillesPresets[key];
+            const bv206Trips = Math.ceil(p.logs / 25);
+            const zmiyTrailerTrips = Math.ceil(p.logs / 10);
+
+            // Нормативні людино-години за каталогом (4 о/с × 8 год/дн = 32 люд-год/дн)
+            const normMhExc = Math.round(p.daysExc * 32 * kMan);
+            const normMhManual = Math.round(p.daysManual * 32 * kMan);
+            const selectedMh = (activeDigMethod === 'excavator') ? normMhExc : normMhManual;
+            const actualDays = (selectedMh / (people * hoursPerDay)).toFixed(1);
+
+            container.style.display = 'block';
+            container.innerHTML = `
+                <div style="font-size:12px; font-weight:700; color:var(--accent-amber); margin-bottom:4px;">${p.name}</div>
+                <div style="font-size:10px; color:var(--text-title); margin-bottom:6px;"><strong>Склад об'єктів:</strong> ${p.objects}</div>
+                <div class="achilles-grid">
+                    <div class="achilles-stat"><div class="achilles-stat-lbl">Кругляк (17-20см)</div><div class="achilles-stat-val">${p.logs} шт (~${(p.logs * 0.125).toFixed(1)} м³)</div></div>
+                    <div class="achilles-stat"><div class="achilles-stat-lbl">Плівка</div><div class="achilles-stat-val">${p.film} м.п. (~${p.film * 3} м²)</div></div>
+                    <div class="achilles-stat"><div class="achilles-stat-lbl">Скоби будівельні</div><div class="achilles-stat-val">${p.staples} шт</div></div>
+                    <div class="achilles-stat"><div class="achilles-stat-lbl">Цвяхи 200 мм</div><div class="achilles-stat-val">${p.nails} кг</div></div>
+                    <div class="achilles-stat"><div class="achilles-stat-lbl">Брус / Дошка</div><div class="achilles-stat-val">${p.timber} шт / ${p.boards}</div></div>
+                    <div class="achilles-stat"><div class="achilles-stat-lbl">Норма (4 о/с, 8г)</div><div class="achilles-stat-val" style="color:var(--accent-green);">${p.daysExc} дн екс / ${p.daysManual} дн руч</div></div>
+                </div>
+                <div style="background:var(--panel-bg); border:1px solid var(--panel-border); border-radius:4px; padding:5px 8px; margin-bottom:6px; font-size:10px; color:var(--text-title);">
+                    <i class="fa-solid fa-users-gear" style="color:var(--accent-purple);"></i> <strong>Під ваші умови (${people} о/с, ${hoursPerDay} год/дн):</strong> 
+                    <span style="color:var(--accent-purple); font-weight:700;">${selectedMh} люд-год</span> → <span style="color:var(--accent-green); font-weight:700;">${actualDays} діб</span>
+                </div>
+                ${p.extra ? `<div style="font-size:10px; color:var(--accent-cyan); margin-bottom:4px;"><strong>Спецматеріали:</strong> ${p.extra}</div>` : ''}
+                <div class="achilles-meta">
+                    <div><i class="fa-solid fa-arrows-left-right" style="color:var(--accent-amber);"></i> <strong>Дистанції:</strong> ${p.distance}</div>
+                    <div><i class="fa-solid fa-truck-fast" style="color:var(--accent-cyan);"></i> <strong>Логістика кругляка:</strong> БВ206 — <strong>${bv206Trips}</strong> рейсів | Змій+причіп — <strong>${zmiyTrailerTrips}</strong> рейсів</div>
+                </div>
+            `;
+        }
+
         const localSchemesData = {
             dugout_main: {
                 title: "Бліндаж 3х4 м (Загальна схема)",
                 img: "schemes/dugout_main.png",
                 specs: `<strong>Потреба в матеріалах:</strong><br>
-                • Лісоматеріал (колоди): 14 м³<br>
-                • Лісоматеріал (дошка): 3.0 м³<br>
-                • Лісоматеріал (брус): 1 м³<br>
-                • Скоба будівельна: 280 шт<br>
-                • Плівка 300мкм: 60 м²`
+                • Лісоматеріал (колоди): 14 м³ (115 шт)<br>
+                • Лісоматеріал (дошка + брус): 3.0 м³<br>
+                • Скоба будівельна: 240–280 шт<br>
+                • Плівка 300мкм: 60 м² (50 м.п.)`
             },
             dugout_1: {
                 title: "Склади, Бліндажі та Капоніри",
                 img: "schemes/dugout_1.png",
                 specs: `<strong>Специфікація:</strong><br>
-                <strong>1. Склад 3х3:</strong> Колоди - 8м³, Дошка - 1.5м³, Скоби - 220шт.<br>
-                <strong>2. Бліндаж 3х4:</strong> Колоди - 14м³, Дошка - 3м³, Скоби - 280шт.<br>
-                <strong>3. Укриття 6х3:</strong> Колоди - 18м³, Дошка - 3м³, Скоби - 350шт.<br>
-                <strong>4. Капонір 4.5х18:</strong> Колоди - 5м³, Дошка - 3м³, Скоби - 50шт.`
+                <strong>1. Склад 3х3:</strong> Колоди - 8.5м³ (70шт), Дошка - 1.5м³, Скоби - 160шт.<br>
+                <strong>2. Бліндаж 3х4:</strong> Колоди - 14м³ (115шт), Дошка - 3м³, Скоби - 240шт.<br>
+                <strong>3. Укриття 6х3:</strong> Колоди - 21м³ (170шт), Дошка - 4.2м³, Скоби - 380шт.<br>
+                <strong>4. Капонір 4.5х18:</strong> Колоди - 3.5м³ (28шт), Дошка - 3м³, Скоби - 50шт.`
             },
             dugout_2: {
                 title: "Вбиральня, Генераторна, Траншея",
                 img: "schemes/dugout_2.png",
                 specs: `<strong>Специфікація:</strong><br>
-                <strong>• Вбиральня (2.2х2м):</strong> Колоди - 2.5м³, Дошка - 2м³.<br>
-                <strong>• Генераторна:</strong> Дошка - 2м³, Плівка - 4м², Труба 120мм.<br>
-                <strong>• Траншея (1м):</strong> Дошка - 0.04м³, Скоби - 1шт.`
+                <strong>• Вбиральня (2х1.5м):</strong> Колоди - 12 шт (1.5м³), Дошка/Брус - 1м³.<br>
+                <strong>• Генераторна (1.5х1.5м):</strong> Колоди - 10 шт (1.2м³), Труба 120мм.<br>
+                <strong>• Траншея (1м):</strong> Колоди - 4 шт (0.5м³), Скоби - 10шт.`
             },
             tortuga: {
                 title: "Модуль «ТОРТУГА»",
@@ -1098,14 +1515,12 @@
             let gen = parseFloat(document.getElementById('i-gen').value) || 0;
             let trench = parseFloat(document.getElementById('i-trench').value) || 0;
 
-            // Власний формат
             let customCount = parseFloat(document.getElementById('i-custom').value) || 0;
             let customL = Math.max(parseFloat(document.getElementById('i-custom-l').value) || 4, 0.5);
             let customW = Math.max(parseFloat(document.getElementById('i-custom-w').value) || 3, 0.5);
             let customArea = customL * customW;
-            let scaleFactor = customArea / 12.0; // Відносно базового бліндажа 3х4м (12м²)
+            let scaleFactor = customArea / 12.0;
 
-            // Показати або приховати попередження про погодження Власного Формату
             const customApprovalPanel = document.getElementById('custom-approval-panel');
             if (customCount > 0) {
                 customApprovalPanel.style.display = 'block';
@@ -1123,6 +1538,10 @@
             if (soilType === 'medium') { kMan = 1.5; kMach = 1.2; } 
             else if (soilType === 'heavy') { kMan = 2.5; kMach = 1.5; }
 
+            // Перевірка обраного пресету АХІЛЛЕС
+            const achillesKey = document.getElementById('i-achilles-preset').value;
+            const preset = (achillesKey !== 'none' && achillesPresets[achillesKey]) ? achillesPresets[achillesKey] : null;
+
             let fDugout = (activeFilter === 'all' || activeFilter === 'dugout') ? dugout : 0;
             let fStore = (activeFilter === 'all' || activeFilter === 'store') ? store : 0;
             let fPilot = (activeFilter === 'all' || activeFilter === 'pilot') ? pilot : 0;
@@ -1132,73 +1551,114 @@
             let fTrench = (activeFilter === 'all' || activeFilter === 'trench') ? trench : 0;
             let fCustom = (activeFilter === 'all' || activeFilter === 'custom') ? customCount : 0;
 
-            const totalObjects = fDugout + fStore + fPilot + fCaponier + fWc + fGen + fCustom + (fTrench > 0 ? 1 : 0);
+            const presetObjCount = preset ? 4 : 0;
+            const totalObjects = fDugout + fStore + fPilot + fCaponier + fWc + fGen + fCustom + presetObjCount + (fTrench > 0 ? 1 : 0);
             
             const activeExcavators = (totalObjects > 0) ? Math.min(rawExcavators, totalObjects) : 0;
-            const availableCrews = Math.max(Math.floor(people / 5), 1);
+            // Стандартна робоча група за каталогом — 4 о/с
+            const availableCrews = Math.max(Math.floor(people / 4), 1);
             const activeCrews = (totalObjects > 0) ? Math.min(availableCrews, totalObjects) : 0;
-            const activePeopleWorking = activeCrews * 5;
 
-            // Масштабовані матеріали для власного формату
+            renderAchillesPreset(people, hoursPerDay, kMan, kMach, activeExcavators);
+
+            // Норми для власного формату (масштабовані від 3.2: 14м³ колод, 3м³ дошка, 60м² плівка, 240 скоб, 160/608 люд-год)
             const custLogsPerUnit = 14 * scaleFactor;
             const custLumPerUnit = 3.0 * scaleFactor;
             const custFilmPerUnit = 60 * scaleFactor;
-            const custStpPerUnit = 280 * scaleFactor;
-            const custMhExcUnit = (5 * scaleFactor * kMan) + (25 * scaleFactor);
-            const custMhManUnit = (84 * scaleFactor * kMan) + (56 * scaleFactor);
+            const custStpPerUnit = 240 * scaleFactor;
+            const custMhExcUnit = 160 * scaleFactor * kMan;
+            const custMhManUnit = 608 * scaleFactor * kMan;
 
-            // Оновлення таблиці специфікації для власного формату
-            document.getElementById('row-custom-dim').innerText = `${customL}х${customW} м`;
+            document.getElementById('row-custom-dim').innerText = `${customL}×${customW} м`;
             document.getElementById('row-custom-logs').innerText = `${custLogsPerUnit.toFixed(1)} м³`;
             document.getElementById('row-custom-lum').innerText = `${custLumPerUnit.toFixed(1)} м³`;
             document.getElementById('row-custom-stp').innerText = `${Math.round(custStpPerUnit)} шт`;
             document.getElementById('row-custom-mh').innerText = `${Math.round(custMhExcUnit)} / ${Math.round(custMhManUnit)}`;
 
-            const logD = fDugout * 14; const logS = fStore * 8; const logP = fPilot * 18; const logC = fCaponier * 5; const logW = fWc * 2.5; const logCust = fCustom * custLogsPerUnit;
-            const lumD = fDugout * 3; const lumS = fStore * 2.5; const lumP = fPilot * 4.2; const lumC = fCaponier * 3; const lumW = fWc * 2.0; const lumG = fGen * 2.0; const lumT = fTrench * 0.04; const lumCust = fCustom * custLumPerUnit;
-            const stpD = fDugout * 280; const stpS = fStore * 220; const stpP = fPilot * 350; const stpC = fCaponier * 50; const stpW = fWc * 50; const stpT = fTrench * 1; const stpCust = fCustom * custStpPerUnit;
+            // Матеріали з пресету АХІЛЛЕС (конвертація в м³ та м²)
+            const pLogsM3 = preset ? (preset.logs * 0.125) : 0;
+            const pLumberM3 = preset ? ((preset.timber * 0.02) + (preset.boardsNum * 0.01)) : 0;
+            const pFilmM2 = preset ? (preset.film * 3) : 0;
+            const pStaples = preset ? preset.staples : 0;
 
-            const totalLogs = logD + logS + logP + logC + logW + logCust;
-            const totalLumber = lumD + lumS + lumP + lumC + lumW + lumG + lumT + lumCust;
-            const totalFilm = (fDugout * 60) + (fStore * 45) + (fPilot * 90) + (fCaponier * 72) + (fWc * 40) + (fGen * 4) + (fTrench * 2) + (fCustom * custFilmPerUnit);
-            const totalStaples = stpD + stpS + stpP + stpC + stpW + stpT + stpCust;
+            // Матеріали по об'єктах (синхронізовано з каталогом)
+            const logD = fDugout * 14;
+            const logS = fStore * 8.5;
+            const logP = fPilot * 21;
+            const logC = fCaponier * 3.5;
+            const logW = fWc * 1.5;
+            const logG = fGen * 1.2;
+            const logT = fTrench * 0.5;
+            const logCust = fCustom * custLogsPerUnit;
+
+            const lumD = fDugout * 3.0;
+            const lumS = fStore * 2.5;
+            const lumP = fPilot * 4.2;
+            const lumC = fCaponier * 3.0;
+            const lumW = fWc * 1.0;
+            const lumG = fGen * 0.5;
+            const lumT = fTrench * 0.15;
+            const lumCust = fCustom * custLumPerUnit;
+
+            const stpD = fDugout * 240;
+            const stpS = fStore * 160;
+            const stpP = fPilot * 380;
+            const stpC = fCaponier * 50;
+            const stpW = fWc * 24;
+            const stpG = fGen * 18;
+            const stpT = fTrench * 10;
+            const stpCust = fCustom * custStpPerUnit;
+
+            const totalLogs = logD + logS + logP + logC + logW + logG + logT + logCust + pLogsM3;
+            const totalLumber = lumD + lumS + lumP + lumC + lumW + lumG + lumT + lumCust + pLumberM3;
+            const totalFilm = (fDugout * 60) + (fStore * 45) + (fPilot * 90) + (fCaponier * 72) + (fWc * 20) + (fGen * 12) + (fTrench * 3.6) + (fCustom * custFilmPerUnit) + pFilmM2;
+            const totalStaples = stpD + stpS + stpP + stpC + stpW + stpG + stpT + stpCust + pStaples;
             const totalPipes = fGen * 1;
 
-            const mhExc = ((fDugout * 5 + fStore * 4 + fPilot * 6 + fCaponier * 5 + fWc * 3 + fGen * 1.5 + fTrench * 1.5 + fCustom * 5 * scaleFactor) * kMan) +
-                          ((fDugout * 25 + fStore * 16 + fPilot * 34 + fCaponier * 20 + fWc * 9 + fGen * 4.5 + fCustom * 25 * scaleFactor));
-            
-            const mhMan = ((fDugout * 84 + fStore * 54 + fPilot * 108 + fCaponier * 132 + fWc * 27 + fGen * 11 + fTrench * 5.0 + fCustom * 84 * scaleFactor) * kMan) +
-                          ((fDugout * 56 + fStore * 36 + fPilot * 72 + fCaponier * 88 + fWc * 18 + fGen * 7 + fCustom * 56 * scaleFactor));
+            // Людино-години за нормативами каталогу (4 о/с × 8 год = 32 люд-год на 1 нормативний день)
+            const pMhExc = preset ? (preset.daysExc * 32 * kMan) : 0;
+            const pMhMan = preset ? (preset.daysManual * 32 * kMan) : 0;
+
+            const mh1 = (activeDigMethod === 'excavator') ? (fDugout * 160 * kMan) : (fDugout * 608 * kMan);
+            const mh2 = (activeDigMethod === 'excavator') ? (fStore * 160 * kMan) : (fStore * 544 * kMan);
+            const mh3 = (activeDigMethod === 'excavator') ? (fPilot * 256 * kMan) : (fPilot * 736 * kMan);
+            const mh4 = (activeDigMethod === 'excavator') ? (fCaponier * 480 * kMan) : (fCaponier * 960 * kMan);
+            const mh5 = (activeDigMethod === 'excavator') ? (fWc * 64 * kMan) : (fWc * 96 * kMan);
+            const mh6 = (activeDigMethod === 'excavator') ? (fGen * 64 * kMan) : (fGen * 96 * kMan);
+            const mhT = (activeDigMethod === 'excavator') ? (fTrench * 4 * kMan) : (fTrench * 12 * kMan);
+            const mhCust = (activeDigMethod === 'excavator') ? (fCustom * custMhExcUnit) : (fCustom * custMhManUnit);
+            const mhPreset = (activeDigMethod === 'excavator') ? pMhExc : pMhMan;
+
+            const mhExc = ((fDugout * 160) + (fStore * 160) + (fPilot * 256) + (fCaponier * 480) + (fWc * 64) + (fGen * 64) + (fTrench * 4) + (fCustom * 160 * scaleFactor)) * kMan + pMhExc;
+            const mhMan = ((fDugout * 608) + (fStore * 544) + (fPilot * 736) + (fCaponier * 960) + (fWc * 96) + (fGen * 96) + (fTrench * 12) + (fCustom * 608 * scaleFactor)) * kMan + pMhMan;
 
             const currentMH = (activeDigMethod === 'excavator') ? mhExc : mhMan;
 
-            const staticBaseMachineHours = ((fDugout * 4) + (fStore * 3.5) + (fPilot * 6) + (fCaponier * 8) + (fWc * 2.5) + (fGen * 1.0) + (fTrench * 0.5) + (fCustom * 4.0 * scaleFactor)) * kMach;
+            // Мотогодини екскаватора
+            const pMachHours = preset ? (preset.machHours * kMach) : 0;
+            const staticBaseMachineHours = (((fDugout * 6) + (fStore * 5) + (fPilot * 9) + (fCaponier * 16) + (fWc * 2) + (fGen * 2) + (fTrench * 0.5) + (fCustom * 6 * scaleFactor)) * kMach) + pMachHours;
             let baseMachineHours = (activeDigMethod === 'manual') ? 0 : staticBaseMachineHours;
 
             const totalFuel = baseMachineHours * 9;
             const actualTechHours = (activeExcavators > 0) ? (baseMachineHours / activeExcavators) : 0;
             const daysTech = (hoursPerDay > 0) ? (actualTechHours / hoursPerDay).toFixed(1) : 0;
 
-            let pureWorkHours = 0;
-            if (totalObjects > 0 && activePeopleWorking > 0) {
-                if (activeDigMethod === 'excavator') {
-                    const digBaseMH = (fDugout*5 + fStore*4 + fPilot*6 + fCaponier*5 + fWc*3 + fGen*1.5 + fTrench*1.5 + fCustom*5*scaleFactor) * kMan;
-                    const buildMH = currentMH - digBaseMH;
-                    pureWorkHours = actualTechHours + (buildMH / activePeopleWorking);
-                } else {
-                    pureWorkHours = currentMH / activePeopleWorking;
-                }
-            }
-
+            // Загальний чистий час (год) та термін виконання (діб) відповідно до наявного особового складу (people) та зміни (hoursPerDay)
+            // При people = 4 і hoursPerDay = 8: 160 люд-год / 4 о/с = 40 год = 5.0 діб (1 в 1 як у каталозі)
+            let pureWorkHours = (people > 0) ? (currentMH / people) : 0;
             const totalDays = (hoursPerDay > 0) ? (pureWorkHours / hoursPerDay).toFixed(1) : 0;
-            const totalShifts = Math.ceil(pureWorkHours / 8);
+            const totalShifts = Math.ceil(pureWorkHours / hoursPerDay);
 
             const now = new Date();
             const finishDate = new Date(now.getTime() + (pureWorkHours / hoursPerDay) * 24 * 60 * 60 * 1000);
             const etaFormatted = finishDate.toLocaleDateString('uk-UA', { month: 'short', day: 'numeric', hour: '2-digit', minute: '2-digit' });
 
+            // Логістика колод
+            const approxLogsCount = (preset ? preset.logs : 0) + Math.ceil((totalLogs - pLogsM3) * 8);
             const dumpTrips = Math.ceil(totalLogs / 14);
+            const bv206Trips = Math.ceil(approxLogsCount / 25);
             const losTrips = Math.ceil(totalLogs / 3.2);
+            const zmiyTrailerTrips = Math.ceil(approxLogsCount / 10);
             const zmiyTrips = Math.ceil(totalLogs / 1.2);
 
             document.getElementById('c-logs').innerHTML = totalLogs.toFixed(1) + ' м<sup>3</sup>';
@@ -1235,15 +1695,15 @@
             document.getElementById('w-time-shift-hrs').innerText = `${hoursPerDay} год/добу`;
             document.getElementById('w-time-eta').innerText = etaFormatted;
 
+            // Порівняльний аналіз (повністю узгоджений з загальним розрахунком)
             document.getElementById('comp-days-lbl').innerText = `Термін (${people} о/с)`;
             document.getElementById('comp-mh-exc').innerText = Math.round(mhExc) + ' люд-год';
             document.getElementById('comp-mh-man').innerText = Math.round(mhMan) + ' люд-год';
             const mhRatio = (mhExc > 0) ? Math.round((mhMan / mhExc) * 100) : 0;
             document.getElementById('comp-mh-diff').innerText = `+${mhRatio - 100}%`;
 
-            const staticActualTechHours = (activeExcavators > 0) ? (staticBaseMachineHours / activeExcavators) : 0;
-            const daysExc = (activePeopleWorking > 0) ? (((staticActualTechHours + (mhExc - (fDugout*5 + fStore*4 + fPilot*6 + fCaponier*5 + fWc*3 + fGen*1.5 + fCustom*5*scaleFactor)*kMan)/activePeopleWorking)) / hoursPerDay).toFixed(1) : 0;
-            const daysMan = (activePeopleWorking > 0) ? ((mhMan / activePeopleWorking) / hoursPerDay).toFixed(1) : 0;
+            const daysExc = (people > 0 && hoursPerDay > 0) ? ((mhExc / people) / hoursPerDay).toFixed(1) : 0;
+            const daysMan = (people > 0 && hoursPerDay > 0) ? ((mhMan / people) / hoursPerDay).toFixed(1) : 0;
             
             document.getElementById('comp-days-exc').innerText = daysExc + ' дн';
             document.getElementById('comp-days-man').innerText = daysMan + ' дн';
@@ -1277,10 +1737,12 @@
             document.getElementById('wp-bar-finish').style.width = Math.round((mhFinish/totMHDiv)*100) + '%';
 
             document.getElementById('t-dump').innerText = dumpTrips + ' рейсів';
+            document.getElementById('t-bv206').innerText = bv206Trips + ' рейсів';
             document.getElementById('t-los').innerText = losTrips + ' рейсів';
+            document.getElementById('t-zmiy-trailer').innerText = zmiyTrailerTrips + ' рейсів';
             document.getElementById('t-zmiy').innerText = zmiyTrips + ' рейсів';
 
-            drawDonut(logD, logS, logP, logC, logW, logCust);
+            drawDonut(logD, logS, logP, logC, logW + logG + logT, logCust + pLogsM3);
 
             document.getElementById('lum-tot-txt').innerText = totalLumber.toFixed(2) + ' м³';
             const lumTot = Math.max(totalLumber, 0.001);
@@ -1288,7 +1750,7 @@
             document.getElementById('lum-p2').style.width = (lumS / lumTot * 100) + '%';
             document.getElementById('lum-p3').style.width = (lumP / lumTot * 100) + '%';
             document.getElementById('lum-p4').style.width = (lumC / lumTot * 100) + '%';
-            document.getElementById('lum-p5').style.width = ((lumW + lumG + lumT + lumCust) / lumTot * 100) + '%';
+            document.getElementById('lum-p5').style.width = ((lumW + lumG + lumT + lumCust + pLumberM3) / lumTot * 100) + '%';
 
             document.getElementById('stp-tot-txt').innerText = Math.round(totalStaples) + ' шт';
             const stpTot = Math.max(totalStaples, 0.001);
@@ -1296,14 +1758,8 @@
             document.getElementById('stp-p2').style.width = (stpS / stpTot * 100) + '%';
             document.getElementById('stp-p3').style.width = (stpP / stpTot * 100) + '%';
             document.getElementById('stp-p4').style.width = (stpC / stpTot * 100) + '%';
-            document.getElementById('stp-p5').style.width = ((stpW + stpT + stpCust) / stpTot * 100) + '%';
+            document.getElementById('stp-p5').style.width = ((stpW + stpG + stpT + stpCust + pStaples) / stpTot * 100) + '%';
 
-            const mh1 = (activeDigMethod === 'excavator') ? (fDugout * 5 * kMan + fDugout * 25) : (fDugout * 84 * kMan + fDugout * 56);
-            const mh2 = (activeDigMethod === 'excavator') ? (fStore * 4 * kMan + fStore * 16) : (fStore * 54 * kMan + fStore * 36);
-            const mh3 = (activeDigMethod === 'excavator') ? (fPilot * 6 * kMan + fPilot * 34) : (fPilot * 108 * kMan + fPilot * 72);
-            const mh4 = (activeDigMethod === 'excavator') ? (fCaponier * 5 * kMan + fCaponier * 20) : (fCaponier * 132 * kMan + fCaponier * 88);
-            const mh5 = (activeDigMethod === 'excavator') ? (fWc * 3 * kMan + fWc * 9) : (fWc * 27 * kMan + fWc * 18);
-            const mh6 = (activeDigMethod === 'excavator') ? (fGen * 1.5 * kMan + fGen * 4.5) : (fGen * 11 * kMan + fGen * 7);
             const maxMH = Math.max(currentMH, 1);
 
             document.getElementById('mhv-1').innerText = Math.round(mh1) + 'г';
@@ -1321,7 +1777,7 @@
             document.getElementById('mhv-tot').innerText = Math.round(currentMH) + 'г';
             document.getElementById('mhb-tot').style.height = Math.max((currentMH / maxMH) * 100, 5) + '%';
 
-            let h1 = fDugout * 4 * kMach; let h2 = fStore * 3.5 * kMach; let h3 = fPilot * 6 * kMach; let h4 = fCaponier * 8 * kMach; let h5 = fWc * 2.5 * kMach; let h6 = fGen * 1.0 * kMach;
+            let h1 = fDugout * 6 * kMach; let h2 = fStore * 5 * kMach; let h3 = fPilot * 9 * kMach; let h4 = fCaponier * 16 * kMach; let h5 = fWc * 2 * kMach; let h6 = fGen * 2 * kMach;
             if (activeDigMethod === 'manual') { h1 = h2 = h3 = h4 = h5 = h6 = 0; }
             
             const maxH = Math.max(baseMachineHours, 1);
@@ -1361,10 +1817,11 @@
                 dugout: fDugout, store: fStore, pilot: fPilot, caponier: fCaponier, wc: fWc, gen: fGen, trench: fTrench, custom: fCustom,
                 customL, customW,
                 logs: totalLogs, lumber: totalLumber, film: totalFilm, staples: totalStaples, pipes: totalPipes,
-                dumpTrips, losTrips, zmiyTrips,
+                dumpTrips, bv206Trips, losTrips, zmiyTrailerTrips, zmiyTrips,
                 people, activeCrews, shovels: Math.ceil(people * 1.2), picks: Math.ceil(people * pickRatio),
                 digMethod: activeDigMethod, excavators: activeExcavators, fuel: totalFuel, techHours: baseMachineHours,
-                days: totalDays, pureHours: pureWorkHours, shifts: totalShifts, hoursPerDay, etaFormatted
+                totalMH: currentMH, days: totalDays, pureHours: pureWorkHours, shifts: totalShifts, hoursPerDay, etaFormatted,
+                achillesKey
             });
 
             updateHighlights();
@@ -1372,13 +1829,13 @@
 
         function generateReportText(d) {
             let listObj = [];
-            if (d.dugout > 0) listObj.push(`• Бліндаж (3х4м): ${d.dugout} шт`);
-            if (d.store > 0) listObj.push(`• Склад (3х3м): ${d.store} шт`);
-            if (d.pilot > 0) listObj.push(`• Укриття (6х3м): ${d.pilot} шт`);
-            if (d.caponier > 0) listObj.push(`• Капонір (4.5х18м): ${d.caponier} шт`);
-            if (d.wc > 0) listObj.push(`• Вбиральня (2.2х2м): ${d.wc} шт`);
-            if (d.gen > 0) listObj.push(`• Генераторна (гл. 1.2м): ${d.gen} шт`);
-            if (d.trench > 0) listObj.push(`• Траншея: ${d.trench} м`);
+            if (d.dugout > 0) listObj.push(`• Бліндаж (3х4м, код 3.2): ${d.dugout} шт`);
+            if (d.store > 0) listObj.push(`• Склад (3х3м, код 2.2/3.1): ${d.store} шт`);
+            if (d.pilot > 0) listObj.push(`• Укриття (6х3м, код 3.4): ${d.pilot} шт`);
+            if (d.caponier > 0) listObj.push(`• Капонір (4.5х18м, код 4.1): ${d.caponier} шт`);
+            if (d.wc > 0) listObj.push(`• Вбиральня (2х1.5м, код 1.2): ${d.wc} шт`);
+            if (d.gen > 0) listObj.push(`• Генераторна (1.5х1.5м, код 1.1): ${d.gen} шт`);
+            if (d.trench > 0) listObj.push(`• Траншея (код 6.2): ${d.trench} м.п.`);
             if (d.custom > 0) listObj.push(`• Власний формат (${d.customL}х${d.customW}м): ${d.custom} шт [Потребує узгодження з НІС бригади, поз. «Аль-Каїда»!]`);
 
             const digName = (d.digMethod === 'excavator') ? 'Екскаватор + Добор' : 'Повністю Вручну';
@@ -1386,23 +1843,36 @@
             let addSpecs = [];
             if (d.pipes > 0) addSpecs.push(`• Труба вентиляційна/вихлопна (⌀120мм): ${d.pipes} шт`);
 
+            let achillesBlock = "";
+            if (d.achillesKey && d.achillesKey !== 'none' && achillesPresets[d.achillesKey]) {
+                const p = achillesPresets[d.achillesKey];
+                achillesBlock = `\nПОЗИЦІЯ ЗА КАТАЛОГОМ 429 ОБР БПС «АХІЛЛЕС» (ВКЛЮЧЕНО В РОЗРАХУНОК):
+• Конфігурація: ${p.name}
+• Склад об'єктів: ${p.objects}
+• Специфікація каталогу: Кругляк — ${p.logs} шт | Плівка — ${p.film} м.п. | Скоби — ${p.staples} шт | Цвяхи — ${p.nails} кг | Брус — ${p.timber} шт | Дошка — ${p.boards}
+${p.extra ? `• Спецматеріали: ${p.extra}\n` : ''}• Дистанції: ${p.distance}
+• Базовий норматив каталогу (4 о/с, 8 год/дн): Екскаватор — ${p.daysExc} дн / Вручну — ${p.daysManual} дн\n`;
+            }
+
             const report = `Бажаю міцного!
 
 ЗАЯВКА НА МАТЕРІАЛИ ТА ТЕХНІКУ (ФОРТИФІКАЦІЯ)
 Дата: ${new Date().toLocaleDateString('uk-UA')}
 
 ПЛАНОВАНІ ОБ'ЄКТИ:
-${listObj.length > 0 ? listObj.join('\n') : '• Об\'єкти не обрані'}
-
-1. ПОТРЕБА В МАТЕРІАЛАХ:
-• Колоди (⌀18-22см): ${d.logs.toFixed(1)} м³
+${listObj.length > 0 ? listObj.join('\n') : '• Окремі об\'єкти не додані'}
+${achillesBlock}
+1. ЗАГАЛЬНА ПОТРЕБА В МАТЕРІАЛАХ:
+• Колоди (⌀17-22см): ${d.logs.toFixed(1)} м³ (~${Math.ceil(d.logs * 8)} шт)
 • Брус/Дошка обрізна: ${d.lumber.toFixed(2)} м³
 • Плівка гідроізоляційна (300 мкм): ${Math.round(d.film)} м²
 • Скоби будівельні: ${Math.round(d.staples)} шт
 ${addSpecs.length > 0 ? addSpecs.join('\n') + '\n' : ''}
 2. ДОСТАВКА МАТЕРІАЛІВ:
 • Вантажний самоскид (до 14 м³): ${d.dumpTrips} рейсів
+• БВ206 (до 25 шт кругляка): ${d.bv206Trips} рейсів
 • НРК «ЛОСЬ» (до 3.2 м³): ${d.losTrips} рейсів
+• НРК «Змій + причіп» (до 10 шт): ${d.zmiyTrailerTrips} рейсів
 • НРК «Змій» (до 1.2 м³): ${d.zmiyTrips} рейсів
 
 3. ТЕХНІКА ТА ПАЛЬНЕ:
@@ -1410,12 +1880,13 @@ ${addSpecs.length > 0 ? addSpecs.join('\n') + '\n' : ''}
 • Екскаватори: ${d.excavators} шт (${d.techHours.toFixed(1)} мотогодин)
 • ДП Пальне: ${Math.round(d.fuel)} л
 
-4. ОСОБОВИЙ СКЛАД ТА ІНСТРУМЕНТ:
-• Особовий склад: ${d.people} о/с (${d.activeCrews} активних груп)
+4. ОСОБОВИЙ СКЛАД ТА ТРУДОМІСТКІСТЬ:
+• Особовий склад: ${d.people} о/с (${d.activeCrews} робочих груп по 4 о/с)
+• Загальні людино-години: ${Math.round(d.totalMH)} люд-год
 • Лопати: ${d.shovels} шт | Кирки: ${d.picks} шт
 
 5. РОЗРАХУНКОВИЙ ТЕРМІН (ETA):
-• Тривалість: ${d.days} діб (${d.pureHours.toFixed(1)} робочих годин)
+• Тривалість: ${d.days} діб (${d.pureHours.toFixed(1)} робочих годин на розрахунок)
 • Режим: ${d.shifts} змін (${d.hoursPerDay} год/добу)
 • Очікуваний фініш: ${d.etaFormatted}`;
 
@@ -1462,11 +1933,22 @@ ${addSpecs.length > 0 ? addSpecs.join('\n') + '\n' : ''}
         }
 
         document.addEventListener('DOMContentLoaded', function() {
+            renderAchillesCatalogTable();
+
             const inputs = document.querySelectorAll('input, select');
             inputs.forEach(input => {
                 input.addEventListener('input', calc);
                 input.addEventListener('change', calc);
             });
+
+            const btnToggleCatalogTable = document.getElementById('btn-toggle-catalog-table');
+            const catalogTableWrap = document.getElementById('achilles-catalog-table-wrap');
+            if (btnToggleCatalogTable && catalogTableWrap) {
+                btnToggleCatalogTable.addEventListener('click', function() {
+                    const isHidden = catalogTableWrap.style.display === 'none';
+                    catalogTableWrap.style.display = isHidden ? 'block' : 'none';
+                });
+            }
 
             const filterBtns = document.querySelectorAll('.filter-btn');
             filterBtns.forEach(btn => {
@@ -1512,7 +1994,6 @@ ${addSpecs.length > 0 ? addSpecs.join('\n') + '\n' : ''}
                 });
             }
 
-            // Копіювання номера телефону Начальника інженерної служби
             const btnCopyPhone = document.getElementById('btn-copy-phone');
             if (btnCopyPhone) {
                 btnCopyPhone.addEventListener('click', function() {
@@ -1540,6 +2021,7 @@ ${addSpecs.length > 0 ? addSpecs.join('\n') + '\n' : ''}
             });
             renderBlueprint('dugout_main');
 
+            setupCollapsible('btn-toggle-achilles', 'wrapper-achilles', 'icon-achilles', 'fort_achilles_collapsed');
             setupCollapsible('btn-toggle-blueprints', 'wrapper-blueprints', 'icon-blueprints', 'fort_blueprints_collapsed');
             setupCollapsible('btn-toggle-compare', 'wrapper-compare', 'icon-compare', 'fort_compare_collapsed');
             setupCollapsible('btn-toggle-spec', 'wrapper-spec', 'icon-spec', 'fort_spec_collapsed');
